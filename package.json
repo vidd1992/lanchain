@@ -10,6 +10,7 @@
     "chat": "node examples/chat_example.js",
     "test": "node examples/test_agent.js",
     "test-debug": "node examples/debug_test.js",
+    "test-optimizations": "node examples/test_optimizations.js",
     "add-docs": "node examples/add_documents.js",
     "test-docs": "node scripts/test_document_processing.js",
     "list-indexes": "node scripts/list_pinecone_indexes.js"

@@ -1,6 +1,6 @@
 # Análisis de Mejoras para el Agente RAG
 
-**Fecha:** 2 de noviembre de 2025  
+**Fecha:** 2 de noviembre de 2025
 **Proyecto:** RAG Agent con OpenAI, Pinecone y Perplexity
 
 ---
@@ -8,9 +8,11 @@
 ## 📊 RESUMEN EJECUTIVO
 
 ### Estado Actual
+
 El agente RAG implementado es **funcional y bien estructurado** con una arquitectura clara de decisión (Intent → RAG → Perplexity). Sin embargo, presenta **oportunidades significativas de optimización** en rendimiento, calidad de respuestas y aprovechamiento de capacidades avanzadas de LangChain.
 
 ### Métricas Clave Identificadas
+
 - ⏱️ **Performance:** Operaciones secuenciales que podrían paralelizarse (~30-40% mejora potencial)
 - 🧠 **Calidad:** Prompts básicos sin técnicas avanzadas de reasoning
 - 🔄 **Arquitectura:** No usa chains ni tools de LangChain (subutilización del framework)
@@ -21,6 +23,7 @@ El agente RAG implementado es **funcional y bien estructurado** con una arquitec
 ## 1️⃣ ESTADO ACTUAL - LO QUE ESTÁ BIEN ✅
 
 ### Arquitectura Clara
+
 ```
 Usuario → Intent Detection → RAG Search → Decisión → Respuesta
                     ↓                        ↓
@@ -30,21 +33,25 @@ Usuario → Intent Detection → RAG Search → Decisión → Respuesta
 ### Fortalezas Identificadas
 
 1. **Separación de responsabilidades**
+
    - Servicios independientes (Pinecone, Perplexity, History)
    - Utilidades reutilizables (IntentDetector, DocumentProcessor)
    - Configuración centralizada
 
 2. **Detección de intenciones simples**
+
    - Evita búsquedas innecesarias para saludos/despedidas
    - Ahorra tokens y tiempo de respuesta
    - Buena UX para interacciones básicas
 
 3. **Sistema de historial**
+
    - Usa BufferMemory de LangChain
    - Límite configurable de mensajes
    - Gestión por sesión
 
 4. **Fallback robusto**
+
    - Perplexity como red de seguridad
    - Manejo de casos donde RAG no tiene información
 
@@ -73,6 +80,7 @@ const history = await this.historyManager.getFormattedHistory(this.sessionId);
 ```
 
 **Problema:**
+
 1. Búsqueda en RAG: ~500-800ms
 2. Obtener historial: ~50-100ms
 3. Generar respuesta con LLM: ~1-2s
@@ -85,11 +93,13 @@ const history = await this.historyManager.getFormattedHistory(this.sessionId);
 #### 🟡 ALTO: Sin Sistema de Caché
 
 **Ubicaciones:**
+
 - `pinecone_service.js` - búsquedas repetidas
 - `rag_agent.js` - embeddings recalculados
 - `perplexity_service.js` - consultas duplicadas
 
 **Problema:**
+
 ```javascript
 // Usuario pregunta "¿Cuál es el horario?"
 // Query 1: embedding + búsqueda → 800ms
@@ -98,6 +108,7 @@ const history = await this.historyManager.getFormattedHistory(this.sessionId);
 ```
 
 **Casos de uso frecuentes sin caché:**
+
 - Preguntas similares con variaciones mínimas
 - Queries reformuladas
 - Embeddings de documentos frecuentemente consultados
@@ -116,17 +127,19 @@ const results = await this.vectorStore.similaritySearchWithScore(query, k);
 ```
 
 **Problemas:**
+
 1. No usa filtros de metadata (aunque Pinecone lo soporta)
 2. Siempre busca topK fijos (no adaptativo)
 3. No usa hybrid search (semantic + keyword)
 4. No implementa re-ranking de resultados
 
 **Ejemplo de mejora potencial:**
+
 ```javascript
 // Con filtros de metadata
 await vectorStore.similaritySearch(query, k, {
-  category: "cursos",
-  year: "2025"
+  category: 'cursos',
+  year: '2025',
 });
 ```
 
@@ -154,6 +167,7 @@ RESPUESTA (como ${config.agent.name}):`;
 ```
 
 **Problemas:**
+
 1. ❌ Sin Chain of Thought (CoT) - no razonamiento paso a paso
 2. ❌ Sin Few-Shot Examples - no ejemplos de respuestas buenas
 3. ❌ Sin Self-Consistency - no verificación de respuestas
@@ -162,6 +176,7 @@ RESPUESTA (como ${config.agent.name}):`;
 6. ❌ No maneja casos de información contradictoria entre documentos
 
 **Impacto en calidad:**
+
 - Respuestas menos precisas y detalladas
 - No hay razonamiento explícito visible
 - Mayor probabilidad de alucinaciones
@@ -181,6 +196,7 @@ const context = documents
 ```
 
 **Problemas:**
+
 1. No hay síntesis de información
 2. No detecta información contradictoria
 3. No prioriza información más relevante
@@ -188,6 +204,7 @@ const context = documents
 5. Puede exceder límites de tokens con muchos docs
 
 **Ejemplo de caso problemático:**
+
 ```
 Doc 1: "El curso de Python cuesta $300"
 Doc 2: "El curso avanzado de Python cuesta $500"
@@ -210,6 +227,7 @@ const systemPrompt = `Eres ${config.agent.name}, ${config.agent.role}.
 ```
 
 **Problemas:**
+
 1. No guía a Perplexity sobre QUÉ buscar específicamente
 2. No indica TIPO de fuentes preferidas
 3. No especifica profundidad de respuesta deseada
@@ -225,6 +243,7 @@ const systemPrompt = `Eres ${config.agent.name}, ${config.agent.role}.
 **Problema Mayor:** El agente está implementado "manualmente" sin aprovechar:
 
 1. **LangChain Chains** - No usa
+
    ```javascript
    // ACTUAL: lógica manual en rag_agent.js
    if (hasRelevantResults) {
@@ -232,16 +251,18 @@ const systemPrompt = `Eres ${config.agent.name}, ${config.agent.role}.
    } else {
      answer = await this.perplexityService.query(...);
    }
-   
+
    // DEBERÍA USAR: RetrievalQA Chain o ConversationalRetrievalChain
    ```
 
 2. **LangChain Agents & Tools** - No usa
+
    - No define tools formales
    - No usa AgentExecutor
    - No tiene sistema de decisión automática de tools
 
 3. **LangChain LCEL (Expression Language)** - No usa
+
    - No hay composición declarativa de chains
    - No usa streaming
    - No usa parallel chains
@@ -252,6 +273,7 @@ const systemPrompt = `Eres ${config.agent.name}, ${config.agent.role}.
    - Dificulta parsing de respuestas complejas
 
 **Impacto:**
+
 - Código más difícil de mantener y escalar
 - No aprovecha optimizaciones del framework
 - Pierde features como retry logic, streaming, etc.
@@ -273,6 +295,7 @@ const systemPrompt = `Eres ${config.agent.name}, ${config.agent.role}.
 ```
 
 **Problemas:**
+
 1. No considera combinar RAG + Perplexity
 2. No evalúa calidad de respuesta generada
 3. No tiene feedback loop para mejorar
@@ -280,6 +303,7 @@ const systemPrompt = `Eres ${config.agent.name}, ${config.agent.role}.
 5. No maneja casos donde ambas fuentes fallan
 
 **Casos edge no manejados:**
+
 - RAG tiene info parcial (score medio ~0.6-0.7)
 - Usuario hace pregunta multi-parte
 - Necesita info actualizada + info histórica
@@ -297,6 +321,7 @@ this.maxMessages = 10; // fijo
 ```
 
 **Problemas:**
+
 1. Límite fijo de mensajes (no por tokens)
 2. No resume conversaciones largas
 3. No identifica mensajes importantes vs triviales
@@ -304,6 +329,7 @@ this.maxMessages = 10; // fijo
 5. Toda la conversación se envía siempre (desperdicio de tokens)
 
 **Ejemplo de ineficiencia:**
+
 ```
 Mensajes 1-3: Saludos y chitchat
 Mensaje 4: Pregunta importante sobre curso X
@@ -319,6 +345,7 @@ Al mensaje 11: Se pierde el contexto inicial aunque sea relevante
 **Ubicación:** General
 
 **Problemas:**
+
 1. Debug logger básico (console.log)
 2. No hay métricas de performance
 3. No se trackean scores de RAG históricos
@@ -326,6 +353,7 @@ Al mensaje 11: Se pierde el contexto inicial aunque sea relevante
 5. No hay alertas de degradación de calidad
 
 **Datos que deberían trackearse:**
+
 - Latencia por componente (RAG, LLM, Perplexity)
 - Distribución de sources usadas
 - Scores de RAG por categoría
@@ -347,6 +375,7 @@ this.patterns = {
 ```
 
 **Limitaciones:**
+
 1. Solo detecta intenciones MUY simples
 2. No clasifica tipo de pregunta (FAQ, curso, info general)
 3. No extrae entidades (nombres de cursos, fechas, etc.)
@@ -361,8 +390,8 @@ this.patterns = {
 
 #### A1. Paralelización de Operaciones (Performance)
 
-**Impacto:** ⚡ 30-40% reducción de latencia  
-**Esfuerzo:** 🔨 Bajo (2-3 horas)  
+**Impacto:** ⚡ 30-40% reducción de latencia
+**Esfuerzo:** 🔨 Bajo (2-3 horas)
 **Archivos:** `src/agent/rag_agent.js`
 
 **Implementación:**
@@ -375,15 +404,15 @@ const ragAnswer = await this.generateAnswerFromRAG(query, ragResults);
 // DESPUÉS (paralelo - ~1.5s)
 async query(query) {
   // ... detección de intención simple ...
-  
+
   // Ejecutar en paralelo: RAG search + obtener historial
   const [ragResults, history] = await Promise.all([
     this.pineconeService.searchSimilarDocuments(query),
     this.historyManager.getFormattedHistory(this.sessionId)
   ]);
-  
+
   const hasRelevantResults = this.pineconeService.hasRelevantResults(ragResults);
-  
+
   if (hasRelevantResults) {
     // Ya tenemos el historial pre-cargado
     const answer = await this.generateAnswerFromRAG(query, ragResults, history);
@@ -397,38 +426,39 @@ async query(query) {
 ```
 
 **Pseudocódigo Completo:**
+
 ```javascript
 // rag_agent.js - método query() optimizado
 async query(query) {
   debugLogger.startTimer();
-  
+
   // Paso 1: Intent detection (rápido, no paralelizar)
   const simpleIntent = this.intentDetector.processSimpleIntent(query);
   if (simpleIntent) {
     return this.handleSimpleIntent(simpleIntent, query);
   }
-  
+
   // Paso 2: PARALELIZAR búsqueda RAG + obtención de historial
   const [ragResults, conversationHistory] = await Promise.all([
     this.pineconeService.searchSimilarDocuments(query),
     this.historyManager.getFormattedHistory(this.sessionId)
   ]);
-  
+
   debugLogger.logRAGSearch(query, ragResults);
-  
+
   // Paso 3: Decisión y generación
   const hasRelevantResults = this.pineconeService.hasRelevantResults(ragResults);
-  
+
   if (hasRelevantResults) {
     // Generar respuesta (historial ya disponible)
     const ragAnswer = await this.generateAnswerFromRAG(
-      query, 
-      ragResults, 
+      query,
+      ragResults,
       conversationHistory // ← pre-cargado
     );
-    
+
     await this.historyManager.addMessage(this.sessionId, query, ragAnswer.answer);
-    
+
     return {
       answer: ragAnswer.answer,
       source: 'rag',
@@ -441,12 +471,12 @@ async query(query) {
   } else {
     // Fallback a Perplexity (historial ya disponible)
     const perplexityResponse = await this.perplexityService.query(
-      query, 
+      query,
       conversationHistory // ← pre-cargado
     );
-    
+
     await this.historyManager.addMessage(this.sessionId, query, perplexityResponse.answer);
-    
+
     return {
       answer: perplexityResponse.answer,
       source: 'perplexity',
@@ -465,11 +495,11 @@ async generateAnswerFromRAG(query, documents, conversationHistory) {
   const context = documents
     .map((doc, idx) => `[Documento ${idx + 1}] ${doc.content}`)
     .join('\n\n');
-  
+
   const historyText = conversationHistory
     .map(msg => `${msg.role === 'user' ? 'Usuario' : 'Asistente'}: ${msg.content}`)
     .join('\n');
-  
+
   // ... resto del código ...
 }
 ```
@@ -478,8 +508,8 @@ async generateAnswerFromRAG(query, documents, conversationHistory) {
 
 #### A2. Sistema de Caché para Embeddings y Búsquedas (Performance)
 
-**Impacto:** ⚡ 50-70% reducción en queries similares  
-**Esfuerzo:** 🔨 Medio (4-6 horas)  
+**Impacto:** ⚡ 50-70% reducción en queries similares
+**Esfuerzo:** 🔨 Medio (4-6 horas)
 **Archivos:** Nuevo `src/utils/cache_manager.js`, `src/services/pinecone_service.js`
 
 **Implementación:**
@@ -489,11 +519,12 @@ async generateAnswerFromRAG(query, documents, conversationHistory) {
 import crypto from 'crypto';
 
 export class CacheManager {
-  constructor(ttl = 3600000) { // 1 hora default
+  constructor(ttl = 3600000) {
+    // 1 hora default
     this.cache = new Map();
     this.ttl = ttl;
   }
-  
+
   /**
    * Generar key única para query
    */
@@ -502,7 +533,7 @@ export class CacheManager {
     const hash = crypto.createHash('md5').update(normalized).digest('hex');
     return `${prefix}:${hash}`;
   }
-  
+
   /**
    * Calcular similitud entre queries (detección de queries similares)
    */
@@ -510,23 +541,23 @@ export class CacheManager {
     // Normalizar
     const q1 = query1.toLowerCase().trim();
     const q2 = query2.toLowerCase().trim();
-    
+
     // Similitud simple basada en palabras
     const words1 = new Set(q1.split(/\s+/));
     const words2 = new Set(q2.split(/\s+/));
-    
+
     const intersection = new Set([...words1].filter(x => words2.has(x)));
     const union = new Set([...words1, ...words2]);
-    
+
     return intersection.size / union.size; // Jaccard similarity
   }
-  
+
   /**
    * Buscar en caché con fuzzy matching
    */
   get(query, similarityThreshold = 0.7) {
     const key = this.generateKey(query, 'rag');
-    
+
     // Búsqueda exacta
     if (this.cache.has(key)) {
       const cached = this.cache.get(key);
@@ -537,7 +568,7 @@ export class CacheManager {
         this.cache.delete(key);
       }
     }
-    
+
     // Búsqueda fuzzy (queries similares)
     for (const [cachedKey, cached] of this.cache.entries()) {
       if (Date.now() - cached.timestamp < this.ttl) {
@@ -550,11 +581,11 @@ export class CacheManager {
         this.cache.delete(cachedKey);
       }
     }
-    
+
     console.log('💾 Cache MISS');
     return null;
   }
-  
+
   /**
    * Guardar en caché
    */
@@ -563,13 +594,13 @@ export class CacheManager {
     this.cache.set(key, {
       data,
       timestamp: Date.now(),
-      originalQuery: query
+      originalQuery: query,
     });
-    
+
     // Limpiar caché antigua periódicamente
     this.cleanup();
   }
-  
+
   /**
    * Limpiar entradas expiradas
    */
@@ -581,14 +612,14 @@ export class CacheManager {
       }
     }
   }
-  
+
   /**
    * Limpiar todo el caché
    */
   clear() {
     this.cache.clear();
   }
-  
+
   /**
    * Obtener estadísticas
    */
@@ -596,7 +627,7 @@ export class CacheManager {
     return {
       size: this.cache.size,
       ttl: this.ttl,
-      oldestEntry: Math.min(...Array.from(this.cache.values()).map(v => v.timestamp))
+      oldestEntry: Math.min(...Array.from(this.cache.values()).map(v => v.timestamp)),
     };
   }
 }
@@ -611,45 +642,45 @@ export class PineconeService {
     // ... código existente ...
     this.cacheManager = new CacheManager(3600000); // 1 hora
   }
-  
+
   async searchSimilarDocuments(query, k = config.rag.topK) {
     // Intentar obtener de caché
     const cached = this.cacheManager.get(query, 0.75);
     if (cached) {
       return cached;
     }
-    
+
     // Si no está en caché, hacer búsqueda
     try {
       if (!this.vectorStore) {
         throw new Error('Vector store no inicializado');
       }
-      
+
       const results = await this.vectorStore.similaritySearchWithScore(query, k);
-      
+
       const formattedResults = results.map(([doc, score]) => ({
         content: doc.pageContent,
         metadata: doc.metadata,
-        score: score
+        score: score,
       }));
-      
+
       // Guardar en caché
       this.cacheManager.set(query, formattedResults);
-      
+
       return formattedResults;
     } catch (error) {
       console.error('Error en búsqueda de Pinecone:', error.message);
       return [];
     }
   }
-  
+
   /**
    * Limpiar caché manualmente
    */
   clearCache() {
     this.cacheManager.clear();
   }
-  
+
   /**
    * Obtener estadísticas de caché
    */
@@ -660,6 +691,7 @@ export class PineconeService {
 ```
 
 **Beneficios:**
+
 - ✅ Búsquedas repetidas son instantáneas
 - ✅ Queries similares reutilizan resultados
 - ✅ Reduce llamadas a Pinecone (ahorra costos)
@@ -669,8 +701,8 @@ export class PineconeService {
 
 #### A3. Prompts con Chain of Thought (Calidad)
 
-**Impacto:** 🧠 20-30% mejora en calidad y precisión  
-**Esfuerzo:** 🔨 Medio (3-4 horas)  
+**Impacto:** 🧠 20-30% mejora en calidad y precisión
+**Esfuerzo:** 🔨 Medio (3-4 horas)
 **Archivos:** `src/agent/rag_agent.js`
 
 **Implementación:**
@@ -681,11 +713,11 @@ async generateAnswerFromRAG(query, documents, conversationHistory) {
   const context = documents
     .map((doc, idx) => `[Documento ${idx + 1}] ${doc.content}`)
     .join('\n\n');
-  
+
   const historyText = conversationHistory
     .map(msg => `${msg.role === 'user' ? 'Usuario' : 'Asistente'}: ${msg.content}`)
     .join('\n');
-  
+
   // NUEVO: Prompt con Chain of Thought
   const systemContext = `Eres ${config.agent.name}, ${config.agent.role}.
 
@@ -708,7 +740,7 @@ FORMATO DE RESPUESTA ESPERADO:
 - Si hay múltiples opciones, listalas claramente
 - Incluye detalles importantes (precios, fechas, requisitos, etc.)
 - Si la información está desactualizada o es incierta, indícalo`;
-  
+
   // Few-Shot Examples
   const fewShotExamples = `
 EJEMPLOS DE RESPUESTAS CORRECTAS:
@@ -731,7 +763,7 @@ Búsqueda en contexto: Documento 1 menciona "horarios matutinos y nocturnos"
 Síntesis: Hay dos tipos de horarios generales
 Verificación: Info consistente pero incompleta
 Respuesta: "Ofrecemos cursos en horarios matutinos y nocturnos. Sin embargo, los horarios específicos dependen del curso. ¿Qué curso te interesa?"`;
-  
+
   const prompt = `${systemContext}
 
 ${fewShotExamples}
@@ -750,22 +782,22 @@ RESPUESTA (sigue el proceso de Chain of Thought - piensa paso a paso):
 2. Información relevante encontrada:
 3. Síntesis:
 4. Respuesta final:`;
-  
+
   debugLogger.logPrompt('RAG con CoT', prompt);
-  
+
   // Generar respuesta
   const response = await this.llm.invoke(prompt, {
     callbacks: langChainCallbacks.getCallbacks(),
     temperature: 0.3 // Más bajo para mayor precisión
   });
-  
+
   // Extraer solo la respuesta final (después del razonamiento)
   const fullResponse = response.content;
-  
+
   // Intentar extraer solo la respuesta final si el modelo siguió el formato
   const finalAnswerMatch = fullResponse.match(/4\.\s*Respuesta final:\s*(.+?)$/s);
   const answer = finalAnswerMatch ? finalAnswerMatch[1].trim() : fullResponse;
-  
+
   return {
     answer: answer,
     reasoning: fullResponse, // Guardar el razonamiento completo para debug
@@ -775,6 +807,7 @@ RESPUESTA (sigue el proceso de Chain of Thought - piensa paso a paso):
 ```
 
 **Beneficios:**
+
 - ✅ Respuestas más precisas y razonadas
 - ✅ Menos alucinaciones
 - ✅ Maneja mejor información contradictoria
@@ -784,8 +817,8 @@ RESPUESTA (sigue el proceso de Chain of Thought - piensa paso a paso):
 
 #### A4. Migrar a LangChain Chains (Arquitectura)
 
-**Impacto:** 🏗️ Código más mantenible, escalable y robusto  
-**Esfuerzo:** 🔨 Alto (8-12 horas)  
+**Impacto:** 🏗️ Código más mantenible, escalable y robusto
+**Esfuerzo:** 🔨 Alto (8-12 horas)
 **Archivos:** Nuevo `src/chains/conversational_rag_chain.js`, refactor de `src/agent/rag_agent.js`
 
 **Implementación:**
@@ -808,7 +841,7 @@ export class ConversationalRAGChain {
     this.historyManager = historyManager;
     this.chain = null;
   }
-  
+
   /**
    * Crear el chain conversacional
    */
@@ -829,33 +862,29 @@ METODOLOGÍA DE RESPUESTA (Chain of Thought):
 Contexto de documentos:
 {context}
 
-Responde en español de manera profesional y útil.`
+Responde en español de manera profesional y útil.`,
       ],
       new MessagesPlaceholder('chat_history'),
-      ['human', '{question}']
+      ['human', '{question}'],
     ]);
-    
+
     // Crear retriever del vectorStore
     const retriever = this.vectorStore.asRetriever({
       k: config.rag.topK,
-      searchType: 'similarity'
+      searchType: 'similarity',
     });
-    
+
     // Crear chain usando LCEL (LangChain Expression Language)
-    this.chain = ConversationalRetrievalQAChain.fromLLM(
-      this.llm,
-      retriever,
-      {
-        returnSourceDocuments: true,
-        questionGeneratorTemplate: promptTemplate,
-        qaTemplate: promptTemplate,
-        verbose: process.env.LANGCHAIN_VERBOSE === 'true'
-      }
-    );
-    
+    this.chain = ConversationalRetrievalQAChain.fromLLM(this.llm, retriever, {
+      returnSourceDocuments: true,
+      questionGeneratorTemplate: promptTemplate,
+      qaTemplate: promptTemplate,
+      verbose: process.env.LANGCHAIN_VERBOSE === 'true',
+    });
+
     return this.chain;
   }
-  
+
   /**
    * Ejecutar el chain con una pregunta
    */
@@ -863,20 +892,20 @@ Responde en español de manera profesional y útil.`
     if (!this.chain) {
       this.createChain();
     }
-    
+
     // Obtener historial de la sesión
     const chatHistory = await this.historyManager.getHistory(sessionId);
-    
+
     // Ejecutar el chain
     const response = await this.chain.invoke({
       question: question,
-      chat_history: chatHistory
+      chat_history: chatHistory,
     });
-    
+
     return {
       answer: response.text,
       sourceDocuments: response.sourceDocuments,
-      hasRelevantDocs: response.sourceDocuments.length > 0
+      hasRelevantDocs: response.sourceDocuments.length > 0,
     };
   }
 }
@@ -900,23 +929,23 @@ export class RAGAgent {
     this.perplexityService = new PerplexityService();
     this.historyManager = new ConversationHistoryManager();
     this.intentDetector = new IntentDetector();
-    
+
     this.llm = new ChatOpenAI({
       openAIApiKey: config.openai.apiKey,
       modelName: config.openai.model,
       temperature: 0.7,
-      verbose: process.env.LANGCHAIN_VERBOSE === 'true'
+      verbose: process.env.LANGCHAIN_VERBOSE === 'true',
     });
-    
+
     this.ragChain = null;
     this.initialized = false;
   }
-  
+
   async initialize() {
     try {
       console.log('🚀 Inicializando RAG Agent...');
       await this.pineconeService.initialize();
-      
+
       // Crear chain de RAG conversacional
       this.ragChain = new ConversationalRAGChain(
         this.llm,
@@ -924,7 +953,7 @@ export class RAGAgent {
         this.historyManager
       );
       this.ragChain.createChain();
-      
+
       this.initialized = true;
       console.log('✅ RAG Agent listo (usando LangChain Chains)');
     } catch (error) {
@@ -932,42 +961,41 @@ export class RAGAgent {
       throw error;
     }
   }
-  
+
   async query(query) {
     if (!this.initialized) {
       throw new Error('Agente no inicializado');
     }
-    
+
     try {
       debugLogger.startTimer();
       console.log(`\n📝 Consulta: "${query}"`);
-      
+
       // Paso 1: Detección de intenciones simples
       const simpleIntent = this.intentDetector.processSimpleIntent(query);
       if (simpleIntent) {
         return this.handleSimpleIntent(simpleIntent, query);
       }
-      
+
       // Paso 2: Usar RAG Chain
       console.log('🔍 Procesando con RAG Chain...');
       const ragResponse = await this.ragChain.invoke(this.sessionId, query);
-      
+
       // Paso 3: Evaluar calidad de respuesta RAG
-      const hasGoodResults = ragResponse.hasRelevantDocs && 
-                            ragResponse.sourceDocuments.some(doc => 
-                              doc.metadata.score >= config.rag.similarityThreshold
-                            );
-      
-      if (hasGoodResults) {
-        console.log(`✅ RAG Chain respondió con ${ragResponse.sourceDocuments.length} documentos`);
-        
-        // Guardar en historial
-        await this.historyManager.addMessage(
-          this.sessionId, 
-          query, 
-          ragResponse.answer
+      const hasGoodResults =
+        ragResponse.hasRelevantDocs &&
+        ragResponse.sourceDocuments.some(
+          doc => doc.metadata.score >= config.rag.similarityThreshold
         );
-        
+
+      if (hasGoodResults) {
+        console.log(
+          `✅ RAG Chain respondió con ${ragResponse.sourceDocuments.length} documentos`
+        );
+
+        // Guardar en historial
+        await this.historyManager.addMessage(this.sessionId, query, ragResponse.answer);
+
         return {
           answer: ragResponse.answer,
           source: 'rag',
@@ -975,20 +1003,25 @@ export class RAGAgent {
           ragResults: ragResponse.sourceDocuments,
           citations: [],
           sessionId: this.sessionId,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         };
       } else {
         // Fallback a Perplexity
         console.log('⚠️  RAG Chain sin resultados relevantes, usando Perplexity...');
-        const conversationHistory = await this.historyManager.getFormattedHistory(this.sessionId);
-        const perplexityResponse = await this.perplexityService.query(query, conversationHistory);
-        
+        const conversationHistory = await this.historyManager.getFormattedHistory(
+          this.sessionId
+        );
+        const perplexityResponse = await this.perplexityService.query(
+          query,
+          conversationHistory
+        );
+
         await this.historyManager.addMessage(
           this.sessionId,
           query,
           perplexityResponse.answer
         );
-        
+
         return {
           answer: perplexityResponse.answer,
           source: 'perplexity',
@@ -996,23 +1029,22 @@ export class RAGAgent {
           ragResults: [],
           citations: perplexityResponse.citations,
           sessionId: this.sessionId,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         };
       }
-      
     } catch (error) {
       debugLogger.logError(error, 'al procesar consulta');
       throw error;
     }
   }
-  
+
   handleSimpleIntent(simpleIntent, query) {
     debugLogger.logIntent(simpleIntent.intent, simpleIntent.confidence);
     console.log(`💬 Intención simple: ${simpleIntent.intent}`);
-    
+
     // Guardar en historial (no await para ser más rápido)
     this.historyManager.addMessage(this.sessionId, query, simpleIntent.answer);
-    
+
     return {
       answer: simpleIntent.answer,
       source: 'direct',
@@ -1021,15 +1053,16 @@ export class RAGAgent {
       ragResults: [],
       citations: [],
       sessionId: this.sessionId,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
   }
-  
+
   // ... resto de métodos (getHistory, clearHistory, addDocuments) ...
 }
 ```
 
 **Beneficios:**
+
 - ✅ Código más declarativo y fácil de entender
 - ✅ Menos código custom (aprovecha framework)
 - ✅ Built-in retry logic, error handling
@@ -1042,20 +1075,21 @@ export class RAGAgent {
 
 #### M1. Hybrid Search (RAG + Keyword)
 
-**Impacto:** 🎯 15-20% mejor recall  
+**Impacto:** 🎯 15-20% mejor recall
 **Esfuerzo:** 🔨 Alto (6-8 horas)
 
 **Pseudocódigo:**
+
 ```javascript
 // pinecone_service.js
 async hybridSearch(query, k = config.rag.topK) {
   // 1. Búsqueda semántica (actual)
   const semanticResults = await this.vectorStore.similaritySearchWithScore(query, k);
-  
+
   // 2. Búsqueda por keywords (nuevo)
   const keywords = this.extractKeywords(query);
   const keywordResults = await this.searchByKeywords(keywords, k);
-  
+
   // 3. Combinar y re-rankear
   const combined = this.mergeAndRerankResults(
     semanticResults,
@@ -1065,7 +1099,7 @@ async hybridSearch(query, k = config.rag.topK) {
       keywordWeight: 0.3
     }
   );
-  
+
   return combined.slice(0, k);
 }
 
@@ -1079,7 +1113,7 @@ extractKeywords(query) {
 
 mergeAndRerankResults(semanticResults, keywordResults, weights) {
   const resultsMap = new Map();
-  
+
   // Agregar resultados semánticos
   semanticResults.forEach(([doc, score]) => {
     const id = doc.metadata.id || doc.pageContent.substring(0, 50);
@@ -1090,7 +1124,7 @@ mergeAndRerankResults(semanticResults, keywordResults, weights) {
       keywordScore: 0
     });
   });
-  
+
   // Agregar/actualizar con resultados de keywords
   keywordResults.forEach(([doc, score]) => {
     const id = doc.metadata.id || doc.pageContent.substring(0, 50);
@@ -1107,7 +1141,7 @@ mergeAndRerankResults(semanticResults, keywordResults, weights) {
       });
     }
   });
-  
+
   // Ordenar por score combinado
   return Array.from(resultsMap.values())
     .sort((a, b) => b.score - a.score);
@@ -1118,48 +1152,49 @@ mergeAndRerankResults(semanticResults, keywordResults, weights) {
 
 #### M2. Filtros de Metadata Dinámicos
 
-**Impacto:** 🎯 Búsquedas más precisas y rápidas  
+**Impacto:** 🎯 Búsquedas más precisas y rápidas
 **Esfuerzo:** 🔨 Medio (4-5 horas)
 
 **Pseudocódigo:**
+
 ```javascript
 // pinecone_service.js
 async searchSimilarDocuments(query, k = config.rag.topK, filters = {}) {
   // Extraer filtros automáticamente de la query
   const autoFilters = this.extractFiltersFromQuery(query);
   const mergedFilters = { ...autoFilters, ...filters };
-  
+
   // Verificar caché con filtros
   const cacheKey = `${query}:${JSON.stringify(mergedFilters)}`;
   const cached = this.cacheManager.get(cacheKey);
   if (cached) return cached;
-  
+
   // Búsqueda con filtros
   const results = await this.vectorStore.similaritySearchWithScore(
     query,
     k,
     mergedFilters // ← filtros de metadata
   );
-  
+
   const formattedResults = results.map(([doc, score]) => ({
     content: doc.pageContent,
     metadata: doc.metadata,
     score: score
   }));
-  
+
   this.cacheManager.set(cacheKey, formattedResults);
   return formattedResults;
 }
 
 extractFiltersFromQuery(query) {
   const filters = {};
-  
+
   // Detectar menciones de años
   const yearMatch = query.match(/202[0-9]/);
   if (yearMatch) {
     filters.year = yearMatch[0];
   }
-  
+
   // Detectar categorías comunes
   const categories = {
     'curso': 'curso',
@@ -1169,14 +1204,14 @@ extractFiltersFromQuery(query) {
     'precio': 'precio',
     'inscripción': 'inscripcion'
   };
-  
+
   for (const [keyword, category] of Object.entries(categories)) {
     if (query.toLowerCase().includes(keyword)) {
       filters.category = category;
       break;
     }
   }
-  
+
   return filters;
 }
 ```
@@ -1185,10 +1220,11 @@ extractFiltersFromQuery(query) {
 
 #### M3. Conversation Summary Memory
 
-**Impacto:** 💾 Mejor gestión de contexto largo  
+**Impacto:** 💾 Mejor gestión de contexto largo
 **Esfuerzo:** 🔨 Medio (3-4 horas)
 
 **Pseudocódigo:**
+
 ```javascript
 // conversation_history.js
 import { ConversationSummaryMemory } from 'langchain/memory';
@@ -1199,38 +1235,35 @@ export class ConversationHistoryManager {
     this.sessions = new Map();
     this.summaries = new Map(); // Nuevos resúmenes
   }
-  
+
   async addMessage(sessionId, userMessage, aiMessage) {
     const memory = this.getMemory(sessionId);
-    await memory.saveContext(
-      { input: userMessage },
-      { output: aiMessage }
-    );
-    
+    await memory.saveContext({ input: userMessage }, { output: aiMessage });
+
     // Si excede el límite, crear resumen
     const messages = await this.getHistory(sessionId);
     if (messages.length > this.maxMessages) {
       await this.createSummary(sessionId);
     }
   }
-  
+
   async createSummary(sessionId) {
     const llm = new ChatOpenAI({
       openAIApiKey: config.openai.apiKey,
       modelName: 'gpt-4o-mini',
-      temperature: 0.3
+      temperature: 0.3,
     });
-    
+
     // Crear summary memory
     const summaryMemory = new ConversationSummaryMemory({
       llm: llm,
-      returnMessages: true
+      returnMessages: true,
     });
-    
+
     // Obtener mensajes antiguos (primeros N)
     const messages = await this.getHistory(sessionId);
     const toSummarize = messages.slice(0, messages.length - this.maxMessages);
-    
+
     // Generar resumen
     for (const msg of toSummarize) {
       if (msg._getType() === 'human') {
@@ -1239,29 +1272,29 @@ export class ConversationHistoryManager {
         await summaryMemory.saveContext({ input: '' }, { output: msg.content });
       }
     }
-    
+
     const summary = await summaryMemory.loadMemoryVariables({});
     this.summaries.set(sessionId, summary.history);
-    
+
     // Mantener solo los mensajes recientes
     await this.trimHistory(sessionId);
   }
-  
+
   async getFormattedHistory(sessionId) {
     const messages = await this.getHistory(sessionId);
     const formatted = messages.map(msg => ({
       role: msg._getType() === 'human' ? 'user' : 'assistant',
-      content: msg.content
+      content: msg.content,
     }));
-    
+
     // Agregar resumen al principio si existe
     if (this.summaries.has(sessionId)) {
       formatted.unshift({
         role: 'system',
-        content: `Resumen de conversación anterior: ${this.summaries.get(sessionId)}`
+        content: `Resumen de conversación anterior: ${this.summaries.get(sessionId)}`,
       });
     }
-    
+
     return formatted;
   }
 }
@@ -1271,10 +1304,11 @@ export class ConversationHistoryManager {
 
 #### M4. Sistema de Métricas y Observabilidad
 
-**Impacto:** 📊 Visibilidad y mejora continua  
+**Impacto:** 📊 Visibilidad y mejora continua
 **Esfuerzo:** 🔨 Medio (5-6 horas)
 
 **Pseudocódigo:**
+
 ```javascript
 // src/utils/metrics_tracker.js (NUEVO)
 export class MetricsTracker {
@@ -1287,7 +1321,7 @@ export class MetricsTracker {
       errors: []
     };
   }
-  
+
   trackQuery(query, response, latency) {
     this.metrics.queries.push({
       query,
@@ -1296,15 +1330,15 @@ export class MetricsTracker {
       timestamp: new Date().toISOString(),
       ragScore: response.ragResults[0]?.score || null
     });
-    
+
     this.metrics.latencies.push(latency);
     this.metrics.sources[response.source]++;
-    
+
     if (response.ragResults[0]?.score) {
       this.metrics.ragScores.push(response.ragResults[0].score);
     }
   }
-  
+
   trackError(error, context) {
     this.metrics.errors.push({
       error: error.message,
@@ -1312,11 +1346,11 @@ export class MetricsTracker {
       timestamp: new Date().toISOString()
     });
   }
-  
+
   getReport() {
     const avgLatency = this.metrics.latencies.reduce((a, b) => a + b, 0) / this.metrics.latencies.length;
     const avgRAGScore = this.metrics.ragScores.reduce((a, b) => a + b, 0) / this.metrics.ragScores.length;
-    
+
     return {
       totalQueries: this.metrics.queries.length,
       avgLatencyMs: avgLatency,
@@ -1327,13 +1361,13 @@ export class MetricsTracker {
       p99Latency: this.calculatePercentile(this.metrics.latencies, 0.99)
     };
   }
-  
+
   calculatePercentile(arr, p) {
     const sorted = arr.slice().sort((a, b) => a - b);
     const index = Math.ceil(sorted.length * p) - 1;
     return sorted[index];
   }
-  
+
   exportToJSON(filePath) {
     fs.writeFileSync(filePath, JSON.stringify(this.metrics, null, 2));
   }
@@ -1345,10 +1379,10 @@ async query(query) {
   try {
     // ... lógica existente ...
     const response = await ...;
-    
+
     const latency = Date.now() - startTime;
     this.metricsTracker.trackQuery(query, response, latency);
-    
+
     return response;
   } catch (error) {
     this.metricsTracker.trackError(error, { query });
@@ -1363,7 +1397,7 @@ async query(query) {
 
 #### L1. Intent Classification Avanzado con ML
 
-**Impacto:** 🎯 Mejor routing de queries  
+**Impacto:** 🎯 Mejor routing de queries
 **Esfuerzo:** 🔨 Alto (10-15 horas)
 
 ```javascript
@@ -1377,7 +1411,7 @@ class AdvancedIntentDetector {
       'Xenova/distilbert-base-uncased-finetuned-sst-2-english'
     );
   }
-  
+
   async detectIntent(query) {
     // Clasificar tipo de pregunta
     const result = await this.classifier(query);
@@ -1390,7 +1424,7 @@ class AdvancedIntentDetector {
 
 #### L2. Re-ranking de Resultados con Cross-Encoder
 
-**Impacto:** 🎯 Mejores resultados de búsqueda  
+**Impacto:** 🎯 Mejores resultados de búsqueda
 **Esfuerzo:** 🔨 Alto (8-10 horas)
 
 ```javascript
@@ -1410,14 +1444,14 @@ class ResultReranker {
 
 #### L3. Streaming de Respuestas
 
-**Impacto:** 🚀 Mejor UX (respuestas incrementales)  
+**Impacto:** 🚀 Mejor UX (respuestas incrementales)
 **Esfuerzo:** 🔨 Medio (4-6 horas)
 
 ```javascript
 // Con LCEL es fácil agregar streaming
 async *queryStream(query) {
   const chain = this.ragChain.chain;
-  
+
   for await (const chunk of await chain.stream({
     question: query,
     chat_history: await this.historyManager.getHistory(this.sessionId)
@@ -1432,6 +1466,7 @@ async *queryStream(query) {
 ## 4️⃣ ROADMAP DE IMPLEMENTACIÓN RECOMENDADO
 
 ### Sprint 1 (Semana 1) - Quick Wins
+
 1. ✅ **A1: Paralelización** (2-3h) → Implementar primero
 2. ✅ **A2: Sistema de Caché** (4-6h)
 3. ✅ **M4: Métricas básicas** (2-3h) → Para medir impacto
@@ -1439,6 +1474,7 @@ async *queryStream(query) {
 **Resultado esperado:** 40-50% mejora en latencia
 
 ### Sprint 2 (Semana 2) - Calidad
+
 1. ✅ **A3: Chain of Thought Prompts** (3-4h)
 2. ✅ **M1: Hybrid Search** (6-8h)
 3. ✅ **M2: Filtros Metadata** (4-5h)
@@ -1446,30 +1482,33 @@ async *queryStream(query) {
 **Resultado esperado:** 20-30% mejora en calidad de respuestas
 
 ### Sprint 3 (Semana 3) - Arquitectura
+
 1. ✅ **A4: Migrar a LangChain Chains** (8-12h)
 2. ✅ **M3: Conversation Summary** (3-4h)
 
 **Resultado esperado:** Código más mantenible y escalable
 
 ### Sprint 4+ (Opcional) - Features Avanzados
+
 1. L1, L2, L3 según necesidad del negocio
 
 ---
 
 ## 5️⃣ RESUMEN DE IMPACTO ESTIMADO
 
-| Mejora | Impacto Performance | Impacto Calidad | Esfuerzo | Prioridad |
-|--------|-------------------|----------------|----------|-----------|
-| A1 - Paralelización | ⚡⚡⚡ (30-40%) | - | 🔨 Bajo | 🔴 Alta |
-| A2 - Caché | ⚡⚡⚡ (50-70% en hits) | - | 🔨 Medio | 🔴 Alta |
-| A3 - Chain of Thought | - | 🧠🧠 (20-30%) | 🔨 Medio | 🔴 Alta |
-| A4 - LangChain Chains | ⚡ (10-15%) | 🧠 (10%) | 🔨 Alto | 🔴 Alta |
-| M1 - Hybrid Search | ⚡ (5-10%) | 🧠🧠 (15-20%) | 🔨 Alto | 🟡 Media |
-| M2 - Filtros Metadata | ⚡⚡ (15-20%) | 🧠 (10%) | 🔨 Medio | 🟡 Media |
-| M3 - Summary Memory | - | 🧠 (10-15%) | 🔨 Medio | 🟡 Media |
-| M4 - Métricas | - | 📊 (visibilidad) | 🔨 Medio | 🟡 Media |
+| Mejora                | Impacto Performance     | Impacto Calidad  | Esfuerzo | Prioridad |
+| --------------------- | ----------------------- | ---------------- | -------- | --------- |
+| A1 - Paralelización   | ⚡⚡⚡ (30-40%)         | -                | 🔨 Bajo  | 🔴 Alta   |
+| A2 - Caché            | ⚡⚡⚡ (50-70% en hits) | -                | 🔨 Medio | 🔴 Alta   |
+| A3 - Chain of Thought | -                       | 🧠🧠 (20-30%)    | 🔨 Medio | 🔴 Alta   |
+| A4 - LangChain Chains | ⚡ (10-15%)             | 🧠 (10%)         | 🔨 Alto  | 🔴 Alta   |
+| M1 - Hybrid Search    | ⚡ (5-10%)              | 🧠🧠 (15-20%)    | 🔨 Alto  | 🟡 Media  |
+| M2 - Filtros Metadata | ⚡⚡ (15-20%)           | 🧠 (10%)         | 🔨 Medio | 🟡 Media  |
+| M3 - Summary Memory   | -                       | 🧠 (10-15%)      | 🔨 Medio | 🟡 Media  |
+| M4 - Métricas         | -                       | 📊 (visibilidad) | 🔨 Medio | 🟡 Media  |
 
 **Impacto Total Estimado (Sprint 1-3):**
+
 - ⚡ **Latencia:** 50-60% reducción
 - 🧠 **Calidad:** 30-40% mejora
 - 🏗️ **Mantenibilidad:** Significativa
@@ -1488,87 +1527,86 @@ export class RAGAgent {
     this.historyManager = new ConversationHistoryManager(); // Con summary
     this.intentDetector = new IntentDetector();
     this.metricsTracker = new MetricsTracker();
-    
+
     this.llm = new ChatOpenAI({
       openAIApiKey: config.openai.apiKey,
       modelName: config.openai.model,
       temperature: 0.3, // Más bajo para precisión
-      streaming: true // Habilitado para futuro
+      streaming: true, // Habilitado para futuro
     });
-    
+
     this.ragChain = null;
     this.initialized = false;
   }
-  
+
   async query(query) {
     const startTime = Date.now();
-    
+
     try {
       // 1. Intent detection
       const simpleIntent = this.intentDetector.processSimpleIntent(query);
       if (simpleIntent) {
         return this.handleSimpleIntent(simpleIntent, query);
       }
-      
+
       // 2. PARALELIZAR: RAG search + historial
       const [ragResponse, conversationHistory] = await Promise.all([
         this.ragChain.invoke(this.sessionId, query),
-        this.historyManager.getFormattedHistory(this.sessionId)
+        this.historyManager.getFormattedHistory(this.sessionId),
       ]);
-      
+
       // 3. Decisión inteligente
       const hasGoodResults = this.evaluateRAGQuality(ragResponse);
-      
+
       let response;
       if (hasGoodResults) {
         response = {
           answer: ragResponse.answer,
           source: 'rag',
           ragResults: ragResponse.sourceDocuments,
-          citations: []
+          citations: [],
         };
       } else {
         // Fallback a Perplexity con historial pre-cargado
         const perplexityResponse = await this.perplexityService.query(
-          query, 
+          query,
           conversationHistory
         );
         response = {
           answer: perplexityResponse.answer,
           source: 'perplexity',
           ragResults: [],
-          citations: perplexityResponse.citations
+          citations: perplexityResponse.citations,
         };
       }
-      
+
       // 4. Guardar en historial
       await this.historyManager.addMessage(this.sessionId, query, response.answer);
-      
+
       // 5. Trackear métricas
       const latency = Date.now() - startTime;
       this.metricsTracker.trackQuery(query, response, latency);
-      
+
       return {
         ...response,
         query,
         sessionId: this.sessionId,
         timestamp: new Date().toISOString(),
-        latency
+        latency,
       };
-      
     } catch (error) {
       this.metricsTracker.trackError(error, { query });
       throw error;
     }
   }
-  
+
   evaluateRAGQuality(ragResponse) {
     if (!ragResponse.hasRelevantDocs) return false;
-    
+
     const topScore = ragResponse.sourceDocuments[0]?.metadata.score || 0;
     return topScore >= config.rag.similarityThreshold;
   }
-  
+
   // Método nuevo: obtener reporte de performance
   getPerformanceReport() {
     return this.metricsTracker.getReport();
@@ -1581,6 +1619,7 @@ export class RAGAgent {
 ## 📌 CONCLUSIONES Y PRÓXIMOS PASOS
 
 ### Conclusiones Clave
+
 1. El agente actual es **funcional pero subóptimo**
 2. Hay **quick wins fáciles** (paralelización, caché) con gran impacto
 3. Las **técnicas de prompting** actuales son básicas
@@ -1588,12 +1627,15 @@ export class RAGAgent {
 5. No hay **observabilidad** para mejora continua
 
 ### Recomendación
+
 **Comenzar con Sprint 1** (paralelización + caché + métricas) para obtener:
+
 - ✅ Mejora inmediata y medible
 - ✅ Fundación para mejoras futuras
 - ✅ ROI rápido con bajo esfuerzo
 
 ### Próximos Pasos Inmediatos
+
 1. Implementar A1 (paralelización) - 2-3 horas
 2. Implementar A2 (caché) - 4-6 horas
 3. Agregar métricas básicas - 2-3 horas
@@ -1602,6 +1644,6 @@ export class RAGAgent {
 
 ---
 
-**Autor:** GitHub Copilot  
-**Fecha:** 2 de noviembre de 2025  
+**Autor:** GitHub Copilot
+**Fecha:** 2 de noviembre de 2025
 **Versión:** 1.0

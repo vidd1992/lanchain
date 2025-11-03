@@ -14,24 +14,23 @@ export class PineconeService {
     try {
       // Inicializar Pinecone
       this.pinecone = new Pinecone({
-        apiKey: config.pinecone.apiKey
+        apiKey: config.pinecone.apiKey,
       });
 
       // Inicializar embeddings de OpenAI
       this.embeddings = new OpenAIEmbeddings({
         openAIApiKey: config.openai.apiKey,
         modelName: 'text-embedding-3-small',
-        verbose: process.env.LANGCHAIN_VERBOSE === 'true'
+        verbose: process.env.LANGCHAIN_VERBOSE === 'true',
       });
 
       // Obtener el índice
       const index = this.pinecone.Index(config.pinecone.indexName);
 
       // Crear vector store
-      this.vectorStore = await PineconeStore.fromExistingIndex(
-        this.embeddings,
-        { pineconeIndex: index }
-      );
+      this.vectorStore = await PineconeStore.fromExistingIndex(this.embeddings, {
+        pineconeIndex: index,
+      });
 
       console.log('✅ Pinecone inicializado correctamente');
       return true;
@@ -45,26 +44,249 @@ export class PineconeService {
    * Buscar documentos similares en Pinecone
    * @param {string} query - La consulta del usuario
    * @param {number} k - Número de documentos a retornar
+   * @param {Object} filters - Filtros de metadata opcionales
+   * @param {boolean} useHybrid - Usar búsqueda híbrida (semantic + keyword)
    * @returns {Promise<Array>} - Documentos encontrados con scores
    */
-  async searchSimilarDocuments(query, k = config.rag.topK) {
+  async searchSimilarDocuments(
+    query,
+    k = config.rag.topK,
+    filters = {},
+    useHybrid = false
+  ) {
     try {
       if (!this.vectorStore) {
         throw new Error('Vector store no inicializado. Llama a initialize() primero.');
       }
 
-      // Buscar documentos similares con scores
-      const results = await this.vectorStore.similaritySearchWithScore(query, k);
+      // Extraer filtros automáticamente de la query si no se proporcionan
+      const autoFilters =
+        Object.keys(filters).length === 0 ? this.extractFiltersFromQuery(query) : filters;
 
-      return results.map(([doc, score]) => ({
-        content: doc.pageContent,
-        metadata: doc.metadata,
-        score: score
-      }));
+      if (useHybrid) {
+        // Búsqueda híbrida (semantic + keyword)
+        return await this.hybridSearch(query, k, autoFilters);
+      } else {
+        // Búsqueda semántica estándar con filtros
+        const results = await this.vectorStore.similaritySearchWithScore(
+          query,
+          k,
+          autoFilters
+        );
+
+        return results.map(([doc, score]) => ({
+          content: doc.pageContent,
+          metadata: doc.metadata,
+          score: score,
+        }));
+      }
     } catch (error) {
       console.error('Error en búsqueda de Pinecone:', error.message);
       return [];
     }
+  }
+
+  /**
+   * Búsqueda híbrida: combina búsqueda semántica con keywords
+   * @param {string} query - Query del usuario
+   * @param {number} k - Número de resultados
+   * @param {Object} filters - Filtros de metadata
+   * @returns {Promise<Array>} - Resultados combinados y re-rankeados
+   */
+  async hybridSearch(query, k, filters = {}) {
+    try {
+      console.log('🔀 Usando búsqueda híbrida (semantic + keyword)...');
+
+      // 1. Búsqueda semántica
+      const semanticResults = await this.vectorStore.similaritySearchWithScore(
+        query,
+        k * 2, // Obtener más resultados para mezclar
+        filters
+      );
+
+      // 2. Extraer keywords de la query
+      const keywords = this.extractKeywords(query);
+      console.log(`🔑 Keywords extraídas: ${keywords.join(', ')}`);
+
+      // 3. Búsqueda por keywords (simple: filtrado por contenido)
+      const keywordResults = semanticResults.filter(([doc]) => {
+        const content = doc.pageContent.toLowerCase();
+        return keywords.some(keyword => content.includes(keyword));
+      });
+
+      // 4. Combinar y re-rankear
+      const combined = this.mergeAndRerankResults(semanticResults, keywordResults, {
+        semanticWeight: 0.7,
+        keywordWeight: 0.3,
+      });
+
+      console.log(
+        `✅ Híbrido: ${semanticResults.length} semantic, ${keywordResults.length} keyword → ${combined.length} combinados`
+      );
+
+      // 5. Retornar top K
+      return combined.slice(0, k);
+    } catch (error) {
+      console.error('Error en búsqueda híbrida:', error.message);
+      // Fallback a búsqueda semántica normal
+      const results = await this.vectorStore.similaritySearchWithScore(query, k, filters);
+      return results.map(([doc, score]) => ({
+        content: doc.pageContent,
+        metadata: doc.metadata,
+        score: score,
+      }));
+    }
+  }
+
+  /**
+   * Extraer keywords relevantes de la query
+   * @param {string} query - Query del usuario
+   * @returns {Array<string>} - Keywords extraídas
+   */
+  extractKeywords(query) {
+    // Stopwords en español
+    const stopwords = new Set([
+      'el',
+      'la',
+      'de',
+      'en',
+      'y',
+      'a',
+      'que',
+      'es',
+      'por',
+      'un',
+      'una',
+      'con',
+      'para',
+      'los',
+      'las',
+      'del',
+      'al',
+      'se',
+      'como',
+      'su',
+      'me',
+      'te',
+      'o',
+      'pero',
+      'más',
+      'mi',
+      'tu',
+      'este',
+      'esta',
+      'qué',
+      'cuál',
+      'cuáles',
+      'cómo',
+      'dónde',
+      'cuándo',
+      'quién',
+    ]);
+
+    const words = query
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(w => w.length > 3 && !stopwords.has(w));
+
+    return [...new Set(words)]; // Remover duplicados
+  }
+
+  /**
+   * Combinar y re-rankear resultados de búsqueda semántica y por keywords
+   * @param {Array} semanticResults - Resultados de búsqueda semántica
+   * @param {Array} keywordResults - Resultados de búsqueda por keywords
+   * @param {Object} weights - Pesos para semantic y keyword
+   * @returns {Array} - Resultados combinados y ordenados
+   */
+  mergeAndRerankResults(semanticResults, keywordResults, weights) {
+    const resultsMap = new Map();
+
+    // Agregar resultados semánticos
+    for (const [doc, score] of semanticResults) {
+      const id = doc.metadata.id || doc.pageContent.substring(0, 50);
+      resultsMap.set(id, {
+        content: doc.pageContent,
+        metadata: doc.metadata,
+        score: score * weights.semanticWeight,
+        semanticScore: score,
+        keywordScore: 0,
+      });
+    }
+
+    // Agregar/actualizar con resultados de keywords
+    for (const [doc, score] of keywordResults) {
+      const id = doc.metadata.id || doc.pageContent.substring(0, 50);
+      if (resultsMap.has(id)) {
+        const existing = resultsMap.get(id);
+        existing.keywordScore = score;
+        existing.score += score * weights.keywordWeight;
+      } else {
+        resultsMap.set(id, {
+          content: doc.pageContent,
+          metadata: doc.metadata,
+          score: score * weights.keywordWeight,
+          semanticScore: 0,
+          keywordScore: score,
+        });
+      }
+    }
+
+    // Ordenar por score combinado
+    const sorted = Array.from(resultsMap.values());
+    sorted.sort((a, b) => b.score - a.score);
+    return sorted;
+  }
+
+  /**
+   * Extraer filtros automáticamente de la query
+   * @param {string} query - Query del usuario
+   * @returns {Object} - Filtros detectados
+   */
+  extractFiltersFromQuery(query) {
+    const filters = {};
+
+    // Detectar menciones de años
+    const yearRegex = /202\d/;
+    const yearMatch = yearRegex.exec(query);
+    if (yearMatch) {
+      filters.year = yearMatch[0];
+    }
+
+    // Detectar categorías comunes
+    const categories = {
+      curso: 'curso',
+      cursos: 'curso',
+      programa: 'programa',
+      programas: 'programa',
+      certificado: 'certificacion',
+      certificación: 'certificacion',
+      horario: 'horarios',
+      horarios: 'horarios',
+      precio: 'precio',
+      precios: 'precio',
+      costo: 'precio',
+      costos: 'precio',
+      inscripción: 'inscripcion',
+      inscripcion: 'inscripcion',
+      matrícula: 'inscripcion',
+      matricula: 'inscripcion',
+    };
+
+    const lowerQuery = query.toLowerCase();
+    for (const [keyword, category] of Object.entries(categories)) {
+      if (lowerQuery.includes(keyword)) {
+        filters.category = category;
+        break; // Solo tomar la primera categoría encontrada
+      }
+    }
+
+    // Log si se detectaron filtros
+    if (Object.keys(filters).length > 0) {
+      console.log(`🔍 Filtros detectados automáticamente:`, filters);
+    }
+
+    return filters;
   }
 
   /**
@@ -81,7 +303,7 @@ export class PineconeService {
       await this.vectorStore.addDocuments(
         texts.map((text, i) => ({
           pageContent: text,
-          metadata: metadatas[i] || {}
+          metadata: metadatas[i] || {},
         }))
       );
 
