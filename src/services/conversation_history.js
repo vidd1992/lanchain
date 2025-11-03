@@ -1,14 +1,19 @@
-import { BufferMemory, ConversationSummaryMemory } from 'langchain/memory';
+import { BufferMemory } from 'langchain/memory';
 import { ChatMessageHistory } from 'langchain/stores/message/in_memory';
+import { HumanMessage, AIMessage } from '@langchain/core/messages';
 import { ChatOpenAI } from '@langchain/openai';
 import { config } from '../config/env.js';
+import { SupabaseService } from './supabase_service.js';
 
 export class ConversationHistoryManager {
-  constructor(maxMessages = 10, useSummary = true) {
+  constructor(maxMessages = 10, useSummary = true, idEmpresa = 'default') {
     this.maxMessages = maxMessages;
-    this.useSummary = useSummary; // Usar summary para conversaciones largas
-    this.sessions = new Map();
-    this.summaries = new Map(); // Almacenar resúmenes por sesión
+    this.useSummary = useSummary;
+    this.idEmpresa = idEmpresa; // ID de la empresa
+    this.sessions = new Map(); // Caché en memoria
+    this.summaries = new Map();
+    this.supabase = new SupabaseService(); // Servicio de Supabase
+    this.supabase.initialize(); // Inicializar Supabase
   }
 
   /**
@@ -36,24 +41,93 @@ export class ConversationHistoryManager {
    * @param {string} sessionId - ID de la sesión
    * @param {string} userMessage - Mensaje del usuario
    * @param {string} aiMessage - Respuesta del AI
+   * @param {Object} metadata - Metadata adicional (source, score, etc.)
    */
-  async addMessage(sessionId, userMessage, aiMessage) {
+  async addMessage(sessionId, userMessage, aiMessage, metadata = {}) {
+    // 1. Guardar en memoria (caché rápido)
     const memory = this.getMemory(sessionId);
     await memory.saveContext({ input: userMessage }, { output: aiMessage });
 
-    // Limpiar historial si excede el máximo
+    // 2. Guardar en Supabase (persistencia) - async, no bloquea
+    if (this.supabase.initialized) {
+      // Guardar mensaje del usuario
+      this.supabase
+        .saveMessage(sessionId, this.idEmpresa, 'user', userMessage, {})
+        .catch(err => console.error('Error guardando mensaje usuario:', err.message));
+
+      // Guardar respuesta del asistente
+      this.supabase
+        .saveMessage(sessionId, this.idEmpresa, 'assistant', aiMessage, metadata)
+        .catch(err => console.error('Error guardando mensaje asistente:', err.message));
+    }
+
+    // 3. Limpiar historial si excede el máximo
     await this.trimHistory(sessionId);
   }
 
   /**
-   * Obtener historial de conversación
+   * Obtener historial de conversación (caché + Supabase)
    * @param {string} sessionId - ID de la sesión
    * @returns {Promise<Array>} - Array de mensajes
    */
   async getHistory(sessionId) {
+    // 1. Intentar obtener desde caché en memoria
     const memory = this.getMemory(sessionId);
     const history = await memory.loadMemoryVariables({});
-    return history.chat_history || [];
+    const cachedMessages = history.chat_history || [];
+
+    // Si hay mensajes en caché, retornarlos
+    if (cachedMessages.length > 0) {
+      return cachedMessages;
+    }
+
+    // 2. Si no hay en caché y Supabase está habilitado, cargar desde DB
+    if (this.supabase.initialized) {
+      try {
+        const dbMessages = await this.supabase.getHistory(
+          sessionId,
+          this.idEmpresa,
+          this.maxMessages
+        );
+
+        // Cargar mensajes en el caché
+        if (dbMessages.length > 0) {
+          const chatHistory = new ChatMessageHistory();
+          for (const msg of dbMessages) {
+            if (msg.role === 'user') {
+              await chatHistory.addMessage({
+                content: msg.content,
+                _getType: () => 'human',
+              });
+            } else {
+              await chatHistory.addMessage({
+                content: msg.content,
+                _getType: () => 'ai',
+              });
+            }
+          }
+
+          // Actualizar memoria con mensajes de DB
+          const newMemory = new BufferMemory({
+            chatHistory: chatHistory,
+            returnMessages: true,
+            memoryKey: 'chat_history',
+            inputKey: 'input',
+            outputKey: 'output',
+          });
+          this.sessions.set(sessionId, newMemory);
+
+          // Retornar el historial
+          const loaded = await newMemory.loadMemoryVariables({});
+          return loaded.chat_history || [];
+        }
+      } catch (error) {
+        console.error('Error cargando historial desde Supabase:', error.message);
+      }
+    }
+
+    // 3. Si no hay nada, retornar array vacío
+    return [];
   }
 
   /**
@@ -167,26 +241,37 @@ ${conversationText}
 RESUMEN CONCISO:`;
 
       const response = await llm.invoke(summaryPrompt);
-      const summary = response.content;
+      const summary =
+        typeof response.content === 'string'
+          ? response.content
+          : JSON.stringify(response.content);
 
-      // Guardar o actualizar summary
+      // Guardar o actualizar summary (memoria + Supabase)
       const existingSummary = this.summaries.get(sessionId);
+      let finalSummary = summary;
+
       if (existingSummary) {
         // Si ya hay un summary, combinarlos
         const combinedPrompt = `Combina estos dos resúmenes en uno solo:
 
 RESUMEN ANTERIOR:
-${String(existingSummary)}
+${existingSummary}
 
 NUEVO RESUMEN:
-${String(summary)}
+${summary}
 
 RESUMEN COMBINADO:`;
 
         const combinedResponse = await llm.invoke(combinedPrompt);
-        this.summaries.set(sessionId, combinedResponse.content);
+        finalSummary = combinedResponse.content;
+        this.summaries.set(sessionId, finalSummary);
       } else {
-        this.summaries.set(sessionId, summary);
+        this.summaries.set(sessionId, finalSummary);
+      }
+
+      // Guardar en Supabase
+      if (this.supabase.initialized) {
+        await this.supabase.saveSummary(sessionId, this.idEmpresa, finalSummary);
       }
 
       console.log(`✅ Resumen creado para sesión ${sessionId}`);

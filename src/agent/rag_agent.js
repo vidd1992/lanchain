@@ -10,11 +10,12 @@ import { langChainCallbacks } from '../utils/langchain_callbacks.js';
 import { config } from '../config/env.js';
 
 export class RAGAgent {
-  constructor(sessionId = 'default', useLangChainChains = false) {
+  constructor(sessionId = 'default', useLangChainChains = false, idEmpresa = 'default') {
     this.sessionId = sessionId;
+    this.idEmpresa = idEmpresa; // ID de la empresa
     this.pineconeService = new PineconeService();
     this.perplexityService = new PerplexityService();
-    this.historyManager = new ConversationHistoryManager();
+    this.historyManager = new ConversationHistoryManager(10, true, idEmpresa); // Pasar idEmpresa
     this.intentDetector = new IntentDetector();
     this.metricsTracker = new MetricsTracker(); // Sistema de métricas
     this.useLangChainChains = useLangChainChains; // Flag para usar chains
