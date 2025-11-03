@@ -1,0 +1,20 @@
+Q: ¿Qué es este proyecto?
+A: Este es un agente RAG que combina búsqueda en Pinecone con OpenAI, y tiene fallback automático a Perplexity AI cuando no encuentra información relevante en la base de conocimiento.
+
+Q: ¿Cómo funciona el fallback a Perplexity?
+A: El agente primero busca en Pinecone y calcula un score de similitud. Si el mejor resultado tiene un score inferior al umbral configurado (por defecto 0.7), automáticamente consulta a Perplexity AI para obtener información actualizada de internet.
+
+Q: ¿Cómo se mantiene el historial de conversación?
+A: Usa LangChain Memory para mantener el contexto entre consultas. El historial se incluye automáticamente en cada prompt, permitiendo que el agente entienda referencias a mensajes anteriores.
+
+Q: ¿Qué formatos de documentos puedo subir?
+A: El sistema soporta archivos de texto (.txt, .md), PDFs, CSVs y JSON. Los documentos largos se dividen automáticamente en chunks usando RecursiveCharacterTextSplitter para optimizar las búsquedas.
+
+Q: ¿Cómo se crean los embeddings?
+A: Se usa el modelo text-embedding-3-small de OpenAI para generar embeddings de 1536 dimensiones. Estos embeddings se almacenan en Pinecone para búsquedas de similitud semántica.
+
+Q: ¿Puedo ajustar el tamaño de los chunks?
+A: Sí, puedes configurar CHUNK_SIZE y CHUNK_OVERLAP en el archivo .env. Los valores por defecto son 1000 caracteres con 200 de overlap.
+
+Q: ¿Qué ventajas tiene usar este agente vs solo usar ChatGPT?
+A: El agente tiene acceso a tu base de conocimiento privada en Pinecone, puede responder con información específica de tu empresa/proyecto, mantiene contexto conversacional, y automáticamente busca información actualizada en internet cuando es necesario.

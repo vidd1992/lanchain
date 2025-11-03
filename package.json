@@ -1,0 +1,38 @@
+{
+  "name": "rag-perplexity-agent",
+  "version": "1.0.0",
+  "description": "Agente RAG con OpenAI, Pinecone y Perplexity usando LangChain",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "setup": "node scripts/setup_and_upload.js",
+    "chat": "node examples/chat_example.js",
+    "test": "node examples/test_agent.js",
+    "test-debug": "node examples/debug_test.js",
+    "add-docs": "node examples/add_documents.js",
+    "test-docs": "node scripts/test_document_processing.js",
+    "list-indexes": "node scripts/list_pinecone_indexes.js"
+  },
+  "keywords": [
+    "rag",
+    "langchain",
+    "openai",
+    "pinecone",
+    "perplexity",
+    "chatbot"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@langchain/community": "^0.3.15",
+    "@langchain/core": "^0.3.23",
+    "@langchain/openai": "^0.3.14",
+    "@langchain/pinecone": "^0.1.3",
+    "@pinecone-database/pinecone": "^3.0.3",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.5",
+    "langchain": "^0.3.5",
+    "mammoth": "^1.11.0"
+  }
+}
