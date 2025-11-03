@@ -18,11 +18,11 @@ async function main() {
     // Configurar readline para interacción
     const rl = readline.createInterface({
       input: process.stdin,
-      output: process.stdout
+      output: process.stdout,
     });
 
     const askQuestion = () => {
-      rl.question('\n👤 Tú: ', async (input) => {
+      rl.question('\n👤 Tú: ', async input => {
         const query = input.trim();
 
         if (query.toLowerCase() === 'salir' || query.toLowerCase() === 'exit') {
@@ -76,7 +76,6 @@ async function main() {
     };
 
     askQuestion();
-
   } catch (error) {
     console.error('❌ Error:', error.message);
     process.exit(1);

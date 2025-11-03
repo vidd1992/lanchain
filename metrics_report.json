@@ -1,0 +1,104 @@
+{
+  "summary": {
+    "totalQueries": 5,
+    "avgLatencyMs": 8302,
+    "avgRAGScore": "0.603",
+    "minLatencyMs": 1,
+    "maxLatencyMs": 14315,
+    "p50Latency": 9197,
+    "p95Latency": 14315,
+    "p99Latency": 14315,
+    "sourceDistribution": {
+      "rag": 1,
+      "rag-chain": 0,
+      "perplexity": 3,
+      "direct": 1
+    },
+    "sourcePercentages": {
+      "rag": "20.0%",
+      "rag-chain": "0.0%",
+      "perplexity": "60.0%",
+      "direct": "20.0%"
+    },
+    "errorRate": "0.00%",
+    "totalErrors": 0,
+    "uptime": "0m"
+  },
+  "slowestQueries": [
+    {
+      "query": "Gracias por la información",
+      "latency": 14315,
+      "source": "perplexity"
+    },
+    {
+      "query": "¿Tienen cursos de Python?",
+      "latency": 10813,
+      "source": "perplexity"
+    },
+    {
+      "query": "¿Qué cursos ofrecen?",
+      "latency": 9197,
+      "source": "rag"
+    },
+    {
+      "query": "¿Cuál es el precio?",
+      "latency": 7184,
+      "source": "perplexity"
+    },
+    {
+      "query": "Hola",
+      "latency": 1,
+      "source": "direct"
+    }
+  ],
+  "lowestScoringQueries": [
+    {
+      "query": "¿Qué cursos ofrecen?",
+      "score": "0.603",
+      "source": "rag"
+    }
+  ],
+  "allQueries": [
+    {
+      "query": "¿Qué cursos ofrecen?",
+      "source": "rag",
+      "latency": 9197,
+      "timestamp": "2025-11-03T18:00:49.398Z",
+      "ragScore": 0.603075087,
+      "documentsUsed": 3
+    },
+    {
+      "query": "Hola",
+      "source": "direct",
+      "latency": 1,
+      "timestamp": "2025-11-03T18:01:02.151Z",
+      "ragScore": null,
+      "documentsUsed": 0
+    },
+    {
+      "query": "¿Tienen cursos de Python?",
+      "source": "perplexity",
+      "latency": 10813,
+      "timestamp": "2025-11-03T18:01:12.964Z",
+      "ragScore": null,
+      "documentsUsed": 0
+    },
+    {
+      "query": "¿Cuál es el precio?",
+      "source": "perplexity",
+      "latency": 7184,
+      "timestamp": "2025-11-03T18:01:20.148Z",
+      "ragScore": null,
+      "documentsUsed": 0
+    },
+    {
+      "query": "Gracias por la información",
+      "source": "perplexity",
+      "latency": 14315,
+      "timestamp": "2025-11-03T18:01:34.463Z",
+      "ragScore": null,
+      "documentsUsed": 0
+    }
+  ],
+  "errors": []
+}

@@ -59,19 +59,28 @@ export class PineconeService {
         throw new Error('Vector store no inicializado. Llama a initialize() primero.');
       }
 
+      // 🔧 FILTROS AUTOMÁTICOS DESACTIVADOS
       // Extraer filtros automáticamente de la query si no se proporcionan
-      const autoFilters =
-        Object.keys(filters).length === 0 ? this.extractFiltersFromQuery(query) : filters;
+      // let autoFilters = filters;
+      // if (Object.keys(filters).length === 0) {
+      //   const extractedFilters = this.extractFiltersFromQuery(query);
+      //   // Solo aplicar si hay filtros detectados (evitar objeto vacío)
+      //   autoFilters =
+      //     Object.keys(extractedFilters).length > 0 ? extractedFilters : undefined;
+      // }
+
+      // Buscar SIN filtros automáticos (solo filtros manuales si se pasan)
+      const finalFilters = Object.keys(filters).length > 0 ? filters : undefined;
 
       if (useHybrid) {
         // Búsqueda híbrida (semantic + keyword)
-        return await this.hybridSearch(query, k, autoFilters);
+        return await this.hybridSearch(query, k, finalFilters);
       } else {
-        // Búsqueda semántica estándar con filtros
+        // Búsqueda semántica estándar SIN filtros automáticos
         const results = await this.vectorStore.similaritySearchWithScore(
           query,
           k,
-          autoFilters
+          finalFilters
         );
 
         return results.map(([doc, score]) => ({

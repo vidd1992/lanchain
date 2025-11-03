@@ -13,7 +13,8 @@
     "test-optimizations": "node examples/test_optimizations.js",
     "add-docs": "node examples/add_documents.js",
     "test-docs": "node scripts/test_document_processing.js",
-    "list-indexes": "node scripts/list_pinecone_indexes.js"
+    "list-indexes": "node scripts/list_pinecone_indexes.js",
+    "reprocess-docs": "node scripts/reprocess_documents.js"
   },
   "keywords": [
     "rag",

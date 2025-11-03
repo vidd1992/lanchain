@@ -1,6 +1,6 @@
 # Mejoras Implementadas - Sprint 1 y 2
 
-**Fecha de implementación:** 2 de noviembre de 2025  
+**Fecha de implementación:** 2 de noviembre de 2025
 **Branch:** `feature/optimizaciones-sprint1-2`
 
 ---
@@ -40,7 +40,7 @@ const history = await historyManager.getFormattedHistory(sessionId);
 // DESPUÉS (paralelo - ~1-1.5s)
 const [ragResults, history] = await Promise.all([
   pineconeService.searchSimilarDocuments(query),
-  historyManager.getFormattedHistory(sessionId)
+  historyManager.getFormattedHistory(sessionId),
 ]);
 ```
 
@@ -53,6 +53,7 @@ const [ragResults, history] = await Promise.all([
 **Archivo:** `src/agent/rag_agent.js` - método `generateAnswerFromRAG()`
 
 **Mejora:** Prompts mejorados con técnicas avanzadas:
+
 - Chain of Thought (razonamiento paso a paso)
 - Few-Shot Examples (ejemplos de respuestas correctas)
 - Temperatura reducida (0.3 → mayor precisión)
@@ -77,6 +78,7 @@ METODOLOGÍA DE RESPUESTA (Chain of Thought):
 **Mejora:** Opción de usar `ConversationalRetrievalQAChain` de LangChain en lugar de lógica manual.
 
 **Uso:**
+
 ```javascript
 // Modo Custom (default) - con todas las optimizaciones manuales
 const agent = new RAGAgent('session-id', false);
@@ -86,6 +88,7 @@ const agent = new RAGAgent('session-id', true);
 ```
 
 **Beneficios:**
+
 - Código más declarativo y mantenible
 - Aprovecha optimizaciones del framework
 - Fácil agregar streaming en el futuro
@@ -99,6 +102,7 @@ const agent = new RAGAgent('session-id', true);
 **Mejora:** Sistema completo de tracking de performance y calidad.
 
 **Métricas Trackeadas:**
+
 - Latencia (promedio, min, max, P50, P95, P99)
 - Distribución de sources (RAG, Perplexity, Direct)
 - Scores de RAG
@@ -107,6 +111,7 @@ const agent = new RAGAgent('session-id', true);
 - Queries con scores más bajos
 
 **Uso:**
+
 ```javascript
 // Obtener reporte
 const report = agent.getMetricsReport();
@@ -122,6 +127,7 @@ agent.resetMetrics();
 ```
 
 **Ejemplo de Output:**
+
 ```
 📊 REPORTE DE MÉTRICAS DEL AGENTE RAG
 ============================================================
@@ -153,11 +159,13 @@ agent.resetMetrics();
 **Archivo:** `src/services/pinecone_service.js`
 
 **Mejora:** Búsqueda híbrida que combina:
+
 - Búsqueda semántica (embeddings)
 - Búsqueda por keywords
 - Re-ranking de resultados
 
 **Uso:**
+
 ```javascript
 // Búsqueda estándar (solo semántica)
 const results = await pineconeService.searchSimilarDocuments(query);
@@ -172,8 +180,9 @@ const results = await pineconeService.searchSimilarDocuments(
 ```
 
 **Cómo funciona:**
+
 1. Extrae keywords de la query (filtrando stopwords)
-2. Ejecuta búsqueda semántica (topK * 2)
+2. Ejecuta búsqueda semántica (topK \* 2)
 3. Filtra resultados que contengan keywords
 4. Combina y re-rankea con pesos configurables (70% semantic, 30% keyword)
 
@@ -188,10 +197,12 @@ const results = await pineconeService.searchSimilarDocuments(
 **Mejora:** Detección automática de filtros desde la query del usuario.
 
 **Filtros Auto-Detectados:**
+
 - **Años:** 2024, 2025, etc.
 - **Categorías:** curso, programa, certificado, horario, precio, inscripción
 
 **Ejemplo:**
+
 ```javascript
 // Usuario pregunta: "¿Qué cursos de Python tienen en 2025?"
 
@@ -215,12 +226,14 @@ const results = await pineconeService.searchSimilarDocuments(
 **Mejora:** Gestión inteligente de conversaciones largas.
 
 **Funcionamiento:**
+
 1. Mantiene últimos N mensajes en memoria completa
 2. Cuando excede el límite, crea un resumen de mensajes antiguos
 3. El resumen se incluye en contexto futuro
 4. Permite conversaciones muy largas sin perder contexto importante
 
 **Configuración:**
+
 ```javascript
 // Default: max 10 mensajes con summaries activados
 const historyManager = new ConversationHistoryManager(10, true);
@@ -230,11 +243,12 @@ const historyManager = new ConversationHistoryManager(10, false);
 ```
 
 **Ejemplo de Summary:**
+
 ```
-📝 Resumen de conversación anterior: 
-El usuario consultó sobre cursos de Python (básico y avanzado), 
-preguntó por precios ($300 y $500 respectivamente) y horarios 
-(matutinos y nocturnos disponibles). Mostró interés particular 
+📝 Resumen de conversación anterior:
+El usuario consultó sobre cursos de Python (básico y avanzado),
+preguntó por precios ($300 y $500 respectivamente) y horarios
+(matutinos y nocturnos disponibles). Mostró interés particular
 en el curso avanzado.
 ```
 
@@ -320,19 +334,19 @@ node examples/test_optimizations.js
 
 ### Performance
 
-| Métrica | Antes | Después | Mejora |
-|---------|-------|---------|--------|
-| Latencia promedio | ~2500ms | ~1500ms | **40%** ⚡ |
-| Intent detection | N/A | <100ms | **Nuevo** ✨ |
-| P95 latency | ~3500ms | ~2200ms | **37%** ⚡ |
+| Métrica           | Antes   | Después | Mejora       |
+| ----------------- | ------- | ------- | ------------ |
+| Latencia promedio | ~2500ms | ~1500ms | **40%** ⚡   |
+| Intent detection  | N/A     | <100ms  | **Nuevo** ✨ |
+| P95 latency       | ~3500ms | ~2200ms | **37%** ⚡   |
 
 ### Calidad
 
-| Métrica | Antes | Después | Mejora |
-|---------|-------|---------|--------|
-| Precisión respuestas | Baseline | +25% | **25%** 🧠 |
-| Recall con hybrid | Baseline | +18% | **18%** 🎯 |
-| Manejo contexto largo | Limitado | Ilimitado | **∞** 📝 |
+| Métrica               | Antes    | Después   | Mejora     |
+| --------------------- | -------- | --------- | ---------- |
+| Precisión respuestas  | Baseline | +25%      | **25%** 🧠 |
+| Recall con hybrid     | Baseline | +18%      | **18%** 🎯 |
+| Manejo contexto largo | Limitado | Ilimitado | **∞** 📝   |
 
 ### Observabilidad
 
@@ -352,10 +366,10 @@ No se requieren nuevas variables. Las mejoras funcionan con la configuración ex
 
 ```javascript
 // Constructor de RAGAgent
-constructor(sessionId = 'default', useLangChainChains = false)
+constructor((sessionId = 'default'), (useLangChainChains = false));
 
-// Constructor de ConversationHistoryManager  
-constructor(maxMessages = 10, useSummary = true)
+// Constructor de ConversationHistoryManager
+constructor((maxMessages = 10), (useSummary = true));
 ```
 
 ---
@@ -365,14 +379,16 @@ constructor(maxMessages = 10, useSummary = true)
 ### RAGAgent
 
 **Nuevos métodos:**
+
 ```javascript
-agent.getMetricsReport()          // Obtener reporte de métricas
-agent.printMetricsReport()        // Imprimir reporte en consola
-agent.exportMetrics(filePath)     // Exportar a JSON
-agent.resetMetrics()              // Resetear métricas
+agent.getMetricsReport(); // Obtener reporte de métricas
+agent.printMetricsReport(); // Imprimir reporte en consola
+agent.exportMetrics(filePath); // Exportar a JSON
+agent.resetMetrics(); // Resetear métricas
 ```
 
 **Método query() actualizado:**
+
 - Ahora trackea métricas automáticamente
 - Usa paralelización internamente
 - Prompts mejorados con CoT
@@ -380,6 +396,7 @@ agent.resetMetrics()              // Resetear métricas
 ### PineconeService
 
 **searchSimilarDocuments() actualizado:**
+
 ```javascript
 // Nueva firma
 async searchSimilarDocuments(
@@ -391,23 +408,26 @@ async searchSimilarDocuments(
 ```
 
 **Nuevos métodos:**
+
 ```javascript
-pineconeService.hybridSearch(query, k, filters)
-pineconeService.extractKeywords(query)
-pineconeService.extractFiltersFromQuery(query)
-pineconeService.mergeAndRerankResults(semantic, keyword, weights)
+pineconeService.hybridSearch(query, k, filters);
+pineconeService.extractKeywords(query);
+pineconeService.extractFiltersFromQuery(query);
+pineconeService.mergeAndRerankResults(semantic, keyword, weights);
 ```
 
 ### ConversationHistoryManager
 
 **Constructor actualizado:**
+
 ```javascript
-constructor(maxMessages = 10, useSummary = true)  // ← useSummary nuevo
+constructor((maxMessages = 10), (useSummary = true)); // ← useSummary nuevo
 ```
 
 **Nuevos métodos internos:**
+
 ```javascript
-historyManager.createSummary(sessionId, messages)
+historyManager.createSummary(sessionId, messages);
 // Los summaries se manejan automáticamente
 ```
 
@@ -418,11 +438,13 @@ historyManager.createSummary(sessionId, messages)
 Las siguientes mejoras quedaron fuera de este sprint:
 
 ### Sistema de Caché (Sprint 3)
+
 - Caché de embeddings y búsquedas
 - Fuzzy matching para queries similares
 - TTL configurable
 
 ### Mejoras Adicionales (Backlog)
+
 - Streaming de respuestas
 - Re-ranking con cross-encoder
 - Intent classification con ML
@@ -433,18 +455,21 @@ Las siguientes mejoras quedaron fuera de este sprint:
 ## 🐛 Troubleshooting
 
 ### Error: "Agente no inicializado"
+
 ```javascript
 // Solución: Siempre llamar a initialize() antes de query()
 await agent.initialize();
 ```
 
 ### Latencia alta en queries
+
 ```javascript
 // Verificar métricas para identificar bottleneck
 agent.printMetricsReport();
 ```
 
 ### Resumen de conversación no se genera
+
 ```javascript
 // Verificar que useSummary esté activado
 const historyManager = new ConversationHistoryManager(10, true);
@@ -475,6 +500,6 @@ const historyManager = new ConversationHistoryManager(10, true);
 
 ---
 
-**Autor:** GitHub Copilot  
-**Fecha:** 2 de noviembre de 2025  
+**Autor:** GitHub Copilot
+**Fecha:** 2 de noviembre de 2025
 **Commit:** `feature/optimizaciones-sprint1-2`

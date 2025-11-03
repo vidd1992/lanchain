@@ -114,9 +114,7 @@ export class RAGAgent {
           `✅ Chain respondió con ${ragResponse.sourceDocuments.length} documentos`
         );
 
-        // Guardar en historial
-        await this.historyManager.addMessage(this.sessionId, query, ragResponse.answer);
-
+        // El historial ya fue guardado dentro de ragChain.invoke()
         debugLogger.logResponse('RAG Chain', ragResponse.answer);
 
         const response = {

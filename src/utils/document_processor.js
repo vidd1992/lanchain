@@ -16,7 +16,7 @@ export class DocumentProcessor {
     this.textSplitter = new RecursiveCharacterTextSplitter({
       chunkSize: chunkSize,
       chunkOverlap: chunkOverlap,
-      separators: ['\n\n', '\n', '. ', ' ', '']
+      separators: ['\n\n', '\n', '. ', ' ', ''],
     });
   }
 
@@ -61,7 +61,6 @@ export class DocumentProcessor {
       const docs = await loader.load();
       console.log(`✅ Cargado: ${path.basename(filePath)} (${docs.length} documentos)`);
       return docs;
-
     } catch (error) {
       console.error(`❌ Error cargando ${filePath}:`, error.message);
       return [];
@@ -91,17 +90,107 @@ export class DocumentProcessor {
           source: path.basename(filePath),
           type: 'faq',
           question: faq.question,
-          category: faq.category || 'general'
-        }
+          category: faq.category || 'general',
+        },
       }));
 
       console.log(`✅ Procesadas ${documents.length} preguntas frecuentes`);
       return documents;
-
     } catch (error) {
       console.error('Error procesando FAQ:', error.message);
       return [];
     }
+  }
+
+  /**
+   * Detectar categoría automáticamente del contenido
+   * @param {string} text - Texto (pregunta + respuesta)
+   * @returns {string} - Categoría detectada
+   */
+  detectCategory(text) {
+    const lowerText = text.toLowerCase();
+
+    // Categorías con palabras clave
+    const categories = {
+      curso: [
+        'curso',
+        'cursos',
+        'capacitación',
+        'capacitacion',
+        'formación',
+        'formacion',
+        'programa',
+        'programas',
+        'certificado',
+        'certificación',
+      ],
+      precio: [
+        'precio',
+        'precios',
+        'costo',
+        'costos',
+        'valor',
+        'pagar',
+        'pago',
+        'inversión',
+        'inversion',
+        'tarifa',
+      ],
+      horarios: [
+        'horario',
+        'horarios',
+        'hora',
+        'horas',
+        'cuándo',
+        'cuando',
+        'fecha',
+        'fechas',
+        'calendario',
+        'inicio',
+      ],
+      inscripcion: [
+        'inscripción',
+        'inscripcion',
+        'matrícula',
+        'matricula',
+        'inscribir',
+        'registrar',
+        'registro',
+      ],
+      requisitos: [
+        'requisito',
+        'requisitos',
+        'necesario',
+        'necesita',
+        'debe',
+        'previo',
+        'conocimiento',
+      ],
+      modalidad: ['virtual', 'presencial', 'online', 'distancia', 'modalidad', 'formato'],
+      contacto: [
+        'contacto',
+        'teléfono',
+        'telefono',
+        'email',
+        'correo',
+        'ubicación',
+        'ubicacion',
+        'dirección',
+        'direccion',
+      ],
+      duracion: ['duración', 'duracion', 'tiempo', 'semanas', 'meses', 'horas'],
+    };
+
+    // Buscar coincidencias
+    for (const [category, keywords] of Object.entries(categories)) {
+      for (const keyword of keywords) {
+        if (lowerText.includes(keyword)) {
+          return category;
+        }
+      }
+    }
+
+    return 'general';
   }
 
   /**
@@ -123,11 +212,17 @@ export class DocumentProcessor {
     try {
       const jsonContent = JSON.parse(content);
       if (Array.isArray(jsonContent)) {
-        return jsonContent.map(item => ({
-          question: item.question || item.q || item.pregunta,
-          answer: item.answer || item.a || item.respuesta,
-          category: item.category || item.categoria || 'general'
-        }));
+        return jsonContent.map(item => {
+          const question = item.question || item.q || item.pregunta;
+          const answer = item.answer || item.a || item.respuesta;
+          const fullText = `${question} ${answer}`;
+
+          return {
+            question,
+            answer,
+            category: item.category || item.categoria || this.detectCategory(fullText),
+          };
+        });
       }
     } catch (e) {
       // No es JSON, continuar con otros formatos
@@ -136,20 +231,28 @@ export class DocumentProcessor {
     // Intentar formato 1
     let match;
     while ((match = format1Regex.exec(content)) !== null) {
+      const question = match[1].trim();
+      const answer = match[2].trim();
+      const fullText = `${question} ${answer}`;
+
       faqs.push({
-        question: match[1].trim(),
-        answer: match[2].trim(),
-        category: 'general'
+        question,
+        answer,
+        category: this.detectCategory(fullText),
       });
     }
 
     // Si no encontró nada, intentar formato 2
     if (faqs.length === 0) {
       while ((match = format2Regex.exec(content)) !== null) {
+        const question = match[1].trim();
+        const answer = match[2].trim();
+        const fullText = `${question} ${answer}`;
+
         faqs.push({
-          question: match[1].trim(),
-          answer: match[2].trim(),
-          category: 'general'
+          question,
+          answer,
+          category: this.detectCategory(fullText),
         });
       }
     }
@@ -181,8 +284,8 @@ export class DocumentProcessor {
         ...doc.metadata,
         ...additionalMetadata,
         chunkIndex: index,
-        timestamp: new Date().toISOString()
-      }
+        timestamp: new Date().toISOString(),
+      },
     }));
   }
 
@@ -204,7 +307,10 @@ export class DocumentProcessor {
         if (stat.isFile()) {
           let docs;
 
-          if (isFAQ && (file.endsWith('.txt') || file.endsWith('.md') || file.endsWith('.json'))) {
+          if (
+            isFAQ &&
+            (file.endsWith('.txt') || file.endsWith('.md') || file.endsWith('.json'))
+          ) {
             docs = await this.loadFAQDocument(filePath);
           } else {
             docs = await this.loadDocument(filePath);
@@ -217,7 +323,6 @@ export class DocumentProcessor {
 
       console.log(`\n📦 Total documentos procesados: ${allDocuments.length}`);
       return allDocuments;
-
     } catch (error) {
       console.error('Error procesando directorio:', error.message);
       return [];
@@ -245,11 +350,10 @@ export class DocumentProcessor {
       // Enriquecer metadata
       documents = this.enrichMetadata(documents, {
         ...metadata,
-        originalFile: path.basename(filePath)
+        originalFile: path.basename(filePath),
       });
 
       return documents;
-
     } catch (error) {
       console.error('Error procesando archivo:', error.message);
       return [];
@@ -284,7 +388,7 @@ export class DocumentProcessor {
       totalDocuments: documents.length,
       totalCharacters: totalChars,
       averageCharsPerDoc: avgChars,
-      sources: [...new Set(documents.map(d => d.metadata.source))].length
+      sources: [...new Set(documents.map(d => d.metadata.source))].length,
     };
   }
 
@@ -315,7 +419,7 @@ export class DocumentProcessor {
           headings.push({
             level: level,
             title: title,
-            text: line
+            text: line,
           });
         }
       }
@@ -325,15 +429,14 @@ export class DocumentProcessor {
       return {
         fullText: markdownText,
         headings: headings,
-        hasStructure: headings.length > 0
+        hasStructure: headings.length > 0,
       };
-
     } catch (error) {
       console.error('Error extrayendo estructura del docx:', error.message);
       return {
         fullText: '',
         headings: [],
-        hasStructure: false
+        hasStructure: false,
       };
     }
   }
@@ -346,7 +449,9 @@ export class DocumentProcessor {
    */
   async processDocxWithStructure(filePath, metadata = {}) {
     try {
-      console.log(`📄 Procesando ${path.basename(filePath)} con extracción de estructura...`);
+      console.log(
+        `📄 Procesando ${path.basename(filePath)} con extracción de estructura...`
+      );
 
       // Extraer estructura
       const structure = await this.extractDocxStructure(filePath);
@@ -359,15 +464,15 @@ export class DocumentProcessor {
 
       // Crear un documento especial para el índice
       const indexDoc = {
-        pageContent: `ÍNDICE DEL DOCUMENTO:\n\n${structure.headings.map(h =>
-          '  '.repeat(h.level - 1) + `- ${h.title}`
-        ).join('\n')}`,
+        pageContent: `ÍNDICE DEL DOCUMENTO:\n\n${structure.headings
+          .map(h => '  '.repeat(h.level - 1) + `- ${h.title}`)
+          .join('\n')}`,
         metadata: {
           ...metadata,
           originalFile: path.basename(filePath),
           type: 'index',
-          sections: structure.headings.length
-        }
+          sections: structure.headings.length,
+        },
       };
 
       // Procesar el documento completo con el loader estándar
@@ -379,13 +484,12 @@ export class DocumentProcessor {
         ...metadata,
         originalFile: path.basename(filePath),
         hasStructure: true,
-        totalSections: structure.headings.length
+        totalSections: structure.headings.length,
       });
 
       // Agregar el índice al principio
       console.log(`✅ Procesado con ${structure.headings.length} secciones`);
       return [indexDoc, ...enrichedDocs];
-
     } catch (error) {
       console.error('Error procesando docx con estructura:', error.message);
       // Fallback a procesamiento normal

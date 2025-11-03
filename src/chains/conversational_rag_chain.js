@@ -1,10 +1,11 @@
-import { ConversationalRetrievalQAChain } from 'langchain/chains';
 import { ChatPromptTemplate, MessagesPlaceholder } from '@langchain/core/prompts';
+import { RunnableSequence } from '@langchain/core/runnables';
+import { StringOutputParser } from '@langchain/core/output_parsers';
 import { config } from '../config/env.js';
 
 /**
  * Chain de RAG conversacional optimizado con LangChain
- * Usa ConversationalRetrievalQAChain para combinar retrieval y conversación
+ * Usa LCEL (LangChain Expression Language) para crear un chain moderno
  */
 export class ConversationalRAGChain {
   constructor(llm, vectorStore, historyManager) {
@@ -12,10 +13,11 @@ export class ConversationalRAGChain {
     this.vectorStore = vectorStore;
     this.historyManager = historyManager;
     this.chain = null;
+    this.retriever = null;
   }
 
   /**
-   * Crear el chain conversacional con prompts optimizados
+   * Crear el chain conversacional con prompts optimizados usando LCEL
    */
   createChain() {
     // Template del prompt con Chain of Thought
@@ -47,20 +49,26 @@ Responde de manera profesional, útil y en español.`,
     ]);
 
     // Crear retriever del vectorStore
-    const retriever = this.vectorStore.asRetriever({
+    this.retriever = this.vectorStore.asRetriever({
       k: config.rag.topK,
       searchType: 'similarity',
     });
 
-    // Crear chain usando ConversationalRetrievalQAChain
-    this.chain = ConversationalRetrievalQAChain.fromLLM(this.llm, retriever, {
-      returnSourceDocuments: true,
-      qaChainOptions: {
-        type: 'stuff', // 'stuff' combina todos los docs en un solo prompt
-        prompt: qaPrompt,
+    // Crear chain usando LCEL (LangChain Expression Language)
+    // Este es el approach moderno y no deprecado
+    this.chain = RunnableSequence.from([
+      {
+        context: input => {
+          // Formatear documentos recuperados
+          return input.sourceDocuments.map(doc => doc.pageContent).join('\n\n');
+        },
+        question: input => input.question,
+        chat_history: input => input.chat_history || [],
       },
-      verbose: process.env.LANGCHAIN_VERBOSE === 'true',
-    });
+      qaPrompt,
+      this.llm,
+      new StringOutputParser(),
+    ]);
 
     return this.chain;
   }
@@ -76,26 +84,37 @@ Responde de manera profesional, útil y en español.`,
       this.createChain();
     }
 
-    // Obtener historial de la sesión
+    // Obtener historial de la sesión (retorna array de mensajes de LangChain)
     const chatHistory = await this.historyManager.getHistory(sessionId);
 
-    // Ejecutar el chain
-    const response = await this.chain.invoke({
+    // Asegurarse de que chat_history sea un array (vacío si no hay historial)
+    const chatHistoryArray = Array.isArray(chatHistory) ? chatHistory : [];
+
+    // Recuperar documentos usando el retriever
+    const sourceDocuments = await this.retriever.getRelevantDocuments(question);
+
+    // Ejecutar el chain con LCEL
+    const answer = await this.chain.invoke({
       question: question,
-      chat_history: chatHistory,
+      chat_history: chatHistoryArray,
+      sourceDocuments: sourceDocuments,
     });
 
+    // Guardar en el historial
+    await this.historyManager.addMessage(sessionId, 'user', question);
+    await this.historyManager.addMessage(sessionId, 'assistant', answer);
+
     // Extraer scores de los documentos si están disponibles
-    const sourceDocuments = response.sourceDocuments.map(doc => ({
+    const formattedDocs = sourceDocuments.map(doc => ({
       content: doc.pageContent,
       metadata: doc.metadata,
       score: doc.metadata.score || null,
     }));
 
     return {
-      answer: response.text,
-      sourceDocuments: sourceDocuments,
-      hasRelevantDocs: sourceDocuments.length > 0,
+      answer: answer,
+      sourceDocuments: formattedDocs,
+      hasRelevantDocs: formattedDocs.length > 0,
     };
   }
 
