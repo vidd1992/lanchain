@@ -15,6 +15,7 @@
     "add-docs": "node examples/add_documents.js",
     "test-docs": "node scripts/test_document_processing.js",
     "test-formatter": "node examples/test_formatter.js",
+    "debug-search": "node examples/debug_pinecone_search.js",
     "list-indexes": "node scripts/list_pinecone_indexes.js",
     "reprocess-docs": "node scripts/reprocess_documents.js"
   },

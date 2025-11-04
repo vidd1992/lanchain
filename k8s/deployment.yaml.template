@@ -57,6 +57,12 @@ spec:
         - name: ENABLE_HTML_FORMATTING
           value: "true"
 
+        # Configuración RAG
+        - name: RAG_SIMILARITY_THRESHOLD
+          value: "0.5"
+        - name: RAG_TOP_K
+          value: "3"
+
         livenessProbe:
           httpGet:
             path: /api/health

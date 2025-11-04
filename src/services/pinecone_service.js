@@ -27,12 +27,29 @@ export class PineconeService {
       // Obtener el índice
       const index = this.pinecone.Index(config.pinecone.indexName);
 
+      // 📊 Obtener stats del índice
+      const stats = await index.describeIndexStats();
+
+      console.log('✅ Pinecone inicializado correctamente');
+      console.log(`📊 Índice: "${config.pinecone.indexName}"`);
+      console.log(`📦 Total de vectores: ${stats.totalRecordCount || 'N/A'}`);
+      console.log(`🔢 Dimensiones: ${stats.dimension || 'N/A'}`);
+
+      if (stats.namespaces) {
+        const namespaceNames = Object.keys(stats.namespaces);
+        if (namespaceNames.length > 0) {
+          console.log(`📁 Namespaces: ${namespaceNames.join(', ')}`);
+          namespaceNames.forEach(ns => {
+            console.log(`   - ${ns}: ${stats.namespaces[ns].recordCount} vectores`);
+          });
+        }
+      }
+
       // Crear vector store
       this.vectorStore = await PineconeStore.fromExistingIndex(this.embeddings, {
         pineconeIndex: index,
       });
 
-      console.log('✅ Pinecone inicializado correctamente');
       return true;
     } catch (error) {
       console.error('❌ Error al inicializar Pinecone:', error.message);
@@ -77,17 +94,24 @@ export class PineconeService {
         return await this.hybridSearch(query, k, finalFilters);
       } else {
         // Búsqueda semántica estándar SIN filtros automáticos
+        // 📊 Obtener más resultados para filtrar duplicados
         const results = await this.vectorStore.similaritySearchWithScore(
           query,
-          k,
+          k * 3, // Obtener 3x más para compensar duplicados
           finalFilters
         );
 
-        return results.map(([doc, score]) => ({
+        const mappedResults = results.map(([doc, score]) => ({
           content: doc.pageContent,
           metadata: doc.metadata,
           score: score,
         }));
+
+        // 🔧 Filtrar duplicados manteniendo el mejor score
+        const deduped = this.deduplicateResults(mappedResults);
+
+        // 📉 Retornar solo los k mejores después de deduplicar
+        return deduped.slice(0, k);
       }
     } catch (error) {
       console.error('Error en búsqueda de Pinecone:', error.message);
@@ -337,5 +361,57 @@ export class PineconeService {
     // Verificar si el mejor resultado supera el umbral de similitud
     const bestScore = results[0].score;
     return bestScore >= config.rag.similarityThreshold;
+  }
+
+  /**
+   * Eliminar documentos duplicados de los resultados
+   * Mantiene el documento con mejor score para cada contenido único
+   * @param {Array} results - Array de resultados con content, metadata, score
+   * @returns {Array} - Resultados sin duplicados
+   */
+  deduplicateResults(results) {
+    if (!results || results.length === 0) {
+      return results;
+    }
+
+    const seen = new Map(); // Usar Map para mantener orden y performance
+    const beforeCount = results.length;
+
+    for (const result of results) {
+      // Crear clave única basada en source + chunkIndex (si existe)
+      const source = result.metadata?.source || 'unknown';
+      const chunkIndex = result.metadata?.chunkIndex;
+
+      let key;
+      if (chunkIndex === undefined) {
+        // Si no hay chunkIndex, usar hash del contenido
+        // (simplificado: primeros 100 caracteres)
+        const contentHash = result.content.substring(0, 100).trim();
+        key = `${source}::${contentHash}`;
+      } else {
+        // Si hay chunkIndex, usar source + chunkIndex como clave
+        key = `${source}::${chunkIndex}`;
+      }
+
+      // Si ya existe, mantener el de mejor score
+      if (seen.has(key)) {
+        const existing = seen.get(key);
+        if (result.score > existing.score) {
+          seen.set(key, result);
+        }
+      } else {
+        seen.set(key, result);
+      }
+    }
+
+    const deduplicated = Array.from(seen.values());
+
+    if (beforeCount > deduplicated.length) {
+      console.log(
+        `🔄 Duplicados eliminados: ${beforeCount} → ${deduplicated.length} documentos únicos`
+      );
+    }
+
+    return deduplicated;
   }
 }

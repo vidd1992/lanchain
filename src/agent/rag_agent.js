@@ -211,9 +211,30 @@ export class RAGAgent {
 
       debugLogger.logRAGSearch(query, ragResults);
 
+      // 🔍 DEBUG: Mostrar scores de los resultados
+      if (ragResults.length > 0) {
+        console.log(`📊 Resultados de búsqueda: ${ragResults.length} documentos`);
+        ragResults.slice(0, 3).forEach((r, idx) => {
+          console.log(
+            `   ${idx + 1}. Score: ${r.score.toFixed(4)} - ${r.content.substring(
+              0,
+              80
+            )}...`
+          );
+        });
+      } else {
+        console.log('📊 No se encontraron documentos en Pinecone');
+      }
+
       // Paso 2: Evaluar si los resultados del RAG son adecuados
       const hasRelevantResults = this.pineconeService.hasRelevantResults(ragResults);
       const bestScore = ragResults.length > 0 ? ragResults[0].score : null;
+
+      console.log(
+        `🎯 Threshold: ${config.rag.similarityThreshold}, Mejor score: ${
+          bestScore?.toFixed(4) || 'N/A'
+        }, Relevante: ${hasRelevantResults ? '✅' : '❌'}`
+      );
 
       debugLogger.logRAGDecision(
         hasRelevantResults,

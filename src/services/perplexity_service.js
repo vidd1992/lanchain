@@ -14,44 +14,53 @@ export class PerplexityService {
    * @returns {Promise<Object>} - Respuesta de Perplexity
    */
   async query(query, conversationHistory = []) {
-    try {
-      // Construir mensajes con contexto del agente
-      const systemPrompt = `Eres ${config.agent.name}, ${config.agent.role}.
+    // Construir mensajes con contexto del agente
+    const systemPrompt = `Eres ${config.agent.name}, ${config.agent.role}.
 
 TU ROL Y PERSONALIDAD:
 - Eres amable, profesional y servicial
 - Tu objetivo es ayudar a estudiantes y personas interesadas en los cursos y servicios del CEC-EPN
 - Siempre respondes en español
-- Proporcionas información precisa y actualizada usando búsqueda web
+- Proporcionas información precisa
 - Si te saludan, responde de manera cordial como representante del CEC-EPN
+- Si la información es un curso siempre es importante el tema de costos y modalidades, Duración, Inicio, Fin, Matriculas, Horario y el link en la respuesta del curso
 
 INSTRUCCIONES:
 - Responde de manera clara y concisa
 - Si la pregunta es sobre el CEC-EPN y no tienes información específica, indícalo
 - Mantén un tono profesional pero cercano`;
 
-      // Asegurar que los mensajes alternen entre user y assistant
-      const filteredHistory = this.ensureAlternatingMessages(conversationHistory);
+    // Asegurar que los mensajes alternen entre user y assistant
+    const filteredHistory = this.ensureAlternatingMessages(conversationHistory);
 
-      const messages = [
-        {
-          role: 'system',
-          content: systemPrompt,
-        },
-        ...filteredHistory,
-        {
-          role: 'user',
-          content: query,
-        },
-      ];
+    const messages = [
+      {
+        role: 'system',
+        content: systemPrompt,
+      },
+      ...filteredHistory,
+      {
+        role: 'user',
+        content: query,
+      },
+    ];
 
-      // Debug: mostrar mensajes que se enviarán
-      if (process.env.DEBUG_MODE === 'true') {
-        console.log('📤 Mensajes a Perplexity:');
-        messages.forEach((msg, idx) => {
-          console.log(`   ${idx + 1}. ${msg.role}: ${msg.content.substring(0, 50)}...`);
-        });
+    try {
+      // 📊 LOG: Mostrar consulta completa que se enviará a Perplexity
+      console.log('');
+      console.log('📤 ===== CONSULTA A PERPLEXITY =====');
+      console.log('🔍 Query del usuario:', query);
+      console.log('� Historial de conversación:', conversationHistory.length, 'mensajes');
+      console.log('');
+      console.log('📋 MENSAJES COMPLETOS QUE SE ENVIARÁN:');
+      let idx = 0;
+      for (const msg of messages) {
+        idx++;
+        console.log(`\n   ${idx}. [${msg.role.toUpperCase()}]:`);
+        console.log(`   ${msg.content}`);
+        console.log('   ' + '-'.repeat(80));
       }
+      console.log('');
 
       // Preparar el payload con web_search_domains si está configurado
       const payload = {
@@ -71,6 +80,15 @@ INSTRUCCIONES:
         );
       }
 
+      console.log('📦 Payload completo:');
+      console.log(JSON.stringify(payload, null, 2));
+      console.log('📤 ===================================');
+      console.log('');
+
+      console.log('⏳ Enviando request a Perplexity API...');
+      console.log(`🌐 URL: ${this.apiUrl}`);
+      console.log(`🤖 Modelo: ${this.model}`);
+
       const response = await axios.post(this.apiUrl, payload, {
         headers: {
           Authorization: `Bearer ${config.perplexity.apiKey}`,
@@ -78,8 +96,18 @@ INSTRUCCIONES:
         },
       });
 
+      console.log('✅ Respuesta recibida de Perplexity');
+
+      // 📊 Imprimir resultado completo de Perplexity
+      console.log('📥 ===== RESPUESTA COMPLETA DE PERPLEXITY =====');
+      console.log(JSON.stringify(response.data, null, 2));
+      console.log('📥 ============================================');
+
       const answer = response.data.choices[0].message.content;
       const citations = this.extractCitations(response.data);
+
+      console.log('📝 Respuesta extraída:', answer.substring(0, 200) + '...');
+      console.log('📚 Citaciones encontradas:', citations.length);
 
       return {
         answer: answer,
@@ -95,11 +123,11 @@ INSTRUCCIONES:
       if (error.response?.status === 400) {
         console.error('❌ Error 400 - Verifica que los mensajes alternen correctamente');
         console.error('📋 Mensajes enviados:');
-        messages.forEach((msg, idx) => {
-          console.error(
-            `   ${idx + 1}. [${msg.role}]: ${msg.content.substring(0, 100)}...`
-          );
-        });
+        let idx = 0;
+        for (const msg of messages) {
+          idx++;
+          console.error(`   ${idx}. [${msg.role}]: ${msg.content.substring(0, 100)}...`);
+        }
       }
 
       throw new Error(`Perplexity API error: ${error.message}`);
@@ -122,24 +150,24 @@ INSTRUCCIONES:
 
     for (const msg of history) {
       // Solo agregar si el rol es diferente al último
-      if (msg.role !== lastRole) {
-        filtered.push(msg);
-        lastRole = msg.role;
-      } else {
+      if (msg.role === lastRole) {
         // Si hay mensajes consecutivos del mismo rol, combinarlos o saltarlos
         // Por ahora, saltamos los duplicados
         console.log(`⚠️  Saltando mensaje duplicado de rol: ${msg.role}`);
+      } else {
+        filtered.push(msg);
+        lastRole = msg.role;
       }
     }
 
     // Asegurar que el último mensaje no sea assistant (debe ser user antes de la nueva query)
-    if (filtered.length > 0 && filtered[filtered.length - 1].role === 'assistant') {
-      // Esto está bien, la nueva query del usuario vendrá después
-    } else if (filtered.length > 0 && filtered[filtered.length - 1].role === 'user') {
+    if (filtered.length > 0 && filtered.at(-1).role === 'user') {
       // Si el último es user, necesitamos un assistant entre ellos
       // Eliminamos el último user para evitar user -> user
       console.log('⚠️  Eliminando último mensaje user para evitar duplicados');
       filtered.pop();
+    } else if (filtered.length > 0 && filtered.at(-1).role === 'assistant') {
+      // Esto está bien, la nueva query del usuario vendrá después
     }
 
     return filtered;
@@ -158,6 +186,7 @@ INSTRUCCIONES:
       }
       return [];
     } catch (error) {
+      console.log('⚠️  No se pudieron extraer citaciones:', error.message);
       return [];
     }
   }
@@ -171,6 +200,7 @@ INSTRUCCIONES:
       await this.query('test');
       return true;
     } catch (error) {
+      console.log('⚠️  Health check falló:', error.message);
       return false;
     }
   }
