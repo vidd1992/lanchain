@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-agent-api
+  namespace: coonverso
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-agent-api
+  template:
+    metadata:
+      labels:
+        app: rag-agent-api
+    spec:
+      containers:
+      - name: rag-agent-api
+        image: us-central1-docker.pkg.dev/coonverso/middleware-crm/rag-agent-api:1.0.0
+        ports:
+        - containerPort: 3001
+        env:
+        # OpenAI
+        - name: OPENAI_API_KEY
+          value: "YOUR_OPENAI_API_KEY_HERE"
+
+        # Pinecone
+        - name: PINECONE_API_KEY
+          value: "YOUR_PINECONE_API_KEY_HERE"
+        - name: PINECONE_INDEX_NAME
+          value: "YOUR_INDEX_NAME_HERE"
+        - name: PINECONE_ENVIRONMENT
+          value: "us-east-1"
+
+        # Supabase
+        - name: SUPABASE_URL
+          value: "https://YOUR_PROJECT.supabase.co"
+        - name: SUPABASE_ANON_KEY
+          value: "YOUR_SUPABASE_ANON_KEY_HERE"
+
+        # Perplexity
+        - name: PERPLEXITY_API_KEY
+          value: "YOUR_PERPLEXITY_API_KEY_HERE"
+        - name: PERPLEXITY_MODEL
+          value: "sonar"
+        - name: PERPLEXITY_SEARCH_DOMAINS
+          value: "www.cec-epn.edu.ec"
+
+        # Configuración del servidor
+        - name: PORT
+          value: "3001"
+        - name: NODE_ENV
+          value: "production"
+        - name: DEBUG_MODE
+          value: "false"
+
+        # Formateo de respuestas (HTML)
+        - name: ENABLE_HTML_FORMATTING
+          value: "true"
+
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3001
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3

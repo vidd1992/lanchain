@@ -5,3 +5,7 @@ node_modules/
 dist/
 coverage/
 .vscode/
+
+# Kubernetes deployment con credenciales
+k8s/deployment.yaml
+k8s/*.bak

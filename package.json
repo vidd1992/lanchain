@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
+    "start-api": "node src/api/server.js",
     "setup": "node scripts/setup_and_upload.js",
     "chat": "node examples/chat_example.js",
     "test": "node examples/test_agent.js",
@@ -13,6 +14,7 @@
     "test-optimizations": "node examples/test_optimizations.js",
     "add-docs": "node examples/add_documents.js",
     "test-docs": "node scripts/test_document_processing.js",
+    "test-formatter": "node examples/test_formatter.js",
     "list-indexes": "node scripts/list_pinecone_indexes.js",
     "reprocess-docs": "node scripts/reprocess_documents.js"
   },
@@ -34,7 +36,9 @@
     "@pinecone-database/pinecone": "^3.0.3",
     "@supabase/supabase-js": "^2.78.0",
     "axios": "^1.7.9",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "express": "^4.18.2",
     "langchain": "^0.3.5",
     "mammoth": "^1.11.0"
   }

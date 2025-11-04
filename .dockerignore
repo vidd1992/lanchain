@@ -1,0 +1,54 @@
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Git
+.git/
+.gitignore
+
+# Environment files (se pasan por K8s)
+.env
+.env.*
+
+# Tests y ejemplos
+examples/
+scripts/
+__tests__/
+*.test.js
+*.spec.js
+
+# Documentation
+*.md
+!README.md
+docs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# K8s files
+k8s/
+deploy.sh
+Dockerfile
+.dockerignore
+
+# Backups
+*.bak
+*.backup
+
+# Temp files
+tmp/
+temp/
+*.tmp

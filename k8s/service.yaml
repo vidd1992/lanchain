@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-agent-api-service
+  namespace: coonverso
+spec:
+  type: ClusterIP
+  selector:
+    app: rag-agent-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3001

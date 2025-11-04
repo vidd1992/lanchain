@@ -88,6 +88,7 @@ npm run setup
 ```
 
 ¡Listo! El script:
+
 - ✅ Creará el índice en Pinecone automáticamente (si no existe)
 - ✅ Procesará todos los documentos con LangChain
 - ✅ Los dividirá en chunks óptimos
@@ -200,22 +201,26 @@ main();
 **Cuando ejecutas `npm run setup`:**
 
 1. **Carga de Documentos** - LangChain loaders para cada formato:
+
    - `.txt`, `.md` → `TextLoader`
    - `.pdf` → `PDFLoader`
    - `.csv` → `CSVLoader`
    - `.json` → `JSONLoader`
 
 2. **Text Splitting** - `RecursiveCharacterTextSplitter`:
+
    - Divide documentos en chunks de tamaño óptimo (default: 1000 chars)
    - Mantiene overlap (default: 200 chars) para contexto
    - Respeta estructura del documento (párrafos, secciones)
 
 3. **FAQ Especial** - Para archivos `faq_*`:
+
    - Mantiene cada Q+A como unidad completa
    - No divide las preguntas/respuestas
    - Soporta múltiples formatos (Q:/A:, Markdown, JSON)
 
 4. **Embeddings** - Genera vectores con OpenAI:
+
    - Usa `text-embedding-3-small` (1536 dimensiones)
    - Cada chunk se convierte en un vector
 
@@ -227,6 +232,7 @@ main();
 ### 2. Búsqueda en RAG (Consultas)
 
 Cuando haces una consulta:
+
 1. El agente genera embeddings de tu pregunta usando OpenAI
 2. Busca documentos similares en Pinecone (búsqueda vectorial)
 3. Calcula un score de similitud para cada resultado
@@ -234,17 +240,20 @@ Cuando haces una consulta:
 ### 3. Decisión RAG vs Perplexity
 
 El agente evalúa si los resultados son relevantes:
+
 - Si el mejor score >= `RAG_SIMILARITY_THRESHOLD` (default: 0.7) → Usa RAG
 - Si no hay resultados relevantes → Usa Perplexity
 
 ### 4. Generación de Respuesta
 
 **Con RAG:**
+
 - Toma los documentos relevantes como contexto
 - Incluye el historial de conversación
 - Genera respuesta usando OpenAI con el contexto
 
 **Con Perplexity:**
+
 - Envía la consulta a Perplexity AI
 - Incluye historial de conversación
 - Obtiene respuesta actualizada con fuentes
@@ -287,6 +296,7 @@ CHUNK_OVERLAP=200
 ```
 
 **Recomendaciones:**
+
 - **Documentos técnicos**: `CHUNK_SIZE=1500`, `CHUNK_OVERLAP=300`
 - **FAQs cortos**: `CHUNK_SIZE=500`, `CHUNK_OVERLAP=50`
 - **Artículos largos**: `CHUNK_SIZE=2000`, `CHUNK_OVERLAP=400`
@@ -320,24 +330,29 @@ PINECONE_REGION=us-east-1
 ### RAGAgent
 
 #### Constructor
+
 ```javascript
-new RAGAgent(sessionId = 'default')
+new RAGAgent((sessionId = 'default'));
 ```
 
 #### Métodos
 
 ##### initialize()
+
 ```javascript
-await agent.initialize()
+await agent.initialize();
 ```
+
 Inicializa el agente y sus servicios.
 
 ##### query(query)
+
 ```javascript
-const response = await agent.query('Tu pregunta aquí')
+const response = await agent.query('Tu pregunta aquí');
 ```
 
 **Returns:**
+
 ```javascript
 {
   answer: string,        // Respuesta generada
@@ -351,39 +366,48 @@ const response = await agent.query('Tu pregunta aquí')
 ```
 
 ##### getHistory()
+
 ```javascript
-const history = await agent.getHistory()
+const history = await agent.getHistory();
 ```
+
 Retorna el historial de conversación.
 
 ##### clearHistory()
+
 ```javascript
-agent.clearHistory()
+agent.clearHistory();
 ```
+
 Limpia el historial de la sesión.
 
 ##### addDocuments(texts, metadatas)
+
 ```javascript
 await agent.addDocuments(
   ['Texto 1', 'Texto 2'],
   [{ category: 'doc1' }, { category: 'doc2' }]
-)
+);
 ```
+
 Agrega documentos al RAG.
 
 ## Casos de Uso
 
 ### 1. Documentación de Empresa
+
 - Carga la documentación interna en Pinecone
 - El agente responde desde RAG para info interna
 - Usa Perplexity para info externa/actualizada
 
 ### 2. Asistente de Soporte
+
 - Base de conocimiento de productos en RAG
 - Fallback a Perplexity para problemas no documentados
 - Historial mantiene contexto del cliente
 
 ### 3. Chatbot de Investigación
+
 - Papers/artículos guardados en Pinecone
 - Perplexity para búsquedas web actualizadas
 - Combina conocimiento local y global
@@ -391,15 +415,98 @@ Agrega documentos al RAG.
 ## Troubleshooting
 
 ### Error: "Vector store no inicializado"
+
 Asegúrate de llamar a `await agent.initialize()` antes de usar el agente.
 
 ### No encuentra documentos en Pinecone
+
 1. Verifica que el índice existe
 2. Verifica que las dimensiones coinciden (1536 para `text-embedding-3-small`)
 3. Confirma que agregaste documentos al índice
 
 ### Error de autenticación
+
 Verifica que todas las API keys en `.env` sean correctas y válidas.
+
+## 🚀 REST API
+
+El proyecto incluye una API REST completa para integración con aplicaciones frontend.
+
+### Inicio Rápido
+
+```bash
+# Instalar dependencias
+npm install
+
+# Iniciar el servidor API
+npm run start-api
+```
+
+El servidor estará disponible en: `http://localhost:3001`
+
+### Endpoints Principales
+
+- **POST** `/api/chat` - Chatear con el agente
+- **GET** `/api/history/:sessionId` - Obtener historial
+- **GET** `/api/sessions/:idEmpresa` - Listar sesiones
+- **GET** `/api/stats/:idEmpresa` - Estadísticas
+- **GET** `/api/health` - Health check
+
+### Ejemplo de Uso
+
+```bash
+curl -X POST http://localhost:3001/api/chat \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "sessionId": "user-123",
+    "idEmpresa": "empresa-001",
+    "query": "¿Qué cursos ofrecen?"
+  }'
+```
+
+📚 **Documentación completa**: Ver [API_DOCUMENTATION.md](./API_DOCUMENTATION.md)
+
+## 🐳 Despliegue en Kubernetes
+
+El proyecto incluye configuración completa para despliegue en Kubernetes (GCP).
+
+### Despliegue Rápido
+
+```bash
+# 1. Actualizar credenciales
+./update-credentials.sh
+
+# 2. Desplegar
+./deploy.sh
+```
+
+El script automáticamente:
+
+- ✅ Incrementa la versión de la imagen
+- ✅ Construye la imagen Docker
+- ✅ Sube al registry de GCP
+- ✅ Despliega en Kubernetes
+- ✅ Verifica el estado
+
+### Verificación
+
+```bash
+# Port-forward al servicio
+kubectl port-forward -n coonverso service/rag-agent-api-service 3001:80
+
+# Test
+curl http://localhost:3001/api/health
+```
+
+📚 **Documentación completa**: Ver [K8S_DEPLOYMENT.md](./K8S_DEPLOYMENT.md)
+
+### Archivos de Kubernetes
+
+- `k8s/deployment.yaml` - Deployment con 2 réplicas
+- `k8s/service.yaml` - Service ClusterIP
+- `Dockerfile` - Imagen optimizada Node 20 Alpine
+- `deploy.sh` - Script de despliegue automatizado
+- `.dockerignore` - Optimización de build
 
 ## Licencia
 
@@ -408,3 +515,13 @@ MIT
 ## Contribuir
 
 Pull requests son bienvenidos. Para cambios mayores, abre un issue primero para discutir los cambios propuestos.
+
+---
+
+**Desarrollado por**: David Mejía
+**Proyecto**: Coonverso - CEC-EPN
+**Fecha**: Noviembre 2025
+
+```
+
+```

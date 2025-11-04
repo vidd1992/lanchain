@@ -8,6 +8,7 @@ import { MetricsTracker } from '../utils/metrics_tracker.js';
 import { debugLogger } from '../utils/debug_logger.js';
 import { langChainCallbacks } from '../utils/langchain_callbacks.js';
 import { config } from '../config/env.js';
+import { formatResponse } from '../utils/response_formatter.js';
 
 export class RAGAgent {
   constructor(sessionId = 'default', useLangChainChains = false, idEmpresa = 'default') {
@@ -119,12 +120,13 @@ export class RAGAgent {
         debugLogger.logResponse('RAG Chain', ragResponse.answer);
 
         const response = {
-          answer: ragResponse.answer,
+          answer: formatResponse(ragResponse.answer), // Aplicar formato HTML si está habilitado
           source: 'rag-chain',
           query,
           ragResults: ragResponse.sourceDocuments,
           citations: [],
           sessionId: this.sessionId,
+          idEmpresa: this.idEmpresa,
           timestamp: new Date().toISOString(),
         };
 
@@ -153,12 +155,13 @@ export class RAGAgent {
         debugLogger.logResponse('Perplexity', perplexityResponse.answer);
 
         const response = {
-          answer: perplexityResponse.answer,
+          answer: formatResponse(perplexityResponse.answer), // Aplicar formato HTML si está habilitado
           source: 'perplexity',
           query,
           ragResults: [],
           citations: perplexityResponse.citations,
           sessionId: this.sessionId,
+          idEmpresa: this.idEmpresa,
           timestamp: new Date().toISOString(),
         };
 
@@ -266,12 +269,13 @@ export class RAGAgent {
       await this.historyManager.addMessage(this.sessionId, query, answer);
 
       const response = {
-        answer,
+        answer: formatResponse(answer), // Aplicar formato HTML si está habilitado
         source,
         query,
         ragResults: relevantDocs,
         citations,
         sessionId: this.sessionId,
+        idEmpresa: this.idEmpresa,
         timestamp: new Date().toISOString(),
       };
 
@@ -446,13 +450,14 @@ RESPUESTA (sigue la metodología Chain of Thought - piensa paso a paso antes de 
     debugLogger.logResponse('Respuesta Directa', simpleIntent.answer);
 
     return {
-      answer: simpleIntent.answer,
+      answer: formatResponse(simpleIntent.answer), // Aplicar formato HTML si está habilitado
       source: 'direct',
       intent: simpleIntent.intent,
       query,
       ragResults: [],
       citations: [],
       sessionId: this.sessionId,
+      idEmpresa: this.idEmpresa,
       timestamp: new Date().toISOString(),
     };
   }
