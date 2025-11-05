@@ -1,0 +1,189 @@
+[
+  {
+    "titulo": "Buenas Prácticas de Refrigeración",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/buenas-practicas-de-refrigeracion-2",
+    "horario": "Miércoles a Viernes de 17h00 a 20h00, Sábado de 08h00 a 11h00",
+    "inicio": "19 noviembre, 2025",
+    "duracion": "36 horas",
+    "modalidad": "Presencial",
+    "precio": "USD $60.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/b7715ce53056598e2dc19c1c42a3345e.jpeg"
+  },
+  {
+    "titulo": "Python Essentials",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/python-essentials",
+    "horario": "Lunes a jueves de 18:30 a 21:00 y viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "32 horas",
+    "modalidad": "Online",
+    "precio": "USD $120.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/3fb77d46ae1b17ff96673fbb774fdafd.jpg"
+  },
+  {
+    "titulo": "Diplomado: Seguridad Informática y Protección de Datos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diplomado-seguridad-informatica-y-proteccion-de-datos",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "160 horas",
+    "modalidad": "Online",
+    "precio": "USD $720.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/aa916ba49241541c33adeec229bc4dca.jpg"
+  },
+  {
+    "titulo": "Protecciones Eléctricas en Instalaciones Industriales",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/protecciones-electricas",
+    "horario": "Lunes a jueves de 18:00 a 21:00 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "50 horas",
+    "modalidad": "Online",
+    "precio": "USD $150.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/dc9dd9031f22c82da538bd4cf9c63f63.jpg"
+  },
+  {
+    "titulo": "Buenas Prácticas en Sistemas de Refrigeración y Acondicionamiento de Aire - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/buenas-practicas-en-sistemas-de-refrigeracion-y-acondicionamiento-de-aire-curso-autoestudio",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/1eb9f285f85990babfa1243ec7cccb94.jpg"
+  },
+  {
+    "titulo": "Planificación, Programación y Evaluación de la Gestión de Mantenimiento",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/planificacion-programacion-y-evaluacion-de-la-gestion-de-mantenimiento",
+    "horario": "Martes a viernes de 18:30 a 21:00 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "USD $169.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/922f9fe568648dcc40a45edf0837c089.jpg"
+  },
+  {
+    "titulo": "Plan de Manejo Ambiental (PMA) y Registro Ambiental -  Aplicación Práctica",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/plan-de-manejo-ambiental-pma",
+    "duracion": "33 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/3d6f03551a5cf4f61d950ae1a84442bb.jpg"
+  },
+  {
+    "titulo": "Análisis de Vibraciones",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/analisis-de-vibraciones",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/07c597ca7de3b1ced51d469ad718e5f6.jpg"
+  },
+  {
+    "titulo": "Electricidad Básica",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/electricidad-basica",
+    "duracion": "40 horas",
+    "modalidad": "Semipresencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/34e89cc596c2f0fb13c7db4304e8301c.jpg"
+  },
+  {
+    "titulo": "Electrónica básica y avanzada",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/electronica-basica-y-avanzada",
+    "duracion": "40 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/9cfc9473ad7d4366e7df143b775aed36.jpg"
+  },
+  {
+    "titulo": "Mantenimiento Predictivo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/mantenimiento-predictivo",
+    "duracion": "40 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/319876e4e226327541dc310461e22493.jpg"
+  },
+  {
+    "titulo": "Introducción a la producción más limpia (P+L) - Aplicaciones prácticas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/introduccion-a-la-produccion-mas-limpia-pl-aplicaciones-practicas",
+    "duracion": "40 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f1f38d4c79ed41c8d5e680c28920f1e3.jpg"
+  },
+  {
+    "titulo": "Machine Learning con R",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/machine-learning-con-r",
+    "duracion": "40 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/572d8abb405a6ec4121178a28818c071.jpg"
+  },
+  {
+    "titulo": "Módulo 1: Soldadura SMAW I",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/modulo-1-soldadura-smaw-i",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/15578464109a1766757b6f3ccf1a9bbd.jpg"
+  },
+  {
+    "titulo": "SQL Aplicado al Análisis de Datos - Módulo 2",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/sql-aplicado-al-analisis-de-datos-modulo-2",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/250e4940ee20b5e0829754e4b9f89984.jpg"
+  },
+  {
+    "titulo": "Módulo 2: Soldadura SMAW II",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/modulo-2-soldadura-smaw-ii",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f83980ab20b16b302f735b1b98334876.jpg"
+  },
+  {
+    "titulo": "Diplomado en Hackeo Ético",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diplomado-en-hackeo-etico",
+    "duracion": "135 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/0407878d9b42b8d06676d4d2a22f4a52.jpg"
+  },
+  {
+    "titulo": "Electrónica Básica",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/electronica-basica",
+    "duracion": "40 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/bc72982e8468a94b09057d01d2756602.jpg"
+  },
+  {
+    "titulo": "Certificación de Soldadura- MDT",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/certificacion-soldadura-mdt",
+    "duracion": "4 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/15578464109a1766757b6f3ccf1a9bbd.jpg"
+  },
+  {
+    "titulo": "Certificación en Mecatrónica Automotriz- MDT",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/certificacion-mecatronica-automotriz-mdt",
+    "duracion": "4 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ccd07724fb4ff3e81e31fa26d16cf9e1.jpg"
+  },
+  {
+    "titulo": "Diseño e Ingeniería de Operaciones de Perforación, Completación de Pozos & Workover",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diseno-e-ingenieria-de-operaciones-de-perforacion-completacion-de-pozos-workover",
+    "duracion": "48 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/206a729e705bedb06db20111920f8769.jpg"
+  },
+  {
+    "titulo": "Certificación en Operaciones de Refrigeración y Aire Acondicionado",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/certificacion-refrigeracion",
+    "duracion": "4 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/a178687d64942ca64a533d2146ce1618.jpeg"
+  }
+]

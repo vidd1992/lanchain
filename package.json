@@ -16,8 +16,14 @@
     "test-docs": "node scripts/test_document_processing.js",
     "test-formatter": "node examples/test_formatter.js",
     "debug-search": "node examples/debug_pinecone_search.js",
+    "debug-duplicates": "node examples/debug_pinecone_duplicates.js",
     "list-indexes": "node scripts/list_pinecone_indexes.js",
-    "reprocess-docs": "node scripts/reprocess_documents.js"
+    "reprocess-docs": "node scripts/reprocess_documents.js",
+    "process-especiales": "node scripts/process_casos_especiales.js",
+    "delete-all": "node scripts/delete_all_vectors.js",
+    "analyze-scraped": "node scripts/analyze_scraped_data.js",
+    "process-scraped": "node scripts/process_scraped_courses.js",
+    "upload-scraped": "node scripts/process_scraped_courses.js --upload"
   },
   "keywords": [
     "rag",

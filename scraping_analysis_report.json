@@ -1,0 +1,364 @@
+{
+  "timestamp": "2025-11-05T04:28:08.204Z",
+  "totalCourses": 396,
+  "categoriesAnalyzed": 8,
+  "globalQuality": 62,
+  "categoryStats": [
+    {
+      "categoria": "idiomas",
+      "total": 5,
+      "conDescripcion": 5,
+      "conHorario": 5,
+      "conPrecio": 0,
+      "conInstructor": 0,
+      "conRequisitos": 2,
+      "conDescuentos": 0,
+      "modalidades": {},
+      "rangoPrecios": {
+        "min": null,
+        "max": null,
+        "valores": []
+      },
+      "ejemplos": [
+        {
+          "titulo": "IDIOMA INGLÉS",
+          "tieneDescripcion": true
+        },
+        {
+          "titulo": "CONVERSATION CLUB- INGLÉS",
+          "tieneDescripcion": true
+        }
+      ]
+    },
+    {
+      "categoria": "administrativos",
+      "total": 219,
+      "conDescripcion": 218,
+      "conHorario": 36,
+      "conPrecio": 62,
+      "conInstructor": 121,
+      "conRequisitos": 177,
+      "conDescuentos": 46,
+      "modalidades": {
+        "Presencial": 74,
+        "Virtual": 50,
+        "Online": 94
+      },
+      "rangoPrecios": {
+        "min": 48,
+        "max": 675,
+        "valores": [
+          60,
+          180,
+          180,
+          65,
+          140,
+          99,
+          140,
+          48,
+          64,
+          120,
+          64,
+          64,
+          64,
+          600,
+          64,
+          460,
+          90,
+          160,
+          80,
+          195,
+          140,
+          140,
+          675,
+          60,
+          60,
+          180,
+          79,
+          79,
+          60,
+          79,
+          60,
+          99,
+          169,
+          99,
+          80,
+          90,
+          79,
+          79,
+          79,
+          89,
+          575,
+          75,
+          60,
+          120,
+          99,
+          79
+        ],
+        "promedio": 140
+      },
+      "ejemplos": [
+        {
+          "titulo": "Gestión de Proyectos Basado en la Guía PMBOK® – Módulo 01",
+          "modalidad": "Presencial",
+          "tieneDescripcion": true
+        },
+        {
+          "titulo": "Buenas Prácticas de Refrigeración",
+          "modalidad": "Presencial",
+          "precio": "USD $60.00",
+          "tieneDescripcion": true
+        }
+      ]
+    },
+    {
+      "categoria": "autoestudio",
+      "total": 25,
+      "conDescripcion": 25,
+      "conHorario": 1,
+      "conPrecio": 25,
+      "conInstructor": 25,
+      "conRequisitos": 25,
+      "conDescuentos": 1,
+      "modalidades": {
+        "Virtual": 25
+      },
+      "rangoPrecios": {
+        "min": 48,
+        "max": 48,
+        "valores": [
+          48
+        ],
+        "promedio": 48
+      },
+      "ejemplos": [
+        {
+          "titulo": "Curso Básico de Contabilidad (Autoestudio)",
+          "modalidad": "Virtual",
+          "precio": "USD $48.00",
+          "tieneDescripcion": true
+        },
+        {
+          "titulo": "Webinarios UCyC",
+          "modalidad": "Virtual",
+          "precio": "Gratuito",
+          "tieneDescripcion": true
+        }
+      ]
+    },
+    {
+      "categoria": "educativos",
+      "total": 37,
+      "conDescripcion": 37,
+      "conHorario": 6,
+      "conPrecio": 15,
+      "conInstructor": 24,
+      "conRequisitos": 36,
+      "conDescuentos": 9,
+      "modalidades": {
+        "Presencial": 11,
+        "Online": 10,
+        "Virtual": 16
+      },
+      "rangoPrecios": {
+        "min": 75,
+        "max": 800,
+        "valores": [
+          135,
+          200,
+          300,
+          163,
+          90,
+          800,
+          125,
+          75,
+          140
+        ],
+        "promedio": 225
+      },
+      "ejemplos": [
+        {
+          "titulo": "Transformación Digital a través de la Inteligencia Artificial",
+          "modalidad": "Presencial",
+          "precio": "USD $135.00",
+          "tieneDescripcion": true
+        },
+        {
+          "titulo": "Desarrollo y aplicación de engobes y esmaltes de baja y alta temperatura",
+          "modalidad": "Presencial",
+          "precio": "USD $200.00",
+          "tieneDescripcion": true
+        }
+      ]
+    },
+    {
+      "categoria": "legal",
+      "total": 12,
+      "conDescripcion": 12,
+      "conHorario": 2,
+      "conPrecio": 2,
+      "conInstructor": 5,
+      "conRequisitos": 5,
+      "conDescuentos": 2,
+      "modalidades": {
+        "Online": 6,
+        "Presencial": 6
+      },
+      "rangoPrecios": {
+        "min": 90,
+        "max": 675,
+        "valores": [
+          90,
+          675
+        ],
+        "promedio": 383
+      },
+      "ejemplos": [
+        {
+          "titulo": "Ley Orgánica de Protección de Datos Personales",
+          "modalidad": "Online",
+          "precio": "USD $90.00",
+          "tieneDescripcion": true
+        },
+        {
+          "titulo": "Delegados en materia de protección de datos personales",
+          "modalidad": "Online",
+          "precio": "USD $675.00",
+          "tieneDescripcion": true
+        }
+      ]
+    },
+    {
+      "categoria": "preuniversitarios",
+      "total": 1,
+      "conDescripcion": 1,
+      "conHorario": 1,
+      "conPrecio": 1,
+      "conInstructor": 0,
+      "conRequisitos": 1,
+      "conDescuentos": 1,
+      "modalidades": {
+        "Presencial": 1
+      },
+      "rangoPrecios": {
+        "min": 300,
+        "max": 300,
+        "valores": [
+          300
+        ],
+        "promedio": 300
+      },
+      "ejemplos": [
+        {
+          "titulo": "Programa de Admisión a las Universidades - Presencial",
+          "modalidad": "Presencial",
+          "precio": "USD $300.00",
+          "tieneDescripcion": true
+        }
+      ]
+    },
+    {
+      "categoria": "tecnicos",
+      "total": 22,
+      "conDescripcion": 22,
+      "conHorario": 5,
+      "conPrecio": 6,
+      "conInstructor": 13,
+      "conRequisitos": 19,
+      "conDescuentos": 6,
+      "modalidades": {
+        "Presencial": 10,
+        "Online": 10,
+        "Virtual": 1,
+        "Semipresencial": 1
+      },
+      "rangoPrecios": {
+        "min": 60,
+        "max": 720,
+        "valores": [
+          60,
+          120,
+          720,
+          150,
+          169
+        ],
+        "promedio": 244
+      },
+      "ejemplos": [
+        {
+          "titulo": "Buenas Prácticas de Refrigeración",
+          "modalidad": "Presencial",
+          "precio": "USD $60.00",
+          "tieneDescripcion": true
+        },
+        {
+          "titulo": "Python Essentials",
+          "modalidad": "Online",
+          "precio": "USD $120.00",
+          "tieneDescripcion": true
+        }
+      ]
+    },
+    {
+      "categoria": "tecnologicos",
+      "total": 75,
+      "conDescripcion": 74,
+      "conHorario": 23,
+      "conPrecio": 29,
+      "conInstructor": 43,
+      "conRequisitos": 69,
+      "conDescuentos": 27,
+      "modalidades": {
+        "Presencial": 32,
+        "Virtual": 12,
+        "Online": 28,
+        "Semipresencial": 3
+      },
+      "rangoPrecios": {
+        "min": 75,
+        "max": 720,
+        "valores": [
+          99,
+          140,
+          99,
+          120,
+          600,
+          720,
+          90,
+          150,
+          140,
+          140,
+          675,
+          79,
+          79,
+          99,
+          99,
+          235,
+          99,
+          90,
+          79,
+          79,
+          79,
+          235,
+          235,
+          75
+        ],
+        "promedio": 189
+      },
+      "ejemplos": [
+        {
+          "titulo": "Power BI 3: Inteligencia de Tiempo y Mapas",
+          "modalidad": "Presencial",
+          "precio": "USD $99.00",
+          "tieneDescripcion": true
+        },
+        {
+          "titulo": "Estadística aplicada con RStudio",
+          "modalidad": "Virtual",
+          "precio": "USD $140.00",
+          "tieneDescripcion": true
+        }
+      ]
+    }
+  ]
+}

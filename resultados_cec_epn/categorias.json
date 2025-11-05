@@ -1,0 +1,42 @@
+[
+  {
+    "nombre": "Cursos de Idiomas",
+    "slug": "idiomas",
+    "url": "https://www.cec-epn.edu.ec/cursos/categorias/idiomas"
+  },
+  {
+    "nombre": "Administrativos",
+    "slug": "administrativos",
+    "url": "https://www.cec-epn.edu.ec/cursos/categorias/administrativos"
+  },
+  {
+    "nombre": "Autoestudio",
+    "slug": "autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/categorias/autoestudio"
+  },
+  {
+    "nombre": "Educativos",
+    "slug": "educativos",
+    "url": "https://www.cec-epn.edu.ec/cursos/categorias/educativos"
+  },
+  {
+    "nombre": "Legal",
+    "slug": "legal",
+    "url": "https://www.cec-epn.edu.ec/cursos/categorias/legal"
+  },
+  {
+    "nombre": "Preuniversitarios",
+    "slug": "preuniversitarios",
+    "url": "https://www.cec-epn.edu.ec/cursos/categorias/preuniversitarios"
+  },
+  {
+    "nombre": "Técnicos",
+    "slug": "tecnicos",
+    "url": "https://www.cec-epn.edu.ec/cursos/categorias/tecnicos"
+  },
+  {
+    "nombre": "Tecnológicos",
+    "slug": "tecnologicos",
+    "url": "https://www.cec-epn.edu.ec/cursos/categorias/tecnologicos"
+  }
+]

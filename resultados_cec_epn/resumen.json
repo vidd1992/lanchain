@@ -1,0 +1,37 @@
+{
+  "total_cursos": 396,
+  "por_categoria": [
+    {
+      "categoria": "Cursos de Idiomas",
+      "total_cursos": 5
+    },
+    {
+      "categoria": "Administrativos",
+      "total_cursos": 219
+    },
+    {
+      "categoria": "Autoestudio",
+      "total_cursos": 25
+    },
+    {
+      "categoria": "Educativos",
+      "total_cursos": 37
+    },
+    {
+      "categoria": "Legal",
+      "total_cursos": 12
+    },
+    {
+      "categoria": "Preuniversitarios",
+      "total_cursos": 1
+    },
+    {
+      "categoria": "Técnicos",
+      "total_cursos": 22
+    },
+    {
+      "categoria": "Tecnológicos",
+      "total_cursos": 75
+    }
+  ]
+}

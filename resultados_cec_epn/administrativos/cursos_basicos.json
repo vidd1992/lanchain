@@ -1,0 +1,1848 @@
+[
+  {
+    "titulo": "Gestión de Proyectos Basado en la Guía PMBOK® – Módulo 01",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-proyectos-basado-enla-guia-del-pmbok-modulo-01",
+    "duracion": "18 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/78f14531bd7927875d878c3dc0fe39fc.jpg"
+  },
+  {
+    "titulo": "Buenas Prácticas de Refrigeración",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/buenas-practicas-de-refrigeracion-2",
+    "horario": "Miércoles a Viernes de 17h00 a 20h00, Sábado de 08h00 a 11h00",
+    "inicio": "19 noviembre, 2025",
+    "duracion": "36 horas",
+    "modalidad": "Presencial",
+    "precio": "USD $60.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/b7715ce53056598e2dc19c1c42a3345e.jpeg"
+  },
+  {
+    "titulo": "Administración por Procesos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/administracion-por-procesos",
+    "inicio": "14 enero, 2026",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $180.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d2d7a48748193db825d7524f01fb5f60.jpg"
+  },
+  {
+    "titulo": "Contratación Pública",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/contratacion-publica",
+    "horario": "PRÓXIMAMENTE",
+    "inicio": "14 enero, 2026",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $180.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/7ff9de9393b7d7335368b38fc06738d6.jpg"
+  },
+  {
+    "titulo": "Administración de Contratos bajo el Régimen de la LOSNCP",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/administracion-de-contratos-del-sector-publico",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "USD $65.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ba2f79234e881b3e334c912c6a777844.jpg"
+  },
+  {
+    "titulo": "Auditor Interno de Sistemas de Gestión Integrados Norma ISO 9001:2015, ISO 14001 e ISO 45001",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/auditor-interno-de-sgi",
+    "inicio": "14 enero, 2026",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $140.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c498f0856488020f00f9e9d7e0a68cb4.jpg"
+  },
+  {
+    "titulo": "Introducción al Marketing Digital y Redes Sociales",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/marketing-digital-y-redes-sociales",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "22 horas",
+    "modalidad": "Online",
+    "precio": "USD $99.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/84fa523a70773e2bf6034741ce51c1f2.jpg"
+  },
+  {
+    "titulo": "Estadística aplicada con RStudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/estadistica-aplicada-con-rstudio",
+    "inicio": "14 enero, 2026",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $140.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/32f40319ee25c092d51aea46e6760d6f.jpg"
+  },
+  {
+    "titulo": "Curso Básico de Contabilidad (Autoestudio)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/curso-basico-de-contabilidad-autoestudio",
+    "inicio": "14 enero, 2026",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $48.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/8ec07e43529d9025bf6129753ad94029.jpg"
+  },
+  {
+    "titulo": "Planificación Estratégica (Autoestudio)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/planificacion-estrategica-autoestudio",
+    "inicio": "14 enero, 2026",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $64.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/b5d68c7bdda0140c72677abea4f01778.jpg"
+  },
+  {
+    "titulo": "Python Essentials",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/python-essentials",
+    "horario": "Lunes a jueves de 18:30 a 21:00 y viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "32 horas",
+    "modalidad": "Online",
+    "precio": "USD $120.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/3fb77d46ae1b17ff96673fbb774fdafd.jpg"
+  },
+  {
+    "titulo": "Dirección Comercial y Gestión de Equipos de Ventas (Autoestudio)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/direccion-comercial-y-gestion-de-equipos-de-ventas-autoestudio",
+    "inicio": "14 enero, 2026",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $64.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/79c4212f26bdcc5bd37379ef38c6416f.jpg"
+  },
+  {
+    "titulo": "Proceso de Compras y Cadena de Abastecimiento (Autoestudio)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/proceso-de-compras-y-cadena-de-abastecimiento-autoestudio",
+    "inicio": "14 enero, 2026",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $64.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/0ecb3e88387b95262093c6a3f900247b.jpg"
+  },
+  {
+    "titulo": "Manejo y Gestión de Nóminas (Autoestudio)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/manejo-y-gestion-de-nominas-autoestudio",
+    "inicio": "14 enero, 2026",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $64.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/82b11336995cc1e985f6a8ee325422a4.png"
+  },
+  {
+    "titulo": "Diplomado en Ciencia de Datos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diplomado-en-ciencia-de-datos",
+    "horario": "Lunes a jueves de 18:00 a 20:30 y viernes de 18:00 a 20:00 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "160 horas",
+    "modalidad": "Online",
+    "precio": "USD $600.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/8ce5231a4e6eeb7ad36f2c09fe836477.png"
+  },
+  {
+    "titulo": "Diagnóstico y Gestión de Procesos (Autoestudio)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diagnostico-y-gestion-de-procesos-autoestudio",
+    "inicio": "14 enero, 2026",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $64.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/be6110f03fcf890ad52bda7c27d92cbc.jpg"
+  },
+  {
+    "titulo": "Diplomado en Excel",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diplomado-en-excel",
+    "horario": "Lunes a jueves de 18:00 a 20:30 y viernes de 18:00 a 20:00 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "140 horas",
+    "modalidad": "Online",
+    "precio": "USD $460.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/4b5d39b965c6b20379a34671a909562d.jpg"
+  },
+  {
+    "titulo": "Ley Orgánica de Protección de Datos Personales",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/ley-organica_datos-personales",
+    "horario": "Videoconferencias: Lunes a viernes de 18:30 a 20:30",
+    "inicio": "14 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "USD $90.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/04fc3cc1a075e8234b22a9fc45b6c970.jpg"
+  },
+  {
+    "titulo": "Inteligencia Artificial aplicada a los Negocios",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/inteligencia-artificial-aplicada-a-los-negocios",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "40 horas",
+    "modalidad": "Online",
+    "precio": "USD $160.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/1d789fb48a95f24bfaeba106592e1ad6.jpg"
+  },
+  {
+    "titulo": "Taller - SOFT SKILLS - HABILIDADES BLANDAS",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/taller-soft-skills-habilidades-blandas",
+    "horario": "Lunes a viernes de 18:00 a 20:00 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "8 horas",
+    "modalidad": "Online",
+    "precio": "USD $80.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ec71123c175a785aa24b92de069e252e.jpg"
+  },
+  {
+    "titulo": "Inteligencia Artificial aplicada a la productividad",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/inteligencia-artificial-aplicada-productividad",
+    "horario": "Lunes, martes, jueves y viernes de 18:00 a 21:00 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "USD $195.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/be534c9de3985098f06ff5754d24b1d7.jpg"
+  },
+  {
+    "titulo": "Microsoft Excel Avanzado, Macros y Tablas Dinámicas con Inteligencia Artificial Generativa",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-avanzado-macros-tablas-dinamicas-inteligencia-artificial-generativa",
+    "inicio": "14 enero, 2026",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $140.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f9105f273315185c7c82751fd62d4f3e.png"
+  },
+  {
+    "titulo": "Microsoft Excel Básico e Intermedio (Manejo de datos con Excel)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-basico-intermedio-1",
+    "inicio": "14 enero, 2026",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $140.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/dac0535732fd936f5d82cbf522bde3ae.png"
+  },
+  {
+    "titulo": "Delegados en materia de protección de datos personales",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/delegados-en-materia-proteccion-datos-personales",
+    "horario": "Videoconferencias: Lunes a viernes de 18:00 a 21:00",
+    "inicio": "14 enero, 2026",
+    "duracion": "95 horas",
+    "modalidad": "Online",
+    "precio": "USD $675.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/846667470df7fb8d088e8c0824be8bec.jpg"
+  },
+  {
+    "titulo": "Gestión Estratégica de Cobranzas y Recuperación de Cartera",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-cobranzas-recuperacion-cartera",
+    "horario": "Lunes a viernes de 18h30 a 20h30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "USD $60.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d4b53333541ec0bd8f433a4985881528.png"
+  },
+  {
+    "titulo": "Gestión de la Contratación Pública y Aplicación del Módulo Facilitador (MFC) en Entidades Contratantes",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-contratacion-publica-aplicacion-modulo-facilitador-mfc-entidades-contratantes",
+    "horario": "Lunes a viernes de 18:30 a 20:30",
+    "inicio": "14 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "USD $60.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f551d037375fcb6cac1ae8bf4eef5d02.png"
+  },
+  {
+    "titulo": "Análisis y Mejora de Procesos Empresariales",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/analisis-y-mejora-de-procesos-empresariales",
+    "inicio": "25 febrero, 2026",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "USD $180.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c0be4574048aa35b752c6d2e3955d184.png"
+  },
+  {
+    "titulo": "Webinarios UCyC",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/webinarios-ucyc",
+    "horario": "16h00 a 17h00",
+    "inicio": "4 julio, 2024",
+    "duracion": "2 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/34423af6c22f764accbd24aa896c3e6b.jpg"
+  },
+  {
+    "titulo": "Google Drive - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/google-drive-curso-mooc",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/9f1c3769caf0de3703022fb2bee2b72f.jpg"
+  },
+  {
+    "titulo": "Marketing de Contenidos - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/marketing-de-contenidos-curso-mooc",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/3fb189cd3de65a80d4a1832bff1df0f7.png"
+  },
+  {
+    "titulo": "De la Idea a un Modelo de Negocios con Startup - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/startup-curso-mooc",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/40a85da0496ca37049d529a31b8ffdab.jpg"
+  },
+  {
+    "titulo": "Relaciones Humanas, la Clave del Éxito Personal y Profesional - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/relaciones-humanas-la-clave-del-exito-personal-y-profesional",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/dde01dac2b53f784de16bfa47fdf546b.jpg"
+  },
+  {
+    "titulo": "Estrategias de Servicio y Atención al Cliente - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/estrategias-de-servicio-y-atencion-al-cliente-1",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/86c0f601852ef5ab52e308e9a597b2e4.png"
+  },
+  {
+    "titulo": "Administración Efectiva del Tiempo - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/administracion-del-tiempo-1",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "24 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/68a35e1eff2dab6c443dfa7c54d81ee2.jpg"
+  },
+  {
+    "titulo": "Prevención de riesgos ergonómicos fundamentada en la gimnasia laboral - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/prevencion-riesgos-ergonomicos",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "24 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/62933f7731cb42c999d798a1ea2c0458.jpg"
+  },
+  {
+    "titulo": "Consejos para una Mejor Redacción y Ortografía - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/redaccion-mooc",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/1269a33c51b10a8f9d2f2a408d52424f.jpg"
+  },
+  {
+    "titulo": "El poder de un profesional en ventas telefónicas - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/el-poder-de-un-profesional-en-ventas-telefonicas-curso-mooc",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/21134575c429bdbd7d492c309dcec74f.jpg"
+  },
+  {
+    "titulo": "Estrategias para buscar trabajo - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/estrategias-para-buscar-trabajo-curso-mooc",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/71b4011534e468763b354b37fac4fb83.png"
+  },
+  {
+    "titulo": "Mis primeros pasos en Estadística - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/primeros-pasos-estadistica-mooc",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/169968a195373012bf39b4f1d48c6ffa.jpg"
+  },
+  {
+    "titulo": "Marketing para emprendedores - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/marketing-para-emprendedores-curso-autoestudio",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "24 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/58d83fe571721955cf01562f87ac7fcd.jpg"
+  },
+  {
+    "titulo": "Tutela de Derechos - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/tutela-de-derechos-curso-autoestudio",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "60 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d62bbcdb2bf5d6703849a1c168d66172.png"
+  },
+  {
+    "titulo": "Educación Financiera Popular, Personal y Familiar - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/educacion-financiera-personal",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "24 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/847ff008285ea6908332715ac4a11a87.jpg"
+  },
+  {
+    "titulo": "Ofimática Básica: Word, Excel, Power Point e Internet - Curso Autoestudio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/ofimatica-basica-2025",
+    "inicio": "5 noviembre, 2025",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "Gratuito",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/fb63b766f9c70d2fbe970ea696f9f0c1.png"
+  },
+  {
+    "titulo": "Análisis Estadístico con SPSS Avanzado",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/spss-avanzado",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/86bd5aa607348047067b3a76e8271877.jpg"
+  },
+  {
+    "titulo": "Estadística para la Toma de Decisiones",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/estadistica-para-la-toma-de-decisiones",
+    "duracion": "12 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/4a0feba50c400be0b6bef6ccdcf296a3.png"
+  },
+  {
+    "titulo": "Estadística Aplicada a la Prospección de Mercados",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/estadistica-aplicada-a-la-prospeccion-de-mercados",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/8c6604f814cee98e5537476439fc8729.jpg"
+  },
+  {
+    "titulo": "Excel 1: Fundamentos y Herramientas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-1-fundamentos-y-herramientas-1",
+    "horario": "Sábados de 08:00 a 14:00 - (clases presenciales)",
+    "inicio": "8 noviembre, 2025",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "USD $79.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/39bdfc7db5bdfbbd86282f65552ddbcf.jpg"
+  },
+  {
+    "titulo": "Excel 3: Gestión de Datos con Tablas Dinámicas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-3-gestion-de-datos-con-tablas-dinamicas-1",
+    "horario": "Sábados de 08:00 a 14:00 - (clases presenciales)",
+    "inicio": "8 noviembre, 2025",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "USD $79.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f0427b58191abe6caab7b12e4405d345.jpg"
+  },
+  {
+    "titulo": "Contratación Pública para Proveedores del Estado con Módulo Facilitador MFC",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/contratacion-publica-para-proveedores-del-estado-con-modulo-facilitador-mfc",
+    "horario": "Sábados de 08:00 a 14:00 (clases presenciales)",
+    "inicio": "8 noviembre, 2025",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "USD $60.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c2721798bf6d4b6a5fcdc37043bf2d02.jpg"
+  },
+  {
+    "titulo": "Excel 2: Funciones y Análisis de Datos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-2-funciones-y-analisis-de-datos-1",
+    "horario": "Sábados de 08:00 a 14:00 - (clases presenciales)",
+    "inicio": "8 noviembre, 2025",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "USD $79.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/54235afe7c9fd6ee696e6c916885ea30.jpg"
+  },
+  {
+    "titulo": "Contratación Pública para Proveedores del Estado con Módulo Facilitador MFC",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/contratacion-publica-para-proveedores-del-estado-con-modulo-facilitador-ushay",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "USD $60.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c2721798bf6d4b6a5fcdc37043bf2d02.jpg"
+  },
+  {
+    "titulo": "Sistema de Gestión de la Calidad ISO 9001:2015",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/sistema-de-gestion-de-la-calidad-iso-90012015",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "USD $99.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/0169b59362ffc67605a5c8d280da6b95.jpg"
+  },
+  {
+    "titulo": "Planificación, Programación y Evaluación de la Gestión de Mantenimiento",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/planificacion-programacion-y-evaluacion-de-la-gestion-de-mantenimiento",
+    "horario": "Martes a viernes de 18:30 a 21:00 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "USD $169.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/922f9fe568648dcc40a45edf0837c089.jpg"
+  },
+  {
+    "titulo": "Administración Eficiente de Bodegas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/administracion-eficiente-de-bodegas",
+    "horario": "Lunes a viernes de 18:00 a 21:00 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "USD $99.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/b2fda921912387c2e77e0fdac67cb190.jpg"
+  },
+  {
+    "titulo": "Gestión Documental y Archivo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-documental",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "USD $80.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/bb28d3f6a52dd9cf8ef53237bee81553.jpg"
+  },
+  {
+    "titulo": "SQL Aplicado al Análisis de Datos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/sql-aplicado-al-analisis-de-datos",
+    "horario": "Lunes a jueves de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "USD $90.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d80a9c04b319546bdf5fa13721a2cf8d.jpg"
+  },
+  {
+    "titulo": "Excel 1: Fundamentos y Herramientas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-1-fundamentos-y-herramientas",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "USD $79.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/fc7ba55ff349a309444dcc8b847f3297.jpg"
+  },
+  {
+    "titulo": "Excel 2: Funciones y Análisis de Datos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-2-funciones-y-analisis-de-datos",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "USD $79.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/dda7f4f51da6f6fd4970173a3dde0bc9.jpg"
+  },
+  {
+    "titulo": "Excel 3: Gestión de Datos con Tablas Dinámicas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-3-gestion-de-datos-con-tablas-dinamicas",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "USD $79.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f0427b58191abe6caab7b12e4405d345.jpg"
+  },
+  {
+    "titulo": "Gerencia de Proyectos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gerencia-de-proyectos",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "USD $89.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/6ebc980da1ffd99b123782363d003e4a.jpg"
+  },
+  {
+    "titulo": "Diplomado en Contratación Pública",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diplomado-en-contratacion-publica",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "100 horas",
+    "modalidad": "Online",
+    "precio": "USD $575.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ae0c8be888a21f6d67ff7f19d8cf966a.jpg"
+  },
+  {
+    "titulo": "Inteligencia Artificial: Fundamentos y Aplicaciones",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/inteligencia-artificial-fundamentos-y-aplicaciones",
+    "horario": "Lunes a viernes de 18:30 a 20:30 (videoconferencias)",
+    "inicio": "14 enero, 2026",
+    "duracion": "14 horas",
+    "modalidad": "Online",
+    "precio": "USD $75.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/59dec2687225328f51c73bba5ccff30f.jpg"
+  },
+  {
+    "titulo": "Actualización de las Reformas a la LOSNCP y su Reglamento General",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/reformas-a-la-losncp",
+    "inicio": "14 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "USD $60.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ebdd1663c06cf4db4c8fe195896cc96b.jpg"
+  },
+  {
+    "titulo": "Planificación Estratégica con IA e Innovación",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/planificacion-estrategica-con-ia-e-innovacion",
+    "horario": "Lunes, martes y jueves 18h00 a 20h00",
+    "inicio": "14 enero, 2026",
+    "duracion": "32 horas",
+    "modalidad": "Online",
+    "precio": "USD $120.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/36607e4234b3dfcf972b685c6d4bcc6f.jpg"
+  },
+  {
+    "titulo": "Introducción al Marketing Digital y Redes Sociales",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/marketing-digital",
+    "horario": "Sábados de 08:00 a 14:00 - (clases presenciales)",
+    "inicio": "17 enero, 2026",
+    "duracion": "22 horas",
+    "modalidad": "Presencial",
+    "precio": "USD $99.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/84a509e19d01a65dc4b90f6a6f756563.jpg"
+  },
+  {
+    "titulo": "Técnicas para Ventas Efectivas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/tecnicas-para-ventas-efectivas",
+    "horario": "Sábados de 08:00 a 14:00 (clases presenciales)",
+    "inicio": "17 enero, 2026",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "USD $79.00",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/7811a859f29a8bba4b0527dce1d4bfbc.jpg"
+  },
+  {
+    "titulo": "Selección, Evaluación, Capacitación y Plan de Carrera del Talento Humano",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/seleccion-evaluacion-capacitacion-y-plan-de-carrera-del-talento-humano",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/47373e3330bcb62055f1b215e62351d6.jpg"
+  },
+  {
+    "titulo": "Liderazgo Disruptivo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/liderazgo-disruptivo",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/0d5bbf9e08eb20197fb1fc6cabde3b66.jpg"
+  },
+  {
+    "titulo": "Econometría",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/econometria",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/17f3f1c81088cf45113ab9156f0514bb.jpg"
+  },
+  {
+    "titulo": "Optimización del Clima Organizacional",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/optimizacion-del-clima-organizacional",
+    "duracion": "28 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d303b9de16e35cc594db5934c35e1b4a.jpg"
+  },
+  {
+    "titulo": "Asistencia Ejecutiva, Gestión Documental y Archivo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/asistencia-ejecutiva-gestion-documental-y-archivo",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/fd8677d18bb2a45590091315ef44a0fd.jpg"
+  },
+  {
+    "titulo": "Planificación Estratégica y Balanced Scored Card",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/planificacion-estrategica-y-balanced-score-card",
+    "duracion": "32 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/66c0e917dff6012371561d50f0c1f232.jpg"
+  },
+  {
+    "titulo": "Imagen Personal, Profesional y Corporativa",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/el-poder-de-la-imagen-personal-y-corporativa",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f6317a82dec192a41af6e0a027a5a651.jpg"
+  },
+  {
+    "titulo": "Análisis Estadístico con SPSS Básico e Intermedio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/spss-basico-intermedio-1",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/bf81bf1951792aa73e103931127e4a8c.jpeg"
+  },
+  {
+    "titulo": "Planificación y Presupuesto en el Sector Público",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/control-presupuestario-en-el-sector-publico",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/fdc01d9009799a01ccde943800ac1aad.jpg"
+  },
+  {
+    "titulo": "Coaching para Mandos Medios",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/coaching-para-mandos-medios",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/23959ff1d16a83cdd4a258c62d6ab4e3.jpg"
+  },
+  {
+    "titulo": "Buenas Prácticas de Manufactura de Alimentos Procesados",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/buenas-practicas-de-manufactura-de-alimentos-procesados-decreto-ejecutivo-n-3253",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/7fdbcb653486838d438f9c553bd3f5e4.jpg"
+  },
+  {
+    "titulo": "Sistema de Inocuidad Alimentaria: HACCP",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/sistema-de-inocuidad-alimentaria-haccp",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/a9232a1e93748401c598bcbd2e773f18.jpg"
+  },
+  {
+    "titulo": "Herramientas BPMN para Modelamiento de Procesos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/uso-de-herramientas-bpmn-para-modelamiento-de-procesos",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ce04f3cb6a0d197895477720900794b6.jpg"
+  },
+  {
+    "titulo": "Gestión de Riesgos Operacionales con Enfoque en Procesos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-riesgos-operacionales-con-enfoque-en-procesos",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/bc5a329c7344796a690a3a7533485ab8.jpg"
+  },
+  {
+    "titulo": "Administración basada en Procesos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/administracion-por-procesos-y-uso-de-herramientas-bpmn",
+    "duracion": "32 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f06c78883b1fe878ed4af7be83b5ea81.jpg"
+  },
+  {
+    "titulo": "Gestión de Proyectos Basado en la Guía PMBOK®– Módulo 02",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-proyectos-basado-enla-guia-del-pmbok-modulo-02",
+    "duracion": "18 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/aee9b2133b24e81d340d54d23340c6cd.jpg"
+  },
+  {
+    "titulo": "Diseño y Formulación de Proyectos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diseno-y-formulacion-de-proyectos",
+    "duracion": "32 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/4235d1644171395f66899ea2e574cf99.jpg"
+  },
+  {
+    "titulo": "Evaluación Financiera de Proyectos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/evaluacion-financiera-de-proyectos",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/5d164fadd351e634fa9278f255236ded.jpg"
+  },
+  {
+    "titulo": "Gestión de Proyectos 1 con MS Project",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-proyectos-1-con-ms-project",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/728092e391a10ee559a7ceba13e65837.jpg"
+  },
+  {
+    "titulo": "Gestión de Proyectos 2 con Ms Project",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-proyectos-2-con-ms-project",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/fd1ca35734899e5e750bf9a13d0a935d.jpg"
+  },
+  {
+    "titulo": "Metodologías y Técnicas de Enseñanza para Adultos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/metodologias-y-tecnicas-de-ensenanza-para-adultos",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/2a368752a17ddba644253dee207eb7d5.jpg"
+  },
+  {
+    "titulo": "Diseño de Programas de Capacitación basado en Competencias",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/curso-de-diseno-de-programas-de-capacitacion-basado-en-competencias",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/3f56d9318d585e19432b3ca14c95a7aa.jpg"
+  },
+  {
+    "titulo": "Gestión de RRHH Basada en Competencias",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-recursos-humanos-basada-en-competencias",
+    "duracion": "40 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/41904257fb12c90139535947ed6df9be.jpg"
+  },
+  {
+    "titulo": "SPSS Básico e Intermedio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/spss-basico-e-intermedio",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/53e077ca7336eb178e66aa7e8e15237d.jpg"
+  },
+  {
+    "titulo": "SPSS Avanzado",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/spss-avanzado-1",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ab1b1d4f65e182f76eec48d37fea6cec.jpg"
+  },
+  {
+    "titulo": "Análisis Financiero para Directivos y Funcionarios de Cooperativas de Ahorro y Crédito (COACS)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/analisis-financiero-para-directivos-y-funcionarios-de-cooperativas-de-ahorro-y-credito-coacs",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/429b5dc19abe1e3c28d289a93aaeda5e.jpg"
+  },
+  {
+    "titulo": "Gerencia del Servicio Atención al Cliente",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gerencia-del-servicio-atencion-al-cliente",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/cf9cedb0263f077909e52c716599679f.jpg"
+  },
+  {
+    "titulo": "Fundamentos de Seguridad Laboral",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/fundamentos-de-seguridad-laboral",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e831af512d158f7017dfd3e5504793bd.jpg"
+  },
+  {
+    "titulo": "Liderazgo de Alto Impacto",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/liderazgo-de-alto-impacto",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/477c30adcbbda7c94854d79954a95f26.jpg"
+  },
+  {
+    "titulo": "Técnicas de Negociación Efectiva",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/tecnicas-de-negociacion-efectiva",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c48b3775acce8b9dacc718e87dc7849c.jpg"
+  },
+  {
+    "titulo": "Microsoft Project Básico e Intermedio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/microsoft-project-basico-intermedio",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/6bae317f18ee998715c236301dd55aec.jpg"
+  },
+  {
+    "titulo": "Microsoft Project Avanzado",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/microsoft-project-avanzado-1",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/92147b7f8bd184db32ac511c8d24da29.jpg"
+  },
+  {
+    "titulo": "Administración Tributaria",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/guia-practica-de-tributacion",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/84ac8a890c4fdf799b9f451a05f1a58e.jpg"
+  },
+  {
+    "titulo": "Gestión por procesos para universidades, institutos y sus carreras. Modelo CACES",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-por-procesos-para-la-acreditacion-de-carreras-modelo-ceaaces",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/555bda4f2a4c2c364e8b3816271ec439.jpg"
+  },
+  {
+    "titulo": "Diseño del Plan de Seguridad y Salud en el Trabajo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diseno-del-plan-de-seguridad-y-salud-en-el-trabajo",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/917d7f6f23f9cdd557951fd00bf0d4fb.jpg"
+  },
+  {
+    "titulo": "Gerenciamiento y Liderazgo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gerenciamiento-y-liderazgo-del-talento-humano",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/09a651faf741764f9cbcf579472ee4fa.jpg"
+  },
+  {
+    "titulo": "Habilidades y Herramientas Gerenciales Avanzadas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/habilidades-y-herramientas-gerenciales-avanzadas",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/4786571a1eb1bb379e0a9333928cc2cb.jpg"
+  },
+  {
+    "titulo": "Diseño, Formulación y Evaluación de Proyectos con Marco Lógico",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diseno-formulacion-y-evaluacion-de-proyectos-con-marco-logico",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/9afda3e27d899144329cafe8e3f63e07.jpg"
+  },
+  {
+    "titulo": "Liderazgo con inteligencia emocional",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/liderazgo-e-inteligencia-emocional-aplicada",
+    "duracion": "20 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/8d85c32fe74fe24e03d5c74875d35674.jpg"
+  },
+  {
+    "titulo": "Excel Financiero",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-financiero",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e717012fcdcdb888b1acbfc3086e016d.jpg"
+  },
+  {
+    "titulo": "Análisis de Puestos y Valoraciones",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/analisis-de-puestos-y-valoraciones",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/7ad77a68f79ba08d89475949d855aa5a.jpg"
+  },
+  {
+    "titulo": "Excel Avanzado con Macros",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/excel-avanzado-y-macros-1",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/aeabb5351cccad4697874270569f65ab.jpg"
+  },
+  {
+    "titulo": "Prevención de Riesgos Laborales e Implementación del programa de SST",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/prevencion-de-riesgos-laborales-e-implementacion-del-programa-de-sst",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/cd4e89e273dbc1df2e4e824cabc40bf4.jpg"
+  },
+  {
+    "titulo": "Estrategias de servicio y atención al cliente",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/taller-de-servicio-al-cliente",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ec76e03c6cebe585d408bcff79935a67.jpg"
+  },
+  {
+    "titulo": "AUDITOR INTERNO DE SISTEMAS DE GESTIÓN DE CALIDAD ISO 9001:2015",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/auditor-interno-sgc-iso-9001-2015",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/4036227e4148c7531a5adffe97d10883.jpg"
+  },
+  {
+    "titulo": "Higiene y Saneamiento en la Industria Alimentaria",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/higiene-y-saneamiento-en-la-industria-alimentaria",
+    "horario": "Fechas y horarios a acordar, curso bajo demanda",
+    "duracion": "8 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d39dba86e492ab35132ef9fa16bb87cb.jpg"
+  },
+  {
+    "titulo": "Plan financiero para un plan de negocio (Taller B-Learning)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/plan-financiero-para-un-plan-de-negocio-taller-b-learning",
+    "duracion": "32 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/87af91c1654a406b7b56fcd266da1ed3.jpg"
+  },
+  {
+    "titulo": "Principios de Inspección y Auditoria Interna para Plantas de Alimentos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/principios-de-inspeccion-y-auditoria-interna-para-plantas-de-alimentos",
+    "horario": "Fechas y horarios a acordar, curso bajo demanda",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/fe2500107933b633826d29314e9a917c.jpg"
+  },
+  {
+    "titulo": "Evaluación del Sistema de Gestión de SST",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/evaluacion-del-sistema-de-gestion-de-sst",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/cc2d75d1f6852c4a1836d32953534152.jpg"
+  },
+  {
+    "titulo": "Direccionamiento Estratégico",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/direccionamiento-estrategico",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/41f8db07e59daecac95c379d68afb77a.jpg"
+  },
+  {
+    "titulo": "Planificación e Implementación de la Estrategia",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/planificacion-e-implementacion-de-la-estrategia",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/a5672a8df18aed41a2455117a228cdd2.jpg"
+  },
+  {
+    "titulo": "Administración por Procesos, Introducción a Lean Six Sigma y BPMN",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/administracion-por-procesos-introduccion-a-lean-six-sigma-y-bpmn",
+    "duracion": "48 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e12081f337c72550eff6bb9515816898.jpg"
+  },
+  {
+    "titulo": "Gestión del Cambio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-del-cambio",
+    "duracion": "8 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/0c9de1100f0f15f5d4ff73571bb3c3f7.jpg"
+  },
+  {
+    "titulo": "Estadística Básica para Gestionar Datos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/estadistica-basica-para-gestionar-datos",
+    "duracion": "40 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/b40328f278064eba8918ebd8f177c277.jpg"
+  },
+  {
+    "titulo": "Normativa Sanitaria para Servicios de Alimentación Colectiva",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/normativa-sanitaria-para-servicios-de-alimentacion-colectiva",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/cdaf4246793fcab2f4bc4e706a71fe24.jpg"
+  },
+  {
+    "titulo": "Implementación de un Sistema de Gestión Integrado",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/implementacion-de-un-sgi",
+    "duracion": "48 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/fd838323e1703b5c49cdc257be9c5e7d.jpg"
+  },
+  {
+    "titulo": "Administración del Tiempo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/administracion-del-tiempo",
+    "duracion": "8 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/a4fa1d4e8c6a28a79f6ad9566c219ce0.jpg"
+  },
+  {
+    "titulo": "Brigadas de Emergencia",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/brigadas-de-emergencia",
+    "duracion": "29 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/92d44972fa12b4fd3c93d5823e8a83d3.jpg"
+  },
+  {
+    "titulo": "Brigadas de Primeros Auxilios",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/brigadas-de-primeros-auxilios",
+    "duracion": "12 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/2e27cca37e66c8e71bc60fbb26c04601.jpg"
+  },
+  {
+    "titulo": "Plan de Emergencia y Autoprotección",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/plan-de-emergencia-y-autoproteccion",
+    "duracion": "12 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e73a1171d4c42a3dde5e50e4630b8608.jpg"
+  },
+  {
+    "titulo": "Administración y Control de Bienes y Existencias del Sector Público",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/administracion-y-control-de-bienes-y-existencias-del-sector-publico",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/702651e54ffcb87cc8410e1314b0c227.jpg"
+  },
+  {
+    "titulo": "Programación Aplicada a Estadística con R",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/analisis-estadistico-con-r",
+    "duracion": "40 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ee0db8540a1d71b0f2825e4734b90d5b.jpg"
+  },
+  {
+    "titulo": "Análisis Financiero",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/analisis-financiero",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d8f1275ca895f7f41180dfb5b0d53fd6.jpg"
+  },
+  {
+    "titulo": "Auditoría a los Procesos de Contratación Pública",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/auditoria-a-los-procesos-de-contratacion-publica",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/59f36ff6c7604bef73b3015b0d179741.jpg"
+  },
+  {
+    "titulo": "Auditoría Gubernamental",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/auditoria-gubernamental",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d39cfce65245a9b955c3f85673aea66e.jpg"
+  },
+  {
+    "titulo": "Bizagi",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/bigazi",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e7123d006dd7693d31e91bbc11ba5022.jpg"
+  },
+  {
+    "titulo": "Brigadas de Evacuación y  Rescate",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/brigadas-de-evacuacion-y-rescate",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/1bb7361caa48471c752c75785050a62f.jpg"
+  },
+  {
+    "titulo": "Brigadas de Incendios",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/brigadas-de-incendios",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/17ce04bf1c1f27c9b6bf765418f4f9c0.jpg"
+  },
+  {
+    "titulo": "Control de Gestión Pública",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/control-de-gestion-publica",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/587776f41e93939ecff43c2a615f6d58.jpg"
+  },
+  {
+    "titulo": "Econometría con Stata",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/econometria-con-stata",
+    "duracion": "40 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/99c45876aa011e6f16932d3b216c9213.jpg"
+  },
+  {
+    "titulo": "Finanzas para no financieros",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/finanzas-para-no-financieros",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c258c8dfded47d5c12e442002682e516.jpg"
+  },
+  {
+    "titulo": "Minería de Datos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/mineria-de-datos",
+    "duracion": "40 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/5cd937aa371840cc09b259ac597d9ecc.jpg"
+  },
+  {
+    "titulo": "Ms. Access Intermedio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/ms-access-intermedio",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/b72081666176a37e264c7505ea141d12.jpg"
+  },
+  {
+    "titulo": "Normas internacionales de información financiera (NIIF)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/normas-internacionales-de-informacion-financiera-niif",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/9860cd98c9574da1f1d78fb4b84cefc4.jpg"
+  },
+  {
+    "titulo": "Normas de control interno",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/normas-de-control-interno",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e112920422f1442d3ca09774904ab331.jpg"
+  },
+  {
+    "titulo": "Power Point",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/power-point",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/b5efad61492ce2426fbeb7095fa45eab.jpg"
+  },
+  {
+    "titulo": "Prevención de lavado de activos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/prevencion-de-lavado-de-activos",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/80d97844d43abf12b495c7e39367cc8a.jpg"
+  },
+  {
+    "titulo": "Prevención integral al uso y consumo de drogas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/prevencion-integral-al-uso-y-consumo-de-drogas",
+    "duracion": "50 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/48bf10df3163b7427897691f80075fd7.jpg"
+  },
+  {
+    "titulo": "Redacción periodística en plataformas digitales y tradicionales",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/redaccion-periodistica-en-plataformas-digitales-y-tradicionales",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/cabef926be6e9b3013c09fe33cd2fd25.jpg"
+  },
+  {
+    "titulo": "Taller de relaciones humanas y trabajo en equipo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/taller-de-relaciones-humanas-y-trabajo-en-equipo",
+    "duracion": "8 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/0f7d0756ace4ca947035b9735148d93a.jpg"
+  },
+  {
+    "titulo": "Trabajo en alturas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/trabajo-en-alturas",
+    "duracion": "18 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/fe0ebdef5b7ea1c41fe8a577ef3eeeaa.jpg"
+  },
+  {
+    "titulo": "Word avanzado",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/word-avanzado",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/514ba92d65e729229361f1a0bea9df8f.jpg"
+  },
+  {
+    "titulo": "Word básico 2013",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/word-basico-2013",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/bac2bf431a01d989f2e53d9534e5f077.jpg"
+  },
+  {
+    "titulo": "Word intermedio 2013",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/word-intermedio-2013",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/dd3702b37dcebecaff371be1f0a258ae.jpg"
+  },
+  {
+    "titulo": "Asertividad Laboral y Manejo de Situaciones Difíciles",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/asertividad-laboral-y-manejo-de-situaciones-dificiles",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/a927312426dbd3b85d8717668b85df6c.jpg"
+  },
+  {
+    "titulo": "Manejo de finanzas personales",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/manejo-de-finanzas-personales",
+    "duracion": "8 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/0b70bf48f748cbb8926c87ebf962be8f.jpg"
+  },
+  {
+    "titulo": "PNL",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/pnl",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/1da919e420f15c9ab4c1b1aa36bde207.jpg"
+  },
+  {
+    "titulo": "Redacción Avanzada",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/redaccion-avanzada-para-profesionales",
+    "duracion": "32 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/32bc8b78a8fe528974a1e5baeb4f7452.jpg"
+  },
+  {
+    "titulo": "Técnicas de ventas para vendedores de empresas de consumo masivo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/tecnicas-de-ventas-para-vendedores-de-empresas-de-consumo-masivo",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/02fc5c5dbcdde6512ddb9191a5f89880.jpg"
+  },
+  {
+    "titulo": "Gestión de Equipos de Alto Desempeño",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/liderazgo-con-inteligencia-emocional-y-gestion-de-equipos-de-alto-desempeno",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/70520892c4ad50ec913f30d48c47ac33.jpg"
+  },
+  {
+    "titulo": "Lenguaje No Verbal en el Ámbito Laboral",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/lenguaje-no-verbal-en-el-ambito-laboral",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/9e8d2c1d568c6bc7ec9c568c8c3fd6e2.jpg"
+  },
+  {
+    "titulo": "Auditor Interno de Sistemas Integrados ISO 9001, ISO 14001 e ISO 45001",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/auditor-interno-de-sistemas-integrados-iso-9001-14001-e-iso-45001",
+    "duracion": "48 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/75ae6bceb0cd66bce3b993b423022df3.jpg"
+  },
+  {
+    "titulo": "Diseño e  Implementación de un Sistema de Gestión de la Calidad basado en la ISO 9001:2015",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diseno-e-implementacion-de-un-sistema-de-gestion-de-la-calidad-basado-en-la-iso-90012015",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/2ce131e5245741959babd680ffbb1af6.jpg"
+  },
+  {
+    "titulo": "Formación de Gestores Lean",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestores-lean",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/19474ab5663fd7e4b8a6a7121a5a9fae.jpg"
+  },
+  {
+    "titulo": "Creación del Plan Estratégico de Mercadeo Digital",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/creacion-del-plan-estrategico-de-mercadeo-digital",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/2f53aab2fb93f0d1682b0cb76460d15a.png"
+  },
+  {
+    "titulo": "Gestión y Seguimiento del Teletrabajo por Resultados",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-y-seguimiento-del-teletrabajo-por-resultados",
+    "duracion": "8 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/3295e236bb727bdb708e57ca30dcd4e3.jpg"
+  },
+  {
+    "titulo": "Diseño de Manuales de Procesos & Procedimientos Administrativos Operativos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diseno-de-manuales-de-procesos-procedimientos-administrativos-operativos",
+    "duracion": "12 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/6ec545666411ecf8f761338f6907888d.png"
+  },
+  {
+    "titulo": "Introducción a la Plataforma de Facebook: páginas y ads",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/introduccion-a-la-plataforma-de-facebook-paginas-y-ads",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/63dae4e96404513484fa86a8dfe73c81.jpg"
+  },
+  {
+    "titulo": "Prevención de Riesgos en el Trabajo Frente al COVID 19",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/prevencion-de-riesgos-en-el-trabajo-frente-al-covid19",
+    "duracion": "10 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e69539386518a91f730c2dad03a164ca.jpg"
+  },
+  {
+    "titulo": "Higiene y Desinfección de Plantas de Producción Alimentaria",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/higiene-y-desinfeccion-de-plantas-de-produccion-alimentaria",
+    "duracion": "20 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c26dbf01ec83161b032bc39d4190253d.jpg"
+  },
+  {
+    "titulo": "Acompañamiento Emocional en Tiempos de Crisis",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/acompanamiento-emocional-en-tiempos-de-crisis",
+    "duracion": "10 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/83d32028174cef6a4aac8b5c896fdca7.jpg"
+  },
+  {
+    "titulo": "Resiliencia Frente a la Crisis, Superando Entornos Adversos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/resiliencia-frente-a-la-crisis-superando-entornos-adversos",
+    "duracion": "10 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c1507c5d69f0bc9e91041010c6ccb982.jpg"
+  },
+  {
+    "titulo": "Potencia tu Negocio en Internet",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/potencia-tu-negocio-en-internet",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/bf99ec65074bc127ce3e6b25b84cc8fc.jpg"
+  },
+  {
+    "titulo": "Proceso de Notificación Sanitaria Obligatoria (NSO) para productos diversos regulados por ARCSA",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/proceso-de-notificacion-sanitaria-obligatoria-nso-para-productos-diversos-regulados-por-arcsa",
+    "duracion": "12 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/593ecb6cf9d39b68673c6d555096ad66.jpg"
+  },
+  {
+    "titulo": "Estrategia para la Continuidad y Reactivación del Negocio",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/estrategia-para-la-continuidad-y-reactivacion-del-negocio",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/9532f61fe6a89e37aee8314f56a3c745.jpg"
+  },
+  {
+    "titulo": "Determinación del Presupuesto Referencial en Contratación Pública",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/determinacion-del-presupuesto-referencial-en-procesos-de-contratacion-publica",
+    "duracion": "10 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/5766cc8a4211c077bd19f248dd38b41b.jpg"
+  },
+  {
+    "titulo": "Neurocobranzas y Cierre Efectivo de Cobros",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/neurocobranzas-y-cierre-efectivo-de-cobros",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/685c9d30b77163723b5ed42b4546922d.jpg"
+  },
+  {
+    "titulo": "Reclutamiento y Selección basado en Competencias",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/reclutamiento-y-seleccion-basado-en-competencias",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/bebb9140d5cd8731a15e85b471b31bec.jpg"
+  },
+  {
+    "titulo": "Gestión e implementación de Normas ISO Alternas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-e-implementacion-de-normas-iso-alternas",
+    "duracion": "64 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e2019ee6a2fd83e4eedbce78f2a21a41.png"
+  },
+  {
+    "titulo": "Actualización Tributaria (Nueva Ley de Desarrollo Económico y su Régimen RIMPE)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/actualizacion-tributaria-1",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/4ac60354587a11ac028a18778047d8f8.jpg"
+  },
+  {
+    "titulo": "Reingeniería de Recursos Humanos Aplicado a la Estructura Ocupacional de una Empresa",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/reingenieria-de-recursos-humanos-aplicado-a-la-estructura-ocupacional-de-una-empresa",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/27b6485910edff839cbdf1d0b6f24e76.jpg"
+  },
+  {
+    "titulo": "Gestión de datos con Excel, Power Pivot y Power Query",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-datos-con-excel-power-pivot-y-power-query",
+    "duracion": "20 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/5fafc9b5c4af495e6dc31b4147cb9f7a.png"
+  },
+  {
+    "titulo": "Gestión de los subsistemas del Talento Humano en el Sector Público",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-los-subsistemas-del-talento-humano-en-el-sector-publico",
+    "duracion": "40 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/9f983e07987ac563e4d703262b4df1e7.jpeg"
+  },
+  {
+    "titulo": "Call Center y mejores prácticas en el Servicio al Cliente",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/call-center-y-mejores-practicas-en-el-servicio-al-cliente",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/98e080ede71d415fec5d7e797a31a3e6.jpg"
+  },
+  {
+    "titulo": "Introducción a las NICSP y su Aplicación en el Sector Público",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/introduccion-a-las-nicsp-y-su-aplicacion-en-el-sector-publico",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/a183d24e3ea71c2bfff9b4a25b34e650.jpg"
+  },
+  {
+    "titulo": "Storytelling: Estrategias para el Relato de Marcas",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/storytelling-estrategias-para-el-relato-de-marcas",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/9d7eda08725b713e108c357390a7d6e9.png"
+  },
+  {
+    "titulo": "Machine Learning con R",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/machine-learning-con-r",
+    "duracion": "40 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/572d8abb405a6ec4121178a28818c071.jpg"
+  },
+  {
+    "titulo": "Riesgo Operativo con Enfoque a Procesos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/riesgo-operativo-con-enfoque-a-procesos",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/98801e15aae7c56d359b83928ef3e35f.png"
+  },
+  {
+    "titulo": "Neuroventas: La Clave para Triunfar en los Negocios",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/neuroventas-la-clave-para-triunfar-en-los-negocios",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c81ec4ce9cf2cee752b1586114f99339.jpg"
+  },
+  {
+    "titulo": "Comunicación efectiva: Aprende a transmitir mensajes de manera clara y convincente",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/comunicacion-efectiva-aprende-a-transmitir-mensajes-de-manera-clara-y-convincente",
+    "duracion": "12 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e2f3a5771b843d2c880ba664d7590e49.jpg"
+  },
+  {
+    "titulo": "Bases para el Emprendimiento",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/bases-para-el-emprendimiento",
+    "duracion": "8 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/8ec983fd5d55370102158faac5c98b18.jpg"
+  },
+  {
+    "titulo": "Habilidades Gerenciales y Liderazgo",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/habilidades-gerenciales-y-liderazgo",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/6e613a31092a762b85d12d7a9e218267.jpg"
+  },
+  {
+    "titulo": "Manejo del estrés",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/manejo-del-estres",
+    "duracion": "8 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/7f8e2ea28a69133a565111fc2431c414.png"
+  },
+  {
+    "titulo": "Risoterapia",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/risoterapia",
+    "duracion": "2 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/30fc5788464d7f4940d850e7fb2760c5.jpg"
+  },
+  {
+    "titulo": "Redacción y Comunicación Corporativa",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/redaccion-y-comunicacion-corporativa",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d4ac2e854949f7e951d08449b62e25c6.jpg"
+  },
+  {
+    "titulo": "Grafología - Verificación de letra y firma",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/grafologia-verificacion-de-letra-y-firma",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/5471a23a170ad3f8f5dcd295bba6e4ab.jpg"
+  },
+  {
+    "titulo": "Análisis Financiero Empresarial con Excel",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/analisis-financiero-empresarial-con-excel",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/425a40b68bec194376daf7515fb9085d.png"
+  },
+  {
+    "titulo": "Introducción a la Transformación Digital",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/introduccion-a-la-transformacion-digital",
+    "duracion": "20 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/dd733e6a582ae7101314846e69386762.png"
+  },
+  {
+    "titulo": "Reformas al Reglamento a la ley Orgánica del Sistema Nacional de Contratación Pública",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/reformas-al-reglamento-a-la-ley-organica-del-sistema-nacional-de-contratacion-publica",
+    "duracion": "6 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/6d6f39b035e4ba7657a196f2c5d3283b.jpg"
+  },
+  {
+    "titulo": "Nuevo Reglamento General a la Ley Orgánica del Sistema Nacional de Contratación Pública (Telepresencia)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/nuevo-reglamento-taller",
+    "duracion": "32 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/7a3f1ba10bc46965ba6b30c6e6949de4.jpg"
+  },
+  {
+    "titulo": "Actualización de las Etapas Preparatoria y Precontractual con el Nuevo Reglamento",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/actualizacion-de-las-etapas-preparatoria-y-precontractual-con-el-nuevo-reglamento",
+    "duracion": "8 horas",
+    "modalidad": "Presencial",
+    "precio": ""
+  },
+  {
+    "titulo": "Sumarios Administrativos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/sumarios-administrativos",
+    "duracion": "8 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/592cf990151bb8d3a5e85d26b8b904f9.jpg"
+  },
+  {
+    "titulo": "Facturación electrónica (Telepresencia)",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/facturacion-electronica-taller",
+    "duracion": "32 horas",
+    "modalidad": "Virtual",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/3bbda580bc034af952dafc461fc23132.png"
+  },
+  {
+    "titulo": "Servicio al cliente",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/servicio-al-cliente",
+    "duracion": "8 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/1129050f0be8c94c7da4ea6701708178.jpg"
+  },
+  {
+    "titulo": "Ofimática básica",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/ofimatica-basica",
+    "duracion": "20 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ec4d3025d30cf72718540c0807fe2c19.jpg"
+  },
+  {
+    "titulo": "Módulo 1: Soldadura SMAW I",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/modulo-1-soldadura-smaw-i",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/15578464109a1766757b6f3ccf1a9bbd.jpg"
+  },
+  {
+    "titulo": "Estrategias Avanzadas de Marketing Digital y Redes Sociales",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/estrategias-avanzadas-de-marketing-digital-y-redes-sociales",
+    "duracion": "22 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/233a6d313655563c4b1993a80c5521e5.jpg"
+  },
+  {
+    "titulo": "SQL Aplicado al Análisis de Datos - Módulo 2",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/sql-aplicado-al-analisis-de-datos-modulo-2",
+    "duracion": "16 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/250e4940ee20b5e0829754e4b9f89984.jpg"
+  },
+  {
+    "titulo": "Módulo 2: Soldadura SMAW II",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/modulo-2-soldadura-smaw-ii",
+    "duracion": "24 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f83980ab20b16b302f735b1b98334876.jpg"
+  },
+  {
+    "titulo": "Trabajo seguro en alturas - TSA",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/trabajo-seguro-en-alturas-tsa",
+    "duracion": "20 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/1f92f393463a7909a5cbd3e604bd2182.jpg"
+  },
+  {
+    "titulo": "Diplomado en Gerencia Avanzada de Proyectos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/diplomado-en-gerencia-avanzada-proyectos",
+    "duracion": "140 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/ea063c5b724f1bdcd59339fda0548457.jpg"
+  },
+  {
+    "titulo": "Curso de preparación para la certificación internacional en \"Scrum Master Professional Certificate\"",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/scrum-certificate",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/f5ea430d0261130208b15732f7669ca2.png"
+  },
+  {
+    "titulo": "Optimización empresarial con Six Sigma: Implementación práctica de DMAIC",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/optimizacion-empresarial-con-six-sigma-implementacion-practica-de-dmaic",
+    "duracion": "40 horas",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/fc3920ff924a3429a5d445ea3b83f2c5.jpg"
+  },
+  {
+    "titulo": "ISO 37001: Gestión Integral de Riesgos de Soborno",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/iso-37001-gestion-integral-de-riesgos-de-soborno",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d1ea5fe388cb599e3ab8b37e531c9983.jpg"
+  },
+  {
+    "titulo": "Gestión de Riesgos Psicosociales en el Entorno Laboral",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-riesgos-psicosociales-en-el-entorno-laboral",
+    "duracion": "40 horas",
+    "modalidad": "Online",
+    "precio": ""
+  },
+  {
+    "titulo": "Líder LEAN Transformacional",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/lider-lean-transformacional",
+    "duracion": "40 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/559df77b4289300c7450eb4dd1dc8108.jpg"
+  },
+  {
+    "titulo": "Gestión de crisis y riesgos sanitarios para plantas de alimentos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/gestion-de-crisis-y-riesgos-sanitarios-para-plantas-de-alimentos",
+    "duracion": "20 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e5b1231009233acd67ba750c006ea795.jpg"
+  },
+  {
+    "titulo": "Logística y Distribución",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/logistica-y-distribucion",
+    "duracion": "20 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/34423af6c22f764accbd24aa896c3e6b.jpg"
+  },
+  {
+    "titulo": "Estadística  y verificación de métodos para laboratorios clínicos",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/estadistica-y-verificacion-de-metodos-para-laboratorios-clinicos",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/b81b9524c9e81c3107b9ac34be352204.jpeg"
+  },
+  {
+    "titulo": "Design Thinking e Innovación",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/design-thinking-e-innovacion",
+    "duracion": "48 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/d5aeb846ba501a4f10a5753e5789b1ae.jpg"
+  },
+  {
+    "titulo": "Microbiología de Alimentos e Introducción a la Inocuidad Alimentaria",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/microbiologia-alimentos-e-introduccion-inocuidad-alimentaria",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/e70c1b1f6444d837033c74e2651c3d9b.jpg"
+  },
+  {
+    "titulo": "Competente en Prevención de Riesgos Laborales y Aplicación del Decreto Ejecutivo 255",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/competente-prl-decreto-ejecutivo255",
+    "duracion": "16 horas",
+    "modalidad": "Presencial",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/8db7117f5197b4043c7deca6aa1af269.jpg"
+  },
+  {
+    "titulo": "Actualización en el Sistema de Gestión de SST con enfoque en ISO 45001 y Normativa DE-255",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/actualizacion-en-el-sistema-de-gestion-de-sst-con-enfoque-en-iso-45001-y-normativa-de-255",
+    "duracion": "24 horas",
+    "modalidad": "Online",
+    "precio": "",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/aa311fce75c5637dcf80bf85517d6028.jpg"
+  }
+]

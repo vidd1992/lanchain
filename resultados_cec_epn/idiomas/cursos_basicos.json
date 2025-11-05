@@ -1,0 +1,42 @@
+[
+  {
+    "titulo": "IDIOMA INGLÉS",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/idioma-ingles-coordinacion-de-linguistica-e-intercambios-culturales",
+    "horario": "Lunes a viernes: 7:00-9:00 / 9:00-11:00 / 11:00-13:00 / 13:00-15:00 / 14:00-16:00 / 16:00-18:00 / 18:00-20:00  sábado 8:00-13:00",
+    "inicio": "21 octubre, 2025",
+    "duracion": "80 horas",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c472155222e09ba0c620ccf17731c99b.jpg"
+  },
+  {
+    "titulo": "CONVERSATION CLUB- INGLÉS",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/conversation-club",
+    "horario": "Martes a jueves: 16:00 - 17:00 / 17:00 - 18:00",
+    "inicio": "21 octubre, 2025",
+    "duracion": "20 horas",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/66943b85f239c02a86aa474389275ae3.jpg"
+  },
+  {
+    "titulo": "ADVANCED CONVERSATION CLUB- INGLÉS",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/advanced-conversation-club-ingles",
+    "horario": "Lunes a viernes: 8:00-9:00",
+    "inicio": "21 octubre, 2025",
+    "duracion": "40 horas",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/2d7d50ee5aa0ad1d9fa7ba009780368d.jpg"
+  },
+  {
+    "titulo": "IDIOMA FRANCÉS",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/idioma-frances-coordinacion-de-linguistica-e-intercambios-culturales",
+    "horario": "Lunes a viernes: 7:00-9:00 / 9:00-11:00 / 11:00-13:00 / 16:00-18:00 / 18:00-20:00  sábado 8:00-13:00",
+    "inicio": "21 octubre, 2025",
+    "duracion": "80 horas",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/00e851454a7dadffc34dda7e00442659.jpg"
+  },
+  {
+    "titulo": "IDIOMA ALEMÁN",
+    "url": "https://www.cec-epn.edu.ec/cursos/curso/idioma-aleman",
+    "horario": "Lunes a viernes: 7:00-9:00 / 9:00-11:00 / 18:00-20:00",
+    "inicio": "21 octubre, 2025",
+    "duracion": "80 horas",
+    "imagen": "https://www.cec-epn.edu.ec/wp-content/sabai/File/thumbnails/c7fb22ed73f53ea572caed59d0aaa5fd.jpg"
+  }
+]

@@ -93,6 +93,7 @@ export class RAGAgent {
     try {
       debugLogger.startTimer();
       console.log(`\n📝 Consulta: "${query}" [Chain Mode]`);
+      console.log(`📇 Índice de Pinecone: "${this.pineconeService.indexName}"`);
 
       // Paso 1: Detectar intenciones simples (saludos, despedidas, etc.)
       const simpleIntent = this.intentDetector.processSimpleIntent(query);
@@ -146,17 +147,30 @@ export class RAGAgent {
           conversationHistory
         );
 
-        await this.historyManager.addMessage(
-          this.sessionId,
-          query,
-          perplexityResponse.answer
-        );
+        let finalAnswer = perplexityResponse.answer;
 
-        debugLogger.logResponse('Perplexity', perplexityResponse.answer);
+        // Si está habilitado, procesar respuesta con GPT-4
+        if (config.perplexity.useGptProcessing) {
+          const processedResponse = await this.processPerplexityWithGPT(
+            perplexityResponse.answer,
+            query,
+            conversationHistory
+          );
+          finalAnswer = processedResponse.answer;
+          console.log('✅ Respuesta de Perplexity procesada por GPT-4');
+        } else {
+          console.log(
+            'ℹ️  Usando respuesta directa de Perplexity (sin procesamiento GPT)'
+          );
+        }
+
+        await this.historyManager.addMessage(this.sessionId, query, finalAnswer);
+
+        debugLogger.logResponse('Perplexity', finalAnswer);
 
         const response = {
-          answer: formatResponse(perplexityResponse.answer), // Aplicar formato HTML si está habilitado
-          source: 'perplexity',
+          answer: formatResponse(finalAnswer), // Aplicar formato HTML si está habilitado
+          source: config.perplexity.useGptProcessing ? 'perplexity+gpt' : 'perplexity',
           query,
           ragResults: [],
           citations: perplexityResponse.citations,
@@ -204,6 +218,7 @@ export class RAGAgent {
 
       // Paso 1: PARALELIZAR búsqueda RAG + obtención de historial
       console.log('🔍 Buscando en RAG y cargando historial (paralelo)...');
+      console.log(`📇 Índice de Pinecone: "${this.pineconeService.indexName}"`);
       const [ragResults, conversationHistory] = await Promise.all([
         this.pineconeService.searchSimilarDocuments(query),
         this.historyManager.getFormattedHistory(this.sessionId),
@@ -211,17 +226,27 @@ export class RAGAgent {
 
       debugLogger.logRAGSearch(query, ragResults);
 
-      // 🔍 DEBUG: Mostrar scores de los resultados
+      // 🔍 DEBUG: Mostrar TODOS los resultados completos del RAG
       if (ragResults.length > 0) {
-        console.log(`📊 Resultados de búsqueda: ${ragResults.length} documentos`);
-        ragResults.slice(0, 3).forEach((r, idx) => {
-          console.log(
-            `   ${idx + 1}. Score: ${r.score.toFixed(4)} - ${r.content.substring(
-              0,
-              80
-            )}...`
-          );
-        });
+        console.log(
+          `\n📊 RESULTADOS COMPLETOS DEL RAG: ${ragResults.length} documentos\n`
+        );
+        console.log('═'.repeat(80));
+
+        for (let idx = 0; idx < ragResults.length; idx++) {
+          const r = ragResults[idx];
+          console.log(`\n📄 Documento ${idx + 1}/${ragResults.length}:`);
+          console.log(`   🎯 Score: ${r.score.toFixed(4)}`);
+          console.log(`   📁 Source: ${r.metadata?.source || 'N/A'}`);
+          console.log(`   🔢 Chunk Index: ${r.metadata?.chunkIndex ?? 'N/A'}`);
+          console.log(`   🏷️  Tipo: ${r.metadata?.tipo || 'N/A'}`);
+          console.log(`   📝 Metadata completa:`, JSON.stringify(r.metadata, null, 2));
+          console.log(`   📄 Contenido (primeros 200 chars):`);
+          console.log(`      "${r.content.substring(0, 200)}..."`);
+          console.log('   ' + '-'.repeat(76));
+        }
+
+        console.log('\n' + '═'.repeat(80) + '\n');
       } else {
         console.log('📊 No se encontraron documentos en Pinecone');
       }
@@ -260,12 +285,55 @@ export class RAGAgent {
           ragResults,
           conversationHistory
         );
-        answer = ragAnswer.answer;
-        source = 'rag';
-        relevantDocs = ragResults;
 
-        debugLogger.logResponse('RAG (OpenAI)', answer);
-        console.log('📚 Respondiendo desde RAG');
+        // Validar calidad de la respuesta RAG
+        const isRagResponseReliable = await this.validateRagResponse(
+          ragAnswer.answer,
+          query,
+          ragResults
+        );
+
+        if (isRagResponseReliable) {
+          // Usar respuesta del RAG
+          answer = ragAnswer.answer;
+          source = 'rag';
+          relevantDocs = ragResults;
+
+          debugLogger.logResponse('RAG (OpenAI)', answer);
+          console.log('✅ Respuesta RAG validada como confiable');
+          console.log('📚 Respondiendo desde RAG');
+        } else {
+          // Fallback a Perplexity si RAG no es confiable
+          console.log('⚠️  Respuesta RAG no es suficientemente confiable');
+          console.log('🌐 Buscando información actualizada en Perplexity...');
+
+          const perplexityResponse = await this.perplexityService.query(
+            query,
+            conversationHistory
+          );
+
+          // Si está habilitado, procesar respuesta con GPT-4
+          if (config.perplexity.useGptProcessing) {
+            const processedResponse = await this.processPerplexityWithGPT(
+              perplexityResponse.answer,
+              query,
+              conversationHistory
+            );
+            answer = processedResponse.answer;
+            source = 'rag-fallback-perplexity+gpt';
+            console.log('✅ Usando Perplexity (procesado por GPT-4) como fallback');
+          } else {
+            answer = perplexityResponse.answer;
+            source = 'rag-fallback-perplexity';
+            console.log('✅ Usando Perplexity directo como fallback');
+          }
+
+          citations = perplexityResponse.citations;
+          relevantDocs = ragResults; // Mantener los docs que se intentaron usar
+
+          debugLogger.logResponse('Perplexity (Fallback)', answer);
+          console.log('🌐 Respondiendo desde Perplexity (fallback inteligente)');
+        }
       } else {
         // Fallback a Perplexity (historial ya está cargado)
         console.log('⚠️  No se encontraron resultados relevantes en RAG');
@@ -278,8 +346,24 @@ export class RAGAgent {
           conversationHistory
         );
 
-        answer = perplexityResponse.answer;
-        source = 'perplexity';
+        // Si está habilitado, procesar respuesta con GPT-4
+        if (config.perplexity.useGptProcessing) {
+          const processedResponse = await this.processPerplexityWithGPT(
+            perplexityResponse.answer,
+            query,
+            conversationHistory
+          );
+          answer = processedResponse.answer;
+          source = 'perplexity+gpt';
+          console.log('✅ Respuesta de Perplexity procesada por GPT-4');
+        } else {
+          answer = perplexityResponse.answer;
+          source = 'perplexity';
+          console.log(
+            'ℹ️  Usando respuesta directa de Perplexity (sin procesamiento GPT)'
+          );
+        }
+
         citations = perplexityResponse.citations;
 
         debugLogger.logResponse('Perplexity', answer);
@@ -326,6 +410,18 @@ export class RAGAgent {
     const context = documents
       .map((doc, idx) => `[Documento ${idx + 1}] ${doc.content}`)
       .join('\n\n');
+
+    // Logging del contexto que se enviará al agente
+    console.log('\n' + '═'.repeat(80));
+    console.log('📝 CONTEXTO ENVIADO AL AGENTE (RAG)');
+    console.log('═'.repeat(80));
+    console.log(`📊 Total de documentos: ${documents.length}`);
+    console.log(`📏 Tamaño del contexto: ${context.length} caracteres`);
+    console.log('\n🔍 CONTENIDO COMPLETO DEL CONTEXTO:');
+    console.log('-'.repeat(80));
+    console.log(context);
+    console.log('-'.repeat(80));
+    console.log('═'.repeat(80) + '\n');
 
     // Formatear historial de conversación (ya viene cargado)
     const historyText = conversationHistory
@@ -439,6 +535,19 @@ PREGUNTA DEL USUARIO: ${query}
 
 RESPUESTA (sigue la metodología Chain of Thought - piensa paso a paso antes de responder):`;
 
+    // Logging del prompt completo
+    console.log('\n' + '═'.repeat(80));
+    console.log('🤖 PROMPT COMPLETO ENVIADO A GPT-4');
+    console.log('═'.repeat(80));
+    console.log(`📏 Tamaño total del prompt: ${prompt.length} caracteres`);
+    console.log(`📊 Historial incluido: ${conversationHistory.length} mensajes`);
+    console.log(`❓ Query del usuario: "${query}"`);
+    console.log('\n💬 PROMPT COMPLETO:');
+    console.log('-'.repeat(80));
+    console.log(prompt);
+    console.log('-'.repeat(80));
+    console.log('═'.repeat(80) + '\n');
+
     debugLogger.logPrompt('RAG con CoT', prompt);
 
     // Generar respuesta con OpenAI usando callbacks de LangChain
@@ -448,9 +557,150 @@ RESPUESTA (sigue la metodología Chain of Thought - piensa paso a paso antes de 
       temperature: 0.3,
     });
 
+    // Logging de la respuesta generada
+    console.log('\n' + '═'.repeat(80));
+    console.log('✅ RESPUESTA GENERADA POR GPT-4');
+    console.log('═'.repeat(80));
+    console.log(`📏 Tamaño de la respuesta: ${response.content.length} caracteres`);
+    console.log(`📊 Documentos utilizados: ${documents.length}`);
+    console.log('\n💬 RESPUESTA COMPLETA:');
+    console.log('-'.repeat(80));
+    console.log(response.content);
+    console.log('-'.repeat(80));
+    console.log('═'.repeat(80) + '\n');
+
     return {
       answer: response.content,
       documentsUsed: documents.length,
+    };
+  }
+
+  /**
+   * Validar si la respuesta del RAG es confiable o necesita fallback a Perplexity
+   * @param {string} ragAnswer - Respuesta generada por RAG
+   * @param {string} query - Query original del usuario
+   * @param {Array} documents - Documentos recuperados
+   * @returns {Promise<boolean>} - True si es confiable, False si necesita fallback
+   */
+  async validateRagResponse(ragAnswer, query, documents) {
+    console.log('\n🔍 Validando confiabilidad de respuesta RAG...');
+
+    // Construir contexto de los documentos
+    const docsContext = documents
+      .map((doc, idx) => `[Doc ${idx + 1}] ${doc.content.substring(0, 300)}...`)
+      .join('\n\n');
+
+    const validationPrompt = `Eres un validador de respuestas. Tu trabajo es determinar si una respuesta generada a partir de documentos es CONFIABLE o NO.
+
+PREGUNTA DEL USUARIO: ${query}
+
+DOCUMENTOS DISPONIBLES:
+${docsContext}
+
+RESPUESTA GENERADA:
+${ragAnswer}
+
+CRITERIOS DE VALIDACIÓN:
+1. ¿La respuesta está basada en información presente en los documentos?
+2. ¿La respuesta responde directamente a la pregunta del usuario?
+3. ¿La respuesta contiene información específica (precios, fechas, horarios) que SÍ está en los documentos?
+4. ¿La respuesta evita inventar o asumir información no presente?
+
+CASOS DONDE NO ES CONFIABLE:
+- Si la pregunta es sobre precios/fechas/horarios pero los documentos solo mencionan el tema superficialmente
+- Si la respuesta tiene detalles específicos que NO aparecen en los documentos
+- Si los documentos solo tienen información parcial o tangencial al tema
+- Si la respuesta parece genérica o mezclada con información de otros temas
+
+Responde SOLO con "CONFIABLE" o "NO_CONFIABLE" seguido de una breve razón (máximo 20 palabras).
+
+Formato: CONFIABLE | razón
+o
+NO_CONFIABLE | razón`;
+
+    try {
+      const validation = await this.llm.invoke(validationPrompt, {
+        temperature: 0.1,
+      });
+
+      const validationText = validation.content.trim().toUpperCase();
+      const isReliable = validationText.startsWith('CONFIABLE');
+
+      console.log(`📋 Validación: ${validation.content.trim()}`);
+
+      return isReliable;
+    } catch (error) {
+      console.error('❌ Error en validación, usando RAG por defecto:', error.message);
+      // En caso de error, confiar en el RAG (comportamiento actual)
+      return true;
+    }
+  }
+
+  /**
+   * Procesar respuesta de Perplexity con GPT-4 para formateo y validación
+   * @param {string} perplexityAnswer - Respuesta cruda de Perplexity
+   * @param {string} originalQuery - Query original del usuario
+   * @param {Array} conversationHistory - Historial de conversación
+   * @returns {Promise<Object>} - Respuesta procesada
+   */
+  async processPerplexityWithGPT(
+    perplexityAnswer,
+    originalQuery,
+    conversationHistory = []
+  ) {
+    console.log('🤖 Procesando respuesta de Perplexity con GPT-4...');
+
+    const historyText = conversationHistory
+      .map(msg => `${msg.role === 'user' ? 'Usuario' : 'Asistente'}: ${msg.content}`)
+      .join('\n');
+
+    const systemPrompt = `Eres ${config.agent.name}, ${config.agent.role}.
+
+Tu trabajo es PROCESAR y FORMATEAR la información que Perplexity encontró en la web del CEC-EPN.
+
+REGLAS CRÍTICAS:
+1. NO inventes información - Usa SOLO lo que Perplexity proporcionó
+2. Si Perplexity mencionó múltiples cursos/opciones, mantenlos separados (NO agrupes)
+3. Organiza la información de forma clara y estructurada
+4. Si hay información confusa o contradictoria, indícalo
+5. Si faltan datos importantes, sugiere contactar al CEC-EPN
+
+FORMATO PREFERIDO:
+- Si hay MÚLTIPLES opciones: Lista cada una claramente con sus características
+- Si es UN SOLO curso: Presenta todos los detalles disponibles
+- Siempre incluye: nombre, precio, duración, modalidad (si están disponibles)
+- Termina preguntando si necesita más información específica
+
+NO HAGAS:
+- ❌ Cambiar nombres de cursos
+- ❌ Agrupar cursos diferentes como uno solo
+- ❌ Inventar información que no está en la respuesta de Perplexity
+- ❌ Decir "no se especifica" si el dato está presente`;
+
+    const prompt = `${systemPrompt}
+
+HISTORIAL DE CONVERSACIÓN:
+${historyText || 'Esta es la primera interacción.'}
+
+PREGUNTA ORIGINAL DEL USUARIO: ${originalQuery}
+
+INFORMACIÓN QUE PERPLEXITY ENCONTRÓ EN LA WEB:
+${perplexityAnswer}
+
+Tu tarea: Procesa y formatea esta información de manera clara para el usuario. Responde directamente:`;
+
+    debugLogger.logPrompt('Perplexity+GPT', prompt);
+
+    const response = await this.llm.invoke(prompt, {
+      callbacks: langChainCallbacks.getCallbacks(),
+      temperature: 0.2, // Temperatura muy baja para ser fiel a la fuente
+    });
+
+    console.log('✅ Respuesta procesada por GPT-4');
+
+    return {
+      answer: response.content,
+      processedByGPT: true,
     };
   }
 

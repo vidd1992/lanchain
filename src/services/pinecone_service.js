@@ -8,6 +8,7 @@ export class PineconeService {
     this.pinecone = null;
     this.vectorStore = null;
     this.embeddings = null;
+    this.indexName = config.pinecone.indexName;
   }
 
   async initialize() {
