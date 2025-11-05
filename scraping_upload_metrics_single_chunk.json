@@ -1,0 +1,7 @@
+{
+  "timestamp": "2025-11-05T04:43:59.840Z",
+  "strategy": "single_chunk_per_course",
+  "totalDocuments": 396,
+  "totalCourses": 396,
+  "chunksPerCourse": 1
+}

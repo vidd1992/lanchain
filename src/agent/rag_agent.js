@@ -4,6 +4,7 @@ import { PerplexityService } from '../services/perplexity_service.js';
 import { ConversationHistoryManager } from '../services/conversation_history.js';
 import { IntentDetector } from '../utils/intent_detector.js';
 import { ConversationalRAGChain } from '../chains/conversational_rag_chain.js';
+import { QueryTransformChain } from '../chains/query_transform_chain.js';
 import { MetricsTracker } from '../utils/metrics_tracker.js';
 import { debugLogger } from '../utils/debug_logger.js';
 import { langChainCallbacks } from '../utils/langchain_callbacks.js';
@@ -18,6 +19,7 @@ export class RAGAgent {
     this.perplexityService = new PerplexityService();
     this.historyManager = new ConversationHistoryManager(10, true, idEmpresa); // Pasar idEmpresa
     this.intentDetector = new IntentDetector();
+    this.queryTransformer = new QueryTransformChain(); // Query transformation con LLM
     this.metricsTracker = new MetricsTracker(); // Sistema de métricas
     this.useLangChainChains = useLangChainChains; // Flag para usar chains
 
@@ -216,13 +218,30 @@ export class RAGAgent {
         return response;
       }
 
-      // Paso 1: PARALELIZAR búsqueda RAG + obtención de historial
-      console.log('🔍 Buscando en RAG y cargando historial (paralelo)...');
+      // Paso 1: Cargar historial primero (necesario para transformación contextual)
+      console.log('📚 Cargando historial de conversación...');
+      const conversationHistory = await this.historyManager.getFormattedHistory(this.sessionId);
+
+      // Paso 2: Transformar query con contexto usando LangChain
+      console.log('🔄 Transformando query con contexto...');
+      const queryTransform = await this.queryTransformer.transform(
+        query,
+        conversationHistory
+      );
+      
+      console.log(`📝 Query original: "${queryTransform.original}"`);
+      console.log(`🔍 Query optimizada: "${queryTransform.transformed}"`);
+      console.log(`🎯 Intent detectado: ${queryTransform.intent}`);
+      if (queryTransform.usedHistory) {
+        console.log('💭 Transformación usó contexto de conversación');
+      }
+
+      // Paso 3: Búsqueda en RAG con query transformada
+      console.log('🔍 Buscando en RAG con query optimizada...');
       console.log(`📇 Índice de Pinecone: "${this.pineconeService.indexName}"`);
-      const [ragResults, conversationHistory] = await Promise.all([
-        this.pineconeService.searchSimilarDocuments(query),
-        this.historyManager.getFormattedHistory(this.sessionId),
-      ]);
+      const ragResults = await this.pineconeService.searchSimilarDocuments(
+        queryTransform.transformed // ← Usar query transformada
+      );
 
       debugLogger.logRAGSearch(query, ragResults);
 
@@ -286,7 +305,17 @@ export class RAGAgent {
           conversationHistory
         );
 
-        // Validar calidad de la respuesta RAG
+        // ⚠️ VALIDACIÓN DESACTIVADA TEMPORALMENTE PARA TESTING
+        // Usar directamente la respuesta del RAG sin validación adicional
+        answer = ragAnswer.answer;
+        source = 'rag';
+        relevantDocs = ragResults;
+
+        debugLogger.logResponse('RAG (OpenAI)', answer);
+        console.log('✅ Usando respuesta RAG directamente (validación desactivada)');
+        console.log('📚 Respondiendo desde RAG');
+
+        /* VALIDACIÓN COMENTADA - Descomentar si se necesita validación estricta
         const isRagResponseReliable = await this.validateRagResponse(
           ragAnswer.answer,
           query,
@@ -294,16 +323,13 @@ export class RAGAgent {
         );
 
         if (isRagResponseReliable) {
-          // Usar respuesta del RAG
           answer = ragAnswer.answer;
           source = 'rag';
           relevantDocs = ragResults;
-
           debugLogger.logResponse('RAG (OpenAI)', answer);
           console.log('✅ Respuesta RAG validada como confiable');
           console.log('📚 Respondiendo desde RAG');
         } else {
-          // Fallback a Perplexity si RAG no es confiable
           console.log('⚠️  Respuesta RAG no es suficientemente confiable');
           console.log('🌐 Buscando información actualizada en Perplexity...');
 
@@ -334,6 +360,7 @@ export class RAGAgent {
           debugLogger.logResponse('Perplexity (Fallback)', answer);
           console.log('🌐 Respondiendo desde Perplexity (fallback inteligente)');
         }
+        */
       } else {
         // Fallback a Perplexity (historial ya está cargado)
         console.log('⚠️  No se encontraron resultados relevantes en RAG');
