@@ -47,11 +47,15 @@ export class ResponseFormatter {
     // Convertir listas con viñetas
     html = this.convertLists(html);
 
-    // Convertir texto en negrita **texto** a HTML
+    // Convertir texto en negrita **texto** a HTML (por si aún queda alguno)
     html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
-    // Convertir texto en cursiva *texto* a HTML (solo si no es parte de **)
-    html = html.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+    // Convertir texto en negrita *texto* a HTML (formato WhatsApp - un solo asterisco)
+    // En WhatsApp, *texto* es negrita (no cursiva)
+    html = html.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<strong>$1</strong>');
+
+    // Convertir texto en cursiva _texto_ a HTML (formato WhatsApp para cursiva)
+    html = html.replace(/_(.+?)_/g, '<em>$1</em>');
 
     // Convertir saltos de línea dobles a párrafos
     html = html
@@ -151,21 +155,35 @@ export class ResponseFormatter {
   }
 
   /**
+   * Convierte formato Markdown a formato WhatsApp
+   * Convierte **texto** a *texto* para compatibilidad con WhatsApp
+   * @param {string} text - Texto con formato Markdown
+   * @returns {string} - Texto con formato WhatsApp
+   */
+  convertToWhatsAppFormat(text) {
+    // Convertir **texto** a *texto* (WhatsApp usa un solo asterisco para negrita)
+    return text.replace(/\*\*(.+?)\*\*/g, '*$1*');
+  }
+
+  /**
    * Aplica formato completo con sanitización
    * @param {string} text - Texto original
    * @returns {string} - Texto formateado y sanitizado
    */
   formatSafe(text) {
+    // SIEMPRE convertir a formato WhatsApp primero (sin importar si enableFormatting está activado)
+    let processedText = this.convertToWhatsAppFormat(text);
+
     if (!this.enableFormatting) {
-      return text;
+      return processedText;
     }
 
-    const html = this.convertToHtml(text);
+    const html = this.convertToHtml(processedText);
     const sanitized = this.sanitize(html);
 
     if (!this.isValidHtml(sanitized)) {
       console.warn('⚠️  HTML generado no es válido, devolviendo texto original');
-      return text;
+      return processedText;
     }
 
     return sanitized;

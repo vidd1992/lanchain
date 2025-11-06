@@ -166,8 +166,6 @@ export class RAGAgent {
           );
         }
 
-        await this.historyManager.addMessage(this.sessionId, query, finalAnswer);
-
         debugLogger.logResponse('Perplexity', finalAnswer);
 
         const response = {
@@ -180,6 +178,13 @@ export class RAGAgent {
           idEmpresa: this.idEmpresa,
           timestamp: new Date().toISOString(),
         };
+
+        // Guardar en historial de forma NO BLOQUEANTE (en background)
+        this.historyManager
+          .addMessage(this.sessionId, query, finalAnswer)
+          .catch(error =>
+            console.error('❌ Error guardando en historial:', error.message)
+          );
 
         // Trackear métricas
         const latency = Date.now() - startTime;
@@ -220,7 +225,9 @@ export class RAGAgent {
 
       // Paso 1: Cargar historial primero (necesario para transformación contextual)
       console.log('📚 Cargando historial de conversación...');
-      const conversationHistory = await this.historyManager.getFormattedHistory(this.sessionId);
+      const conversationHistory = await this.historyManager.getFormattedHistory(
+        this.sessionId
+      );
 
       // Paso 2: Transformar query con contexto usando LangChain
       console.log('🔄 Transformando query con contexto...');
@@ -228,7 +235,7 @@ export class RAGAgent {
         query,
         conversationHistory
       );
-      
+
       console.log(`📝 Query original: "${queryTransform.original}"`);
       console.log(`🔍 Query optimizada: "${queryTransform.transformed}"`);
       console.log(`🎯 Intent detectado: ${queryTransform.intent}`);
@@ -397,9 +404,7 @@ export class RAGAgent {
         console.log('🌐 Respondiendo desde Perplexity');
       }
 
-      // Paso 3: Guardar en historial
-      await this.historyManager.addMessage(this.sessionId, query, answer);
-
+      // Paso 3: Preparar respuesta (retornar rápido)
       const response = {
         answer: formatResponse(answer), // Aplicar formato HTML si está habilitado
         source,
@@ -410,6 +415,12 @@ export class RAGAgent {
         idEmpresa: this.idEmpresa,
         timestamp: new Date().toISOString(),
       };
+
+      // Guardar en historial de forma NO BLOQUEANTE (en background)
+      // Esto permite que el summary se ejecute sin retrasar la respuesta al usuario
+      this.historyManager
+        .addMessage(this.sessionId, query, answer)
+        .catch(error => console.error('❌ Error guardando en historial:', error.message));
 
       // Trackear métricas
       const latency = Date.now() - startTime;
@@ -455,6 +466,9 @@ export class RAGAgent {
       .map(msg => `${msg.role === 'user' ? 'Usuario' : 'Asistente'}: ${msg.content}`)
       .join('\n');
 
+    // Detectar si es el primer mensaje de la conversación
+    const isFirstMessage = conversationHistory.length === 0;
+
     // Crear prompt con Chain of Thought y Few-Shot examples
     const systemContext = `Eres ${config.agent.name}, ${config.agent.role}.
 
@@ -462,8 +476,15 @@ TU ROL Y PERSONALIDAD:
 - Eres amable, profesional y servicial
 - Tu objetivo es ayudar a estudiantes y personas interesadas en los cursos y servicios del CEC-EPN
 - Siempre respondes en español
-- Si te saludan, responde de manera cordial como representante del CEC-EPN
 - Si no tienes información específica, indícalo honestamente
+
+⚠️ IMPORTANTE - SALUDOS:
+${
+  isFirstMessage
+    ? '- Este es el PRIMER mensaje de la conversación, saluda cordialmente al usuario'
+    : '- Ya hay mensajes previos en la conversación, NO vuelvas a saludar con "Hola"'
+}
+- Si el usuario te saluda o se despide, responde apropiadamente sin importar si es el primer mensaje o no
 
 ⚠️ IMPORTANTE - TIPOS DE CURSOS:
 El CEC-EPN maneja DOS tipos de cursos:
@@ -742,12 +763,9 @@ Tu tarea: Procesa y formatea esta información de manera clara para el usuario. 
     console.log(`💬 Intención simple detectada: ${simpleIntent.intent}`);
     console.log('✨ Respondiendo directamente (sin búsqueda)');
 
-    // Guardar en historial
-    await this.historyManager.addMessage(this.sessionId, query, simpleIntent.answer);
-
     debugLogger.logResponse('Respuesta Directa', simpleIntent.answer);
 
-    return {
+    const response = {
       answer: formatResponse(simpleIntent.answer), // Aplicar formato HTML si está habilitado
       source: 'direct',
       intent: simpleIntent.intent,
@@ -758,6 +776,13 @@ Tu tarea: Procesa y formatea esta información de manera clara para el usuario. 
       idEmpresa: this.idEmpresa,
       timestamp: new Date().toISOString(),
     };
+
+    // Guardar en historial de forma NO BLOQUEANTE (en background)
+    this.historyManager
+      .addMessage(this.sessionId, query, simpleIntent.answer)
+      .catch(error => console.error('❌ Error guardando en historial:', error.message));
+
+    return response;
   }
 
   /**
