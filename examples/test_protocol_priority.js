@@ -24,7 +24,26 @@ async function testProtocolPriority() {
         'Diferido',
         'tarjeta'
       ],
+      forbiddenPhrases: [
+        'consultar la página del CEC',
+        'según información oficial',
+        'contactar al CEC'
+      ],
       description: 'Métodos de pago (debe incluir URL y detalles específicos)'
+    },
+    {
+      query: '¿Puedo tener dos descuentos?',
+      expectedKeywords: [
+        'no puedes',
+        'aplicamos',
+        'mayor porcentaje'
+      ],
+      forbiddenPhrases: [
+        'según información oficial',
+        'se aplica',
+        'consultar'
+      ],
+      description: 'Descuentos (debe usar tono institucional - "aplicamos")'
     },
     {
       query: '¿Cuál es el horario de atención?',
@@ -35,16 +54,11 @@ async function testProtocolPriority() {
         'Sábados',
         '08h00'
       ],
-      description: 'Horarios de atención (debe incluir horarios específicos)'
-    },
-    {
-      query: '¿Cómo me puedo matricular?',
-      expectedKeywords: [
-        'https://aps.cec-epn.edu.ec',
-        'portal',
-        'línea'
+      forbiddenPhrases: [
+        'consultar la página',
+        'contactar al CEC'
       ],
-      description: 'Proceso de matrícula (debe incluir URL del portal)'
+      description: 'Horarios de atención (debe incluir horarios específicos)'
     }
   ];
 
@@ -81,10 +95,27 @@ async function testProtocolPriority() {
         }
       }
 
+      // Validar que NO incluya frases prohibidas (tono no institucional)
+      console.log('\n🚫 VALIDACIÓN DE TONO INSTITUCIONAL:');
+      let forbiddenFound = 0;
+      
+      if (test.forbiddenPhrases) {
+        for (const phrase of test.forbiddenPhrases) {
+          const found = response.answer.toLowerCase().includes(phrase.toLowerCase());
+          if (found) {
+            console.log(`   ❌ "${phrase}" - ENCONTRADA (NO DEBERÍA ESTAR)`);
+            forbiddenFound++;
+          } else {
+            console.log(`   ✅ "${phrase}" - NO ENCONTRADA (correcto)`);
+          }
+        }
+      }
+
       // Validar fuente
       console.log(`\n📊 MÉTRICAS:`);
       console.log(`   Fuente: ${response.source}`);
       console.log(`   Keywords encontradas: ${foundKeywords}/${test.expectedKeywords.length}`);
+      console.log(`   Frases prohibidas: ${forbiddenFound}/${test.forbiddenPhrases?.length || 0}`);
       
       // Check si usó protocolo
       const usedProtocol = response.ragResults?.some(doc => 
@@ -92,16 +123,29 @@ async function testProtocolPriority() {
       );
       console.log(`   Usó protocolo: ${usedProtocol ? '✅ SÍ' : '❌ NO'}`);
 
-      // Test pasa si encontró al menos 60% de keywords
+      // Test pasa si:
+      // 1. Encontró al menos 60% de keywords
+      // 2. NO tiene frases prohibidas (tono institucional correcto)
       const passThreshold = 0.6;
-      const passed = (foundKeywords / test.expectedKeywords.length) >= passThreshold;
+      const keywordsPassed = (foundKeywords / test.expectedKeywords.length) >= passThreshold;
+      const tonePassed = forbiddenFound === 0;
+      const passed = keywordsPassed && tonePassed;
       
       if (passed) {
-        console.log(`\n✅ TEST PASADO (${foundKeywords}/${test.expectedKeywords.length} keywords)`);
+        console.log(`\n✅ TEST PASADO`);
+        console.log(`   - Keywords: ${foundKeywords}/${test.expectedKeywords.length} ✅`);
+        console.log(`   - Tono institucional: ${tonePassed ? 'Correcto ✅' : 'Incorrecto ❌'}`);
         passedTests++;
       } else {
-        console.log(`\n❌ TEST FALLIDO (${foundKeywords}/${test.expectedKeywords.length} keywords)`);
-        console.log(`   Esperado: al menos ${Math.ceil(test.expectedKeywords.length * passThreshold)} keywords`);
+        console.log(`\n❌ TEST FALLIDO`);
+        console.log(`   - Keywords: ${foundKeywords}/${test.expectedKeywords.length} ${keywordsPassed ? '✅' : '❌'}`);
+        console.log(`   - Tono institucional: ${tonePassed ? 'Correcto ✅' : 'Incorrecto ❌'}`);
+        if (!keywordsPassed) {
+          console.log(`   Esperado: al menos ${Math.ceil(test.expectedKeywords.length * passThreshold)} keywords`);
+        }
+        if (!tonePassed) {
+          console.log(`   El bot está usando frases de tercera persona (no habla como CEC-EPN)`);
+        }
       }
 
     } catch (error) {
