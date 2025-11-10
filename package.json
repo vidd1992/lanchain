@@ -26,6 +26,10 @@
     "upload-scraped": "node scripts/process_scraped_courses.js --upload",
     "process-single": "node scripts/process_scraped_courses_SINGLE_CHUNK.js",
     "upload-single": "node scripts/process_scraped_courses_SINGLE_CHUNK.js --upload",
+    "reprocess-doc": "node scripts/reprocess_single_doc.js",
+    "investigate-protocol": "node scripts/investigate_protocol.js",
+    "analyze-scores": "node scripts/analyze_protocol_scores.js",
+    "test-protocol": "node examples/test_protocol_priority.js",
     "test-query-transform": "node examples/test_query_transform.js",
     "test-api": "node examples/test_api_rest.js"
   },

@@ -102,17 +102,29 @@ export class PineconeService {
           finalFilters
         );
 
-        const mappedResults = results.map(([doc, score]) => ({
-          content: doc.pageContent,
-          metadata: doc.metadata,
-          score: score,
-        }));
+        const mappedResults = results.map(([doc, score]) => {
+          // 🎯 BOOST: Priorizar protocolo.docx (multiplicar score por 1.3)
+          let boostedScore = score;
+          if (doc.metadata?.source?.toLowerCase().includes('protocol')) {
+            boostedScore = score * 1.3;
+            console.log(`   🚀 Boost aplicado al protocolo: ${score.toFixed(4)} → ${boostedScore.toFixed(4)}`);
+          }
+          
+          return {
+            content: doc.pageContent,
+            metadata: doc.metadata,
+            score: boostedScore,
+          };
+        });
 
         // 🔧 Filtrar duplicados manteniendo el mejor score
         const deduped = this.deduplicateResults(mappedResults);
 
+        // 📊 Re-ordenar por score (el boost puede haber cambiado el ranking)
+        const sorted = deduped.sort((a, b) => b.score - a.score);
+
         // 📉 Retornar solo los k mejores después de deduplicar
-        return deduped.slice(0, k);
+        return sorted.slice(0, k);
       }
     } catch (error) {
       console.error('Error en búsqueda de Pinecone:', error.message);

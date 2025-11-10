@@ -88,10 +88,25 @@ export class RAGLogger {
     console.log(`📦 Resultados encontrados: ${results.length}`);
     
     if (results.length > 0) {
+      // Detectar si hay resultados del protocolo
+      const protocolDocs = results.filter(doc => 
+        doc.metadata?.source?.toLowerCase().includes('protocol')
+      );
+      
+      if (protocolDocs.length > 0) {
+        console.log(`\n🎯 PROTOCOLO ENCONTRADO: ${protocolDocs.length} documento(s)`);
+        protocolDocs.forEach((doc, idx) => {
+          console.log(`   ${idx + 1}. [Score: ${doc.score.toFixed(4)}] protocolo.docx`);
+          console.log(`      Preview: ${doc.content.substring(0, 80)}...`);
+        });
+      }
+      
       console.log('\n📋 Top resultados:');
       results.slice(0, 3).forEach((doc, idx) => {
-        const title = doc.metadata?.titulo || doc.metadata?.nombre || 'Sin título';
-        console.log(`   ${idx + 1}. [Score: ${doc.score.toFixed(4)}] ${title}`);
+        const isProtocol = doc.metadata?.source?.toLowerCase().includes('protocol');
+        const marker = isProtocol ? '🎯 PROTOCOLO' : '📄';
+        const title = doc.metadata?.titulo || doc.metadata?.nombre || doc.metadata?.source || 'Sin título';
+        console.log(`   ${idx + 1}. [Score: ${doc.score.toFixed(4)}] ${marker} ${title}`);
         console.log(`      Preview: ${doc.content.substring(0, 80)}...`);
       });
       
