@@ -7,6 +7,7 @@ import { ConversationalRAGChain } from '../chains/conversational_rag_chain.js';
 import { QueryTransformChain } from '../chains/query_transform_chain.js';
 import { MetricsTracker } from '../utils/metrics_tracker.js';
 import { debugLogger } from '../utils/debug_logger.js';
+import { ragLogger } from '../utils/rag_logger.js';
 import { langChainCallbacks } from '../utils/langchain_callbacks.js';
 import { config } from '../config/env.js';
 import { formatResponse } from '../utils/response_formatter.js';
@@ -210,10 +211,10 @@ export class RAGAgent {
     const startTime = Date.now(); // Iniciar tracking de latencia
 
     try {
-      debugLogger.startTimer();
-      console.log(`\n📝 Consulta: "${query}" [Custom Mode]`);
+      // Log inicial de la query
+      ragLogger.startQuery(query, this.sessionId);
 
-      // Paso 0: Detectar intenciones simples (saludos, despedidas, etc.)
+      // Detectar intenciones simples
       const simpleIntent = this.intentDetector.processSimpleIntent(query);
 
       if (simpleIntent) {
@@ -224,70 +225,46 @@ export class RAGAgent {
       }
 
       // Paso 1: Cargar historial primero (necesario para transformación contextual)
-      console.log('📚 Cargando historial de conversación...');
       const conversationHistory = await this.historyManager.getFormattedHistory(
         this.sessionId
       );
 
+      // Log del contexto cargado (incluyendo resumen si existe)
+      const hasSummary = conversationHistory.some(msg => msg.role === 'system' && msg.content.includes('Resumen'));
+      const summaryContent = hasSummary ? conversationHistory.find(msg => msg.role === 'system')?.content || '' : '';
+      ragLogger.logContext(conversationHistory, hasSummary, summaryContent);
+
       // Paso 2: Transformar query con contexto usando LangChain
-      console.log('🔄 Transformando query con contexto...');
       const queryTransform = await this.queryTransformer.transform(
         query,
         conversationHistory
       );
 
-      console.log(`📝 Query original: "${queryTransform.original}"`);
-      console.log(`🔍 Query optimizada: "${queryTransform.transformed}"`);
-      console.log(`🎯 Intent detectado: ${queryTransform.intent}`);
-      if (queryTransform.usedHistory) {
-        console.log('💭 Transformación usó contexto de conversación');
-      }
+      // Log de transformación
+      ragLogger.logQueryTransform(
+        queryTransform.original,
+        queryTransform.transformed,
+        queryTransform.intent
+      );
 
       // Paso 3: Búsqueda en RAG con query transformada
-      console.log('🔍 Buscando en RAG con query optimizada...');
-      console.log(`📇 Índice de Pinecone: "${this.pineconeService.indexName}"`);
       const ragResults = await this.pineconeService.searchSimilarDocuments(
         queryTransform.transformed // ← Usar query transformada
       );
 
-      debugLogger.logRAGSearch(query, ragResults);
-
-      // 🔍 DEBUG: Mostrar TODOS los resultados completos del RAG
-      if (ragResults.length > 0) {
-        console.log(
-          `\n📊 RESULTADOS COMPLETOS DEL RAG: ${ragResults.length} documentos\n`
-        );
-        console.log('═'.repeat(80));
-
-        for (let idx = 0; idx < ragResults.length; idx++) {
-          const r = ragResults[idx];
-          console.log(`\n📄 Documento ${idx + 1}/${ragResults.length}:`);
-          console.log(`   🎯 Score: ${r.score.toFixed(4)}`);
-          console.log(`   📁 Source: ${r.metadata?.source || 'N/A'}`);
-          console.log(`   🔢 Chunk Index: ${r.metadata?.chunkIndex ?? 'N/A'}`);
-          console.log(`   🏷️  Tipo: ${r.metadata?.tipo || 'N/A'}`);
-          console.log(`   📝 Metadata completa:`, JSON.stringify(r.metadata, null, 2));
-          console.log(`   📄 Contenido (primeros 200 chars):`);
-          console.log(`      "${r.content.substring(0, 200)}..."`);
-          console.log('   ' + '-'.repeat(76));
-        }
-
-        console.log('\n' + '═'.repeat(80) + '\n');
-      } else {
-        console.log('📊 No se encontraron documentos en Pinecone');
-      }
+      // Log de búsqueda en Pinecone
+      ragLogger.logPineconeSearch(
+        queryTransform.transformed,
+        ragResults,
+        config.rag.similarityThreshold
+      );
 
       // Paso 2: Evaluar si los resultados del RAG son adecuados
       const hasRelevantResults = this.pineconeService.hasRelevantResults(ragResults);
       const bestScore = ragResults.length > 0 ? ragResults[0].score : null;
 
-      console.log(
-        `🎯 Threshold: ${config.rag.similarityThreshold}, Mejor score: ${
-          bestScore?.toFixed(4) || 'N/A'
-        }, Relevante: ${hasRelevantResults ? '✅' : '❌'}`
-      );
-
-      debugLogger.logRAGDecision(
+      // Log de evaluación de resultados
+      ragLogger.logRAGDecision(
         hasRelevantResults,
         config.rag.similarityThreshold,
         bestScore
@@ -299,12 +276,9 @@ export class RAGAgent {
         relevantDocs = [];
 
       if (hasRelevantResults) {
-        // Usar RAG para responder (historial ya está cargado)
-        console.log(
-          `✅ Encontrados ${
-            ragResults.length
-          } documentos relevantes (score: ${ragResults[0].score.toFixed(3)})`
-        );
+        // Log de generación RAG
+        const contextSize = ragResults.reduce((sum, doc) => sum + doc.content.length, 0);
+        ragLogger.logRAGGeneration(ragResults.length, contextSize, conversationHistory.length);
 
         const ragAnswer = await this.generateAnswerFromRAG(
           query,
@@ -317,10 +291,11 @@ export class RAGAgent {
         answer = ragAnswer.answer;
         source = 'rag';
         relevantDocs = ragResults;
-
-        debugLogger.logResponse('RAG (OpenAI)', answer);
-        console.log('✅ Usando respuesta RAG directamente (validación desactivada)');
-        console.log('📚 Respondiendo desde RAG');
+        
+        // Calcular score promedio
+        const avgScore = ragResults.length > 0 
+          ? ragResults.reduce((sum, doc) => sum + doc.score, 0) / ragResults.length
+          : null;
 
         /* VALIDACIÓN COMENTADA - Descomentar si se necesita validación estricta
         const isRagResponseReliable = await this.validateRagResponse(
@@ -370,9 +345,6 @@ export class RAGAgent {
         */
       } else {
         // Fallback a Perplexity (historial ya está cargado)
-        console.log('⚠️  No se encontraron resultados relevantes en RAG');
-        console.log('🌐 Consultando Perplexity...');
-
         debugLogger.logMemory(conversationHistory);
 
         const perplexityResponse = await this.perplexityService.query(
@@ -389,19 +361,13 @@ export class RAGAgent {
           );
           answer = processedResponse.answer;
           source = 'perplexity+gpt';
-          console.log('✅ Respuesta de Perplexity procesada por GPT-4');
         } else {
           answer = perplexityResponse.answer;
           source = 'perplexity';
-          console.log(
-            'ℹ️  Usando respuesta directa de Perplexity (sin procesamiento GPT)'
-          );
         }
 
         citations = perplexityResponse.citations;
-
         debugLogger.logResponse('Perplexity', answer);
-        console.log('🌐 Respondiendo desde Perplexity');
       }
 
       // Paso 3: Preparar respuesta (retornar rápido)
@@ -415,6 +381,12 @@ export class RAGAgent {
         idEmpresa: this.idEmpresa,
         timestamp: new Date().toISOString(),
       };
+
+      // Log final de respuesta
+      const avgScore = relevantDocs.length > 0
+        ? relevantDocs.reduce((sum, doc) => sum + doc.score, 0) / relevantDocs.length
+        : null;
+      ragLogger.logResponse(source, answer, avgScore);
 
       // Guardar en historial de forma NO BLOQUEANTE (en background)
       // Esto permite que el summary se ejecute sin retrasar la respuesta al usuario
